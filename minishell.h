@@ -1,3 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jaeyjeon <jaeyjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/16 21:07:12 by jaeyjeon          #+#    #+#             */
+/*   Updated: 2022/09/16 21:07:15 by jaeyjeon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 enum e_ttype
 {
@@ -22,3 +36,5 @@ typedef struct s_tree
 	t_node	*top;
 	int		node_count;
 }	t_tree;
+
+#endif
