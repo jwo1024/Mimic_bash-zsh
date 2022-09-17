@@ -6,12 +6,19 @@
 /*   By: jaeyjeon <jaeyjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:07:12 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/09/16 21:07:15 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 18:29:29 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <stdlib.h>
+# include <signal.h>
+# include "./inc/42Libft/libft.h"
 
 enum e_ttype
 {
@@ -26,9 +33,9 @@ enum e_ttype
 typedef struct s_node{
 	enum e_ttype	type;
 	char			*str;
-	t_node			*left;
-	t_node			*right;
-	t_node			*parent;
+	struct s_node	*left;
+	struct s_node	*right;
+	struct s_node	*parent;
 }	t_node;
 
 typedef struct s_tree
