@@ -6,7 +6,7 @@
 #    By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 16:37:49 by jaeyjeon          #+#    #+#              #
-#    Updated: 2022/09/17 18:54:07 by jiwolee          ###   ########seoul.kr   #
+#    Updated: 2022/09/17 19:14:28 by jiwolee          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,9 @@ LIB_DIR			= ./libft
 HEADER			= ./includes
 INCLUDES		= -I$(HEADER)
 
-SRCS			= test.c
+SRC1			= ./msh_tree/msh_tree.c
+
+SRCS			= test.c $(SRC1)
 
 OBJS			= $(SRCS:.c=.o)
 
@@ -41,7 +43,7 @@ clean:
 				$(RM) $(OBJS)
 
 fclean:			clean
-				make -C $(LIB_DIR) clean
+				make -C $(LIB_DIR) fclean
 				$(RM) $(NAME)
 
 re:				fclean all

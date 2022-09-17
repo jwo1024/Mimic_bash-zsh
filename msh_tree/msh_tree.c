@@ -31,21 +31,23 @@ t_node *msh_tree_create_node(enum e_ttype type, char *str)
 	return (new_node);
 }
 
-int	msh_tree_add_node_left(t_node *cur_node, t_node *new_node)
+int	msh_tree_add_node_left(t_tree *tree, t_node *cur_node, t_node *new_node)
 {
 	if (cur_node->left != NULL)
 		return (-1);
 	cur_node->left = new_node;
 	new_node->parent = cur_node;
+	tree->node_count++;
 	return (1);
 }
 
-int	msh_tree_add_node_right(t_node *cur_node, t_node *new_node)
+int	msh_tree_add_node_right(t_tree *tree, t_node *cur_node, t_node *new_node)
 {
 	if (cur_node->right != NULL)
 		return (-1);
 	cur_node->right = new_node;
 	new_node->parent = cur_node;
+	tree->node_count++;
 	return (1);
 }
 
@@ -56,13 +58,13 @@ int	msh_tree_add_edge_right(t_tree *tree, t_node *new_node)
 	if (tree == NULL || new_node == NULL)
 		return (-1);
 	else if (tree->top == NULL)
-		tree->top = cur_node;
+		tree->top = new_node;
 	else
 	{
 		cur_node = tree->top;
 		while (cur_node->right)
 			cur_node = cur_node->right;
-		msh_tree_add_node_right(cur_node, new_node);
+		msh_tree_add_node_right(tree, cur_node, new_node);
 	}
 	return (1);
 }

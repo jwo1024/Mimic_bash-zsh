@@ -27,8 +27,8 @@ typedef struct s_tree
 
 t_tree *msh_tree_create_tree();
 t_node *msh_tree_create_node(enum e_ttype type, char *str);
-int		msh_tree_add_node_left(t_node *cur_node, t_node *new_node);
-int		msh_tree_add_node_right(t_node *cur_node, t_node *new_node);
+int		msh_tree_add_node_left(t_tree *tree, t_node *cur_node, t_node *new_node);
+int		msh_tree_add_node_right(t_tree *tree, t_node *cur_node, t_node *new_node);
 int		msh_tree_add_edge_right(t_tree *tree, t_node *new_node);
 
 
