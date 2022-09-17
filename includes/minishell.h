@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <jaeyjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:07:12 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 18:29:29 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/09/17 18:53:24 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@
 # include <readline/history.h>
 # include <stdlib.h>
 # include <signal.h>
-# include "./inc/42Libft/libft.h"
+# include "../libft/libft.h"
 
+/*
 enum e_ttype
 {
 	T_NULL = 0,
@@ -43,5 +44,6 @@ typedef struct s_tree
 	t_node	*top;
 	int		node_count;
 }	t_tree;
+*/
 
 #endif
