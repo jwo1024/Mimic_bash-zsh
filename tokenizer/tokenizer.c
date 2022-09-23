@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:14:28 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/09/23 18:35:51 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/23 19:20:10 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_tree	*msh_start_tokenize(char *s)
 {
 	t_node	*list;
 	t_node	*curr;
-	t_tree	*tokens; //
+	t_tree	*tokens;
 
 	list = NULL;
 	change_whitespace(s);
@@ -31,9 +31,9 @@ t_tree	*msh_start_tokenize(char *s)
 		curr = curr->left;
 	}
 	printf("%s\n", curr->str1);
-	tokens = msh_tree_create_tree(); //
-	tokens->top = list; // 
-	return (tokens); // 
+	tokens = msh_tree_create_tree();
+	tokens->top = list;
+	return (tokens);
 }
 
 void	change_whitespace(char *s)
