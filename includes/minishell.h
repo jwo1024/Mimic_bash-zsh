@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:07:12 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/09/23 16:56:27 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/09/23 18:22:46 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,32 +20,7 @@
 # include <signal.h>
 # include <termios.h>
 # include "../libft/libft.h"
-
-/*
-enum e_ttype
-{
-	T_NULL = 0,
-	T_WORD = 1,
-	T_REDIR = 2,
-	T_PIPE = 3,
-	T_DOUBLE_QUOTES = 4,
-	T_SINGLE_QUOTES = 5
-};
-
-typedef struct s_node{
-	enum e_ttype	type;
-	char			*str;
-	struct s_node	*left;
-	struct s_node	*right;
-	struct s_node	*parent;
-}	t_node;
-
-typedef struct s_tree
-{
-	t_node	*top;
-	int		node_count;
-}	t_tree;
-*/
+# include "msh_tree.h"
 
 /*signal*/
 void	set_signal(void);;
@@ -56,5 +31,18 @@ void	do_sigquit(pid_t pid);
 char	**get_env(char **env_list);
 /*utils*/
 void	ft_putstr_fd(char *s, int fd);
+
+/*parser*/
+t_tree	*msh_parser(t_tree *tokens);
+int		msh_parse_check_type(t_tree *tree, t_tree *tokens, t_node **cur_pipe);
+int		msh_parse_redirect(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd, t_node *cur_tokens_node);
+int		msh_parse_word(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd, t_node *cur_tokens_node);
+int		msh_parse_pipe(t_tree *tree, t_tree *tokens, t_node **cur_pipe_nd);
+/* msh_parser2.c */
+t_node	*msh_parse_get_tokens_top(t_tree *tree);
+int		msh_parse_add_redirect(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd);
+int		msh_parse_add_pipe_cmd(t_tree *tree, t_tree *tokens, t_node *cur_pipe_nd); 
+int		msh_parse_add_simcmd(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd);
+
 
 #endif

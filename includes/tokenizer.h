@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:57:18 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/09/23 16:57:23 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/09/23 18:33:11 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "msh_tree.h"
 
-t_node	*msh_start_tokenize(char *s);
+t_tree	*msh_start_tokenize(char *s);
 void	change_whitespace(char *s);
 char	*change_each_oper(char *s, char op);
 char	*change_redir(char *s, char op);

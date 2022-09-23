@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 18:28:02 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/09/23 16:48:28 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/09/23 18:34:49 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	char	*str;
 	char	**envp_list;
+	t_tree	*tree;
 
 	(void)argc;
 	(void)argv;
@@ -32,7 +33,8 @@ int	main(int argc, char *argv[], char *envp[])
 			if (str[0] != '\0')
 			{
 				add_history(str);
-				msh_start_tokenize(str);
+				tree = msh_parser(msh_start_tokenize(str));
+				msh_tree_print(tree->top);
 			}
 			continue ;
 		}

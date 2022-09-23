@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:14:28 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/09/23 16:58:09 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/09/23 18:35:51 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 #include "tokenizer.h"
 #include "msh_tree.h"
 
-t_node	*msh_start_tokenize(char *s)
+t_tree	*msh_start_tokenize(char *s)
 {
 	t_node	*list;
 	t_node	*curr;
+	t_tree	*tokens; //
 
 	list = NULL;
 	change_whitespace(s);
@@ -30,7 +31,9 @@ t_node	*msh_start_tokenize(char *s)
 		curr = curr->left;
 	}
 	printf("%s\n", curr->str1);
-	return (list);
+	tokens = msh_tree_create_tree(); //
+	tokens->top = list; // 
+	return (tokens); // 
 }
 
 void	change_whitespace(char *s)
