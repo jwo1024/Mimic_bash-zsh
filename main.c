@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 18:28:02 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/09/23 19:23:41 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/23 19:34:10 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(int argc, char *argv[], char *envp[])
 	set_signal();
 	while (1)
 	{
-		str = readline("minishell $ ");
+		str = readline("\033[0;36mminishell $ \033[0m");
 		if (str != NULL)
 		{
 			if (str[0] != '\0')
@@ -38,6 +38,7 @@ int	main(int argc, char *argv[], char *envp[])
 			}
 			continue ;
 		}
+		do_sigterm();
 		break ;
 	}
 	exit(0);

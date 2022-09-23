@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:07:12 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/09/23 18:22:46 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/23 19:33:01 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	set_signal(void);;
 void	catch_signal(int signum);
 void	do_sigint(pid_t pid);
 void	do_sigquit(pid_t pid);
+void	do_sigterm(void);
 /*get_env*/
 char	**get_env(char **env_list);
 /*utils*/
@@ -41,7 +42,7 @@ int		msh_parse_pipe(t_tree *tree, t_tree *tokens, t_node **cur_pipe_nd);
 /* msh_parser2.c */
 t_node	*msh_parse_get_tokens_top(t_tree *tree);
 int		msh_parse_add_redirect(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd);
-int		msh_parse_add_pipe_cmd(t_tree *tree, t_tree *tokens, t_node *cur_pipe_nd); 
+int		msh_parse_add_pipe_cmd(t_tree *tree, t_tree *tokens, t_node *cur_pipe_nd);
 int		msh_parse_add_simcmd(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd);
 
 
