@@ -6,7 +6,7 @@
 #    By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 16:37:49 by jaeyjeon          #+#    #+#              #
-#    Updated: 2022/09/23 18:20:44 by jiwolee          ###   ########seoul.kr   #
+#    Updated: 2022/09/23 19:22:21 by jiwolee          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ SRC3			= ./tokenizer/tokenizer.c \
 				  ./tokenizer/get_env.c \
 				  ./tokenizer/utils2.c
 
-SRCS			= $(SRC1) $(SRC2) $(SRC3) $(SRC4)
+SRCS			= $(SRC1) $(SRC2) $(SRC3)
 
 OBJS			= $(SRCS:.c=.o)
 
