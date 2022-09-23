@@ -6,7 +6,7 @@
 #    By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 16:37:49 by jaeyjeon          #+#    #+#              #
-#    Updated: 2022/09/23 19:22:21 by jiwolee          ###   ########seoul.kr   #
+#    Updated: 2022/09/23 22:43:04 by jiwolee          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ SRC2			= ./msh_tree/msh_tree.c \
 				  ./msh_tree/msh_tree_delete.c \
 				  ./msh_tree/msh_tree_print.c \
 				  ./parser/msh_parser.c \
-				  ./parser/msh_parser2.c
+				  ./parser/msh_parser2.c \
+				  ./msh_executor.c
 
 SRC3			= ./tokenizer/tokenizer.c \
 				  ./tokenizer/utils.c \
