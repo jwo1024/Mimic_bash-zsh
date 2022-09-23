@@ -1,42 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/17 18:28:02 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/09/23 16:48:28 by jaeyjeon         ###   ########.fr       */
+/*   Created: 2022/09/22 23:31:54 by jaeyjeon          #+#    #+#             */
+/*   Updated: 2022/09/23 00:00:23 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "tokenizer.h"
-#include "msh_tree.h"
 
-int	main(int argc, char *argv[], char *envp[])
+char	**get_env(char **env_list)
 {
-	char	*str;
-	char	**envp_list;
+	char	**list;
+	int		i;
 
-	(void)argc;
-	(void)argv;
-	envp_list = get_env(envp);
-	(void)envp_list;
-	set_signal();
-	while (1)
+	i = 0;
+	while (env_list[i])
+		i++;
+	list = malloc(sizeof(char *) * (i + 1));
+	if (list == NULL)
+		return (NULL);
+	i = 0;
+	while (env_list[i])
 	{
-		str = readline("minishell $ ");
-		if (str != NULL)
-		{
-			if (str[0] != '\0')
-			{
-				add_history(str);
-				msh_start_tokenize(str);
-			}
-			continue ;
-		}
-		break ;
+		list[i] = ft_strdup(env_list[i]);
+		i++;
 	}
-	exit(0);
+	list[i] = NULL;
+	return (list);
 }

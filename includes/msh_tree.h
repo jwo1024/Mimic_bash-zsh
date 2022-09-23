@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   msh_tree.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:38:45 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/09/23 15:46:54 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/23 16:57:57 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MSH_TREE_H
 # define MSH_TREE_H
 
-#include	<stdio.h>
-#include	<stdlib.h>
+# include	<stdio.h>
+# include	<stdlib.h>
 
 enum e_ttype
 {
@@ -32,11 +32,10 @@ enum e_ttype
 	T_OR = 11
 };
 
-
 typedef struct s_node{
 	enum e_ttype	type;
 	char			*str1;
-	char			*str2; 
+	char			*str2;
 	struct s_node	*left;
 	struct s_node	*right;
 	struct s_node	*parent;
@@ -48,8 +47,8 @@ typedef struct s_tree
 	int		node_count;
 }	t_tree;
 
-t_tree *msh_tree_create_tree();
-t_node *msh_tree_create_node(enum e_ttype type, char *str);
+t_tree	*msh_tree_create_tree(void);
+t_node	*msh_tree_create_node(enum e_ttype type, char *str);
 int		msh_tree_add_node_left(t_tree *tree, t_node *cur_node, t_node *new_node);
 int		msh_tree_add_node_right(t_tree *tree, t_node *cur_node, t_node *new_node);
 int		msh_tree_add_edge_right(t_tree *tree, t_node *new_node);

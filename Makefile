@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+         #
+#    By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 16:37:49 by jaeyjeon          #+#    #+#              #
-#    Updated: 2022/09/23 15:37:02 by jiwolee          ###   ########seoul.kr   #
+#    Updated: 2022/09/23 16:29:26 by jaeyjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,20 +16,18 @@ CC				= cc
 RM				= rm -rf
 CFLAGS			= -Wall -Wextra -Werror
 
-READLINE_LIB	= -lreadline -L${HOME}/.brew/opt/readline/lib
-READLINE_INC	= -I${HOME}/.brew/opt/readline/include
+READLINE_LIB	= -lreadline -L/opt/homebrew/opt/readline/lib
+READLINE_INC	= -I/opt/homebrew/opt/readline/include
 
 LIB_DIR			= ./libft
 HEADER			= ./includes
 INCLUDES		= -I$(HEADER)
 
-SRC1			= test.c
+SRC1			= ./msh_tree/msh_tree.c
 
-SRC2			= ./msh_tree/msh_tree.c \
-				  ./msh_tree/msh_tree_delete.c \
-				  ./msh_tree/msh_tree_print.c
-
-SRCS			= $(SRC1) $(SRC2)
+SRCS			= test.c ./tokenizer/tokenizer.c ./tokenizer/utils.c \
+				./tokenizer/signal.c ./tokenizer/get_env.c ./tokenizer/utils2.c \
+				$(SRC1)
 
 OBJS			= $(SRCS:.c=.o)
 

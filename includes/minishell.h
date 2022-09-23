@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:07:12 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/09/17 19:10:31 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/23 16:56:27 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <readline/history.h>
 # include <stdlib.h>
 # include <signal.h>
+# include <termios.h>
 # include "../libft/libft.h"
 
 /*
@@ -45,5 +46,15 @@ typedef struct s_tree
 	int		node_count;
 }	t_tree;
 */
+
+/*signal*/
+void	set_signal(void);;
+void	catch_signal(int signum);
+void	do_sigint(pid_t pid);
+void	do_sigquit(pid_t pid);
+/*get_env*/
+char	**get_env(char **env_list);
+/*utils*/
+void	ft_putstr_fd(char *s, int fd);
 
 #endif
