@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:38:45 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/09/23 15:38:47 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/23 15:46:54 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,8 @@ void	msh_tree_delete_node(t_node **node);
 void	msh_tree_clear_node(t_node *node);
 void	msh_tree_delete_nodes(t_node *node);
 void	msh_tree_delete(t_tree *tree);
+
+int		msh_tree_print_node(t_node *node);
+int		msh_tree_print(t_node *node);
 
 #endif
