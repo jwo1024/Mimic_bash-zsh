@@ -6,7 +6,7 @@
 #    By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 16:37:49 by jaeyjeon          #+#    #+#              #
-#    Updated: 2022/09/17 19:14:28 by jiwolee          ###   ########seoul.kr   #
+#    Updated: 2022/09/23 15:37:02 by jiwolee          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,9 +23,13 @@ LIB_DIR			= ./libft
 HEADER			= ./includes
 INCLUDES		= -I$(HEADER)
 
-SRC1			= ./msh_tree/msh_tree.c
+SRC1			= test.c
 
-SRCS			= test.c $(SRC1)
+SRC2			= ./msh_tree/msh_tree.c \
+				  ./msh_tree/msh_tree_delete.c \
+				  ./msh_tree/msh_tree_print.c
+
+SRCS			= $(SRC1) $(SRC2)
 
 OBJS			= $(SRCS:.c=.o)
 

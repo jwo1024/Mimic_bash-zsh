@@ -1,17 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   msh_tree.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/23 15:38:45 by jiwolee           #+#    #+#             */
+/*   Updated: 2022/09/23 15:38:47 by jiwolee          ###   ########seoul.kr  */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MSH_TREE_H
 # define MSH_TREE_H
 
-/*
-enum e_ttype
-{
-	T_NULL = 0,
-	T_WORD = 1,
-	T_REDIR = 2,
-	T_PIPE = 3,
-	T_DOUBLE_QUOTES = 4,
-	T_SINGLE_QUOTES = 5
-};
-*/
+#include	<stdio.h>
+#include	<stdlib.h>
 
 enum e_ttype
 {
@@ -51,5 +54,10 @@ int		msh_tree_add_node_left(t_tree *tree, t_node *cur_node, t_node *new_node);
 int		msh_tree_add_node_right(t_tree *tree, t_node *cur_node, t_node *new_node);
 int		msh_tree_add_edge_right(t_tree *tree, t_node *new_node);
 
+/* new */
+void	msh_tree_delete_node(t_node **node);
+void	msh_tree_clear_node(t_node *node);
+void	msh_tree_delete_nodes(t_node *node);
+void	msh_tree_delete(t_tree *tree);
 
 #endif
