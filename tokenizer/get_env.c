@@ -3,32 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 23:31:54 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/09/23 00:00:23 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/09/24 17:59:21 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**get_env(char **env_list)
+t_list	*get_env(char **envp)
 {
-	char	**list;
+	t_list	*list_head;
+	t_list	*new;
 	int		i;
 
 	i = 0;
-	while (env_list[i])
+	while (envp[i])
 		i++;
-	list = malloc(sizeof(char *) * (i + 1));
-	if (list == NULL)
-		return (NULL);
+//	list = malloc(sizeof(char *) * (i + 1));
+//	if (list == NULL)
+///		return (NULL);
 	i = 0;
-	while (env_list[i])
+	while (envp[i])
 	{
-		list[i] = ft_strdup(env_list[i]);
+		new = ft_lstnew(ft_strdup(envp[i]));
+		ft_lstadd_back(&list_head, new);
 		i++;
 	}
-	list[i] = NULL;
-	return (list);
+	return (list_head);
 }
