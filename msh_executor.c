@@ -11,38 +11,49 @@ enum	e_pipe_fd {
 	STD_OUT = 1
 };
 
-int	msh_executor(t_tree *tree) // env.. 
+int	msh_executor(t_tree *tree, char **envp_list) // env.. 
 {
-	/*
-	int	i;
+	pid_t	*pids;
+	int		rtn;
+	char	**env_path;
 
-	if (pipe(info->fd.pipe) == -1)
-		return (error("Error : pipex() fail pipe ", 1));
-	i = 0;
-	while (i < 2)
+	pids = msh_executor_malloc_pids(tree);
+	if (pids == NULL)
+		return (-1);
+	env_path = msh_executor_get_path(envp_list);
+	msh_executor_fork(tree->top, env_path, pids);
+	rtn = msh_executor_wait_child(pids);
+	// free(tree);
+	return (1);
+}
+
+pid_t	*msh_executor_malloc_pids(tree)
+{
+	t_node *pipe_nd;
+	int		cnt;
+	pid_t	*pids;
+
+	pipe_nd = tree->top
+	cnt = 0;
+	while (pipe_nd)
 	{
-		info->pid[i] = fork();
-		if (info->pid[i] == -1)
-			error("Error : pipex() fail fork ", -1);
-		else if (info->pid[i] == 0)
-			exit(pipex_child_process(info, i));
-		i++;
+		if (pipe_nd->type != T_PIPE)
+			return (NULL);
+		pipe_nd = pipe_nd->right;
+		cnt++;
 	}
-	close(info->fd.pipe[0]);
-	close(info->fd.pipe[1]);
-	waitpid(info->pid[0], &info->status[0], 0);
-	waitpid(info->pid[1], &info->status[1], 0);
-	if (info->status[0] == 0 && info->status[1] == 0)
-		return (0);
-	return (wait_exit_status(info->status[1]));
-	*/
+//	pids = (pid_t *)malloc(sizeof(pid_t) * cnt + 1);
+	pids = ft_calloc(cnt + 1, sizeof(pid_t));
+	return (pids);
+}
 
-	t_node	*pipe_nd;
-//	int		*pid;
+pid_t	*msh_executor_fork(t_node *pipe_nd, char **env_path, pid_t *pids)
+{
+	int		i;
 	int		pipe_fd[2];
 	int		fd[2];
 
-	pipe_nd = tree->top;
+	i = 0;
 	fd[STD_IN] = STD_IN;
 	fd[STD_OUT] = STD_OUT;
 	while (pipe_nd)
@@ -56,21 +67,26 @@ int	msh_executor(t_tree *tree) // env..
 		}
 		else
 			fd[STD_OUT] = STD_OUT;
-	//	fork();
-		if (fork() == 0)
+		pids[i] = fork();
+		if (pids[i++] == 0)
 		{
 			close(pipe_fd[PIPE_OUT]);
-			// run_cmd(pipe_nd, fd[], env);
-
+			// exit(run_cmd(pipe_nd->left, fd[], env));
 			printf("fd[STD_IN] %d, fd[STD_OUT] %d\n", fd[STD_IN], fd[STD_OUT]);
-			sleep(5);
 			exit(0);
 		}
 		pipe_nd = pipe_nd->right;
 		fd[STD_IN] = pipe_fd[PIPE_OUT];
 		close(pipe_fd[PIPE_IN]);
 	}
-	sleep(10);
-	return (1);
+	return (pids);
 }
 
+
+int	msh_run_cmd(t_node *cmd_nd, int fd[2], char **envp_list)
+{
+	// msh_set_redirection (cmd_nd->left);
+	// msh_set_wordsplit(); //// 
+	// msh_run_builtin();
+	// msh_run_simp_cmd();
+}
