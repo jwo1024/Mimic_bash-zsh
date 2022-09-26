@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:21:21 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/09/25 20:21:18 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/26 12:58:28 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,7 @@ int	msh_parse_add_redirect(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd)
 		cur_cmd_nd->left = redir_node;
 	redir_node->parent = cur_cmd_nd;
 	tree->node_count++;
-//	msh_tree_clear_node(file_node);
-	// freed was not allocated.. 
-	// tokenizer에서 malloc 이 아닌 방법으로 할당되어 저장되는 str이 있는지 확인하기. 
+	msh_tree_clear_node(file_node);
 	free(file_node);
 	return (1);
 }

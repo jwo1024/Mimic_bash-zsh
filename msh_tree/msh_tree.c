@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:38:29 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/09/23 15:40:18 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/26 12:56:53 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_node	*msh_tree_create_node(enum e_ttype type, char *str)
 		return (NULL);
 	new_node->type = type;
 	new_node->str1 = str;
+	new_node->str2 = NULL;
 	new_node->left = NULL;
 	new_node->right = NULL;
 	new_node->parent = NULL;
