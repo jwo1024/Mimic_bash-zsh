@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:07:12 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/09/24 17:59:49 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/27 21:30:37 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "builtin.h"
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -45,5 +46,15 @@ int		msh_parse_add_redirect(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd);
 int		msh_parse_add_pipe_cmd(t_tree *tree, t_tree *tokens, t_node *cur_pipe_nd);
 int		msh_parse_add_simcmd(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd);
 
+/*builtin*/
+int		do_pwd(int fd);
+int		check_word(char *word);
+int		do_exit(char *word);
+int		do_echo(char *word, int fd);
+int		do_env(t_list *env_list, int fd);
+int		check_opt(char *s);
+int		check_dequot(char *s);
+char	*del_dequot(char *s);
+void	do_del_dequot(char *new_str, char *s, char c, t_index *idx);
 
 #endif

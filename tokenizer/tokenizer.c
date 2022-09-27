@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:14:28 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/09/23 19:36:33 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/09/27 21:19:29 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,12 @@
 t_tree	*msh_start_tokenize(char *s)
 {
 	t_node	*list;
-	t_node	*curr;
 	t_tree	*tokens;
 
 	list = NULL;
 	change_whitespace(s);
 	s = change_oper(s);
 	list = split_str(s);
-	curr = list;
-	while (curr->left != NULL)
-	{
-		printf("%s\n", curr->str1);
-		curr = curr->left;
-	}
-	printf("%s\n", curr->str1);
 	tokens = msh_tree_create_tree();
 	tokens->top = list;
 	return (tokens);
@@ -63,74 +55,51 @@ char	*change_oper(char *s)
 char	*change_each_oper(char *s, char op)
 {
 	char	*str;
-	int		i;
-	int		j;
+	t_index	*idx;
 	int		k;
 
-	i = 0;
-	j = 0;
+	idx = make_idx();
 	str = malloc(sizeof(char) * count_new_space(s, op) + 1);
 	if (str == NULL)
 		exit(1);
-	while (s[i] != '\0')
+	while (s[idx->i] != '\0')
 	{
-		if (s[i] == '\"' || s[i] == '\'')
+		if (s[idx->i] == '\"' || s[idx->i] == '\'')
 		{
-			k = skip_dquot(&s[i]);
+			k = skip_dquot(&s[idx->i]);
 			while (k--)
-				str[j++] = s[i++];
+				str[idx->j++] = s[idx->i++];
 		}
-		if (s[i] == op)
-		{
-			str[j++] = -1;
-			str[j++] = s[i++];
-			str[j++] = -1;
-		}
-		else
-			str[j++] = s[i++];
+		do_change_each_oper(str, s, idx, op);
 	}
-	str[j] = '\0';
+	str[idx->j] = '\0';
 	free(s);
+	free(idx);
 	return (str);
 }
 
 char	*change_redir(char *s, char op)
 {
 	char	*str;
-	int		i;
-	int		j;
+	t_index	*idx;
 	int		k;
 
-	i = 0;
-	j = 0;
+	idx = make_idx();
 	str = malloc(sizeof(char) * count_new_space(s, op) + 1);
 	if (str == NULL)
 		exit(1);
-	while (s[i] != '\0')
+	while (s[idx->i] != '\0')
 	{
-		if (s[i] == '\"' || s[i] == '\'')
+		if (s[idx->i] == '\"' || s[idx->i] == '\'')
 		{
-			k = skip_dquot(&s[i]);
+			k = skip_dquot(&s[idx->i]);
 			while (k--)
-				str[j++] = s[i++];
+				str[idx->j++] = s[idx->i++];
 		}
-		if (s[i] == op && s[i + 1] == op)
-		{
-			str[j++] = -1;
-			str[j++] = s[i++];
-			str[j++] = s[i++];
-			str[j++] = -1;
-		}
-		else if (s[i] == op)
-		{
-			str[j++] = -1;
-			str[j++] = s[i++];
-			str[j++] = -1;
-		}
-		else
-			str[j++] = s[i++];
+		do_change_redir(str, s, idx, op);
 	}
-	str[j] = '\0';
+	str[idx->j] = '\0';
 	free(s);
+	free(idx);
 	return (str);
 }

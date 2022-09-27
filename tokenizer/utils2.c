@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 20:38:59 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/09/23 16:47:06 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/09/27 21:19:13 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,35 @@ void	add_next(t_node *new, t_node *start)
 	while (curr->left != NULL)
 		curr = curr->left;
 	curr->left = new;
+}
+
+void	do_change_redir(char *str, char *s, t_index *idx, char op)
+{
+	if (s[idx->i] == op && s[idx->i + 1] == op)
+	{
+		str[idx->j++] = -1;
+		str[idx->j++] = s[idx->i++];
+		str[idx->j++] = s[idx->i++];
+		str[idx->j++] = -1;
+	}
+	else if (s[idx->i] == op)
+	{
+		str[idx->j++] = -1;
+		str[idx->j++] = s[idx->i++];
+		str[idx->j++] = -1;
+	}
+	else
+		str[idx->j++] = s[idx->i++];
+}
+
+void	do_change_each_oper(char *str, char *s, t_index *idx, char op)
+{
+	if (s[idx->i] == op)
+	{
+		str[idx->j++] = -1;
+		str[idx->j++] = s[idx->i++];
+		str[idx->j++] = -1;
+	}
+	else
+		str[idx->j++] = s[idx->i++];
 }
