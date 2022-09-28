@@ -3,6 +3,7 @@
 #include "msh_tree.h"
 
 #include <unistd.h>
+#include <fcntl.h>
 
 enum	e_pipe_fd {
 	PIPE_OUT = 0,
@@ -16,8 +17,8 @@ char	**msh_executor_get_path(char **envp_list);
 
 int	msh_executor(t_tree *tree, char **envp_list) // env.. 
 {
-//	pid_t	*pids;
-//	int		rtn;
+	pid_t	*pids;
+	int		rtn;
 	char	**env_path;
 
 	// 환경변수 PATH 가공하여 이차원배열로 받아오기
@@ -32,12 +33,16 @@ int	msh_executor(t_tree *tree, char **envp_list) // env..
 	msh_executor_fork(tree->top, env_path, pids);
 	// ;
 
-	
+
+
 	rtn = msh_executor_wait_child(pids);
 	// free(tree);
 	return (1);
 }
 
+
+
+/* utils */
 char	**msh_executor_get_path(char **envp_list)
 {
 	int		i;
@@ -80,6 +85,10 @@ pid_t	*msh_executor_malloc_pids(tree)
 	return (pids);
 }
 
+
+
+
+/* fork wait*/
 pid_t	*msh_executor_fork(t_node *pipe_nd, char **env_path, pid_t *pids)
 {
 	int		i;
@@ -104,7 +113,7 @@ pid_t	*msh_executor_fork(t_node *pipe_nd, char **env_path, pid_t *pids)
 		if (pids[i++] == 0)
 		{
 			close(pipe_fd[PIPE_OUT]);
-			// exit(msh_run_cmd(pipe_nd->left, fd[], env)); // command_not_found error
+			exit(msh_run_cmd(pipe_nd->left, fd[], env)); // command_not_found error
 			printf("fd[STD_IN] %d, fd[STD_OUT] %d\n", fd[STD_IN], fd[STD_OUT]);
 			exit(0);
 		}
@@ -115,32 +124,86 @@ pid_t	*msh_executor_fork(t_node *pipe_nd, char **env_path, pid_t *pids)
 	return (pids);
 }
 
+int	msh_executor_wait_child(int *pids)
+{
+	int	i;
+	int	statloc;
 
+	i = 0;
+	while (pids[i])
+	{
+		waitpid(pids[i], &statloc, NULL); // NULL options. .
+		i++;
+	}
+	// 마지막 statloc 해석
+	// rtn (마지막 종료상태 ) ;
+
+}
+
+
+
+/* run */
 int	msh_run_cmd(t_node *cmd_nd, int fd[2], char **envp_list)
 {
-	// msh_set_redirection (cmd_nd->left);
+	msh_redirection(cmd_nd->left, fd);
 	// msh_set_wordsplit(); //// 더블쿼터 싱글쿼터
 	// msh_run_builtin(); // built in 함수 있는지 검사 (있다면 해당함수명령 실행 exit) (없다면 return)
+	// 만약 built in 함수라면 -> 여기서 종료하기.. 
+
+	// $? 이거 어디다 저장해두나요..? ? ? ? ?  ?
+
+	msh_run_simp_cmd(cmd_nd, envp_list);
 	// msh_run_simp_cmd(); // exeve(); envp_path
 }
 
-
-
-
-/*
-int	msh_set_redirection(int fd[2])
+int	msh_run_simp_cmd(t_node *cmd_nd, char **envp_list)
 {
-	// fd redirecition 먼저 하기.
-	dup2(fd[STD_IN], STD_IN);
-	dup2(fd[STD_OUT], STD_OUT);
-	
-	while ()
-	{
+	char	*file_path;
+	char	**cmd_argv;
 
-	}
-
-	// 전위 순회하며 redirection 설정하는것 만들기.
-	// 맨 위 redirection 실행 -> 다음 실행 -> 다음
-	// if heredoc 이면 ? 
+//	int execve(const char *filepath, char *const argv[], char *const envp[]);
+	file_path = msh_get_cmd_path();
+	cmd_argv = ft_split(cmd_nd->str2);
+	execve(file_path, cmd_argv, envp_list);	//envp 설정 어떻게 해야함 
+	return (-1);
 }
-*/
+
+
+
+
+
+/* redirection */
+int	msh_redirection(t_node *redirct_nd, int fd[2])
+{
+	while (redirct_nd)
+	{
+		redirct_nd = redirct_nd->left;
+		if (msh_set_redirection(redirct_nd) == -1)
+			return (-1);
+	}
+	if (dup2(STD_IN, fd[STD_IN]) == -1)
+		return (-1);
+	if (dup2(STD_OUT, fd[STD_OUT]) == -1)
+		return (-1);
+	return (1);
+}
+
+int	msh_set_redirection(t_node *redirct_nd, int	fd[2])
+{
+	// 만약 open에 실패 하였을때 오류 처리... ?
+	// error "bash: a.txt: Permission denied" // a.txt = redirct_nd->str2
+
+	if (ft_strncmp(redirct_nd->str1, "<", 2) == 0) // 입력 리다이렉션
+		fd[STD_IN] = open(redirct_nd->str2, O_RDONLY);
+	else if (ft_strncmp(redirct_nd->str1, ">", 2) == 0) // 출력
+		fd[STD_OUT]= open(redirct_nd->str2, O_WRONLY | O_CREATE | O_TRUNC, 0644);
+	else if (ft_strncmp(redirct_nd->str1, ">>", 2) == 0) // 출력 붙여쓰기
+		fd[STD_OUT] = open(redirct_nd->str2, O_WRONLY | O_CREATE | O_APPEND, 0644);
+	else if (ft_strncmp(redirct_nd->str1, "<<", 2) == 0)
+		; // here doc.. 이거는 여기가 아니라 저 저 저어기 tokenzier에서 처리하는게 더 낫지 않나? 
+	else
+		return (-1);
+	return (1);
+}
+
+

@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:21:21 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/09/23 18:41:01 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/26 17:20:17 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int	msh_parse_add_redirect(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd)
 	if (cur_cmd_nd->left != NULL)
 	{
 		cur_cmd_nd = cur_cmd_nd->left;
-		while (cur_cmd_nd->right)
-			cur_cmd_nd = cur_cmd_nd->right;
+		while (cur_cmd_nd->left)
+			cur_cmd_nd = cur_cmd_nd->left;
 	}
 	cur_cmd_nd->left = redir_node;
 	redir_node->parent = cur_cmd_nd;
