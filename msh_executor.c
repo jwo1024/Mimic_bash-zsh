@@ -4,6 +4,7 @@
 
 #include <unistd.h>
 #include <fcntl.h>
+#include <sys/stat.h>
 
 enum	e_pipe_fd {
 	PIPE_OUT = 0,
@@ -13,6 +14,26 @@ enum	e_pipe_fd {
 };
 
 char	**msh_executor_get_path(char **envp_list);
+
+/* utils */
+char	**msh_executor_get_path(char **envp_list);
+pid_t	*msh_executor_malloc_pids(t_tree *tree);
+
+
+/* fork wait*/
+pid_t	*msh_executor_fork(t_node *pipe_nd, char **env_path, pid_t *pids);
+int		msh_executor_wait_child(int *pids);
+
+
+/* run */
+int		msh_run_cmd(t_node *cmd_nd, int fd[2], char **envp_list);
+int		msh_run_simp_cmd(t_node *cmd_nd, char **env_path);
+char	*msh_get_cmd_path(char *cmd, char **env_path);
+
+
+/* redirection */
+int	msh_redirection(t_node *redirct_nd, int fd[2]);
+int	msh_set_redirection(t_node *redirct_nd, int	fd[2]);
 
 
 int	msh_executor(t_tree *tree, char **envp_list) // env.. 
@@ -65,13 +86,13 @@ char	**msh_executor_get_path(char **envp_list)
 	return (NULL);
 }
 
-pid_t	*msh_executor_malloc_pids(tree)
+pid_t	*msh_executor_malloc_pids(t_tree *tree)
 {
 	t_node *pipe_nd;
 	int		cnt;
 	pid_t	*pids;
 
-	pipe_nd = tree->top
+	pipe_nd = tree->top;
 	cnt = 0;
 	while (pipe_nd)
 	{
@@ -113,14 +134,16 @@ pid_t	*msh_executor_fork(t_node *pipe_nd, char **env_path, pid_t *pids)
 		if (pids[i++] == 0)
 		{
 			close(pipe_fd[PIPE_OUT]);
-			exit(msh_run_cmd(pipe_nd->left, fd[], env)); // command_not_found error
+		//	exit(msh_run_cmd(pipe_nd->left, fd[], env)); // command_not_found error
 			printf("fd[STD_IN] %d, fd[STD_OUT] %d\n", fd[STD_IN], fd[STD_OUT]);
+			msh_run_cmd(pipe_nd->left, fd, env_path);
 			exit(0);
 		}
 		pipe_nd = pipe_nd->right;
 		fd[STD_IN] = pipe_fd[PIPE_OUT];
 		close(pipe_fd[PIPE_IN]);
 	}
+
 	return (pids);
 }
 
@@ -132,18 +155,19 @@ int	msh_executor_wait_child(int *pids)
 	i = 0;
 	while (pids[i])
 	{
-		waitpid(pids[i], &statloc, NULL); // NULL options. .
+		waitpid(pids[i], &statloc, 0); // NULL options. .
 		i++;
 	}
 	// 마지막 statloc 해석
 	// rtn (마지막 종료상태 ) ;
-
+//	printf("bbbb\n");
+	return (1);
 }
 
 
 
 /* run */
-int	msh_run_cmd(t_node *cmd_nd, int fd[2], char **envp_list)
+int	msh_run_cmd(t_node *cmd_nd, int fd[2], char **env_path)
 {
 	msh_redirection(cmd_nd->left, fd);
 	// msh_set_wordsplit(); //// 더블쿼터 싱글쿼터
@@ -152,25 +176,49 @@ int	msh_run_cmd(t_node *cmd_nd, int fd[2], char **envp_list)
 
 	// $? 이거 어디다 저장해두나요..? ? ? ? ?  ?
 
-	msh_run_simp_cmd(cmd_nd, envp_list);
+	msh_run_simp_cmd(cmd_nd->right, env_path);
 	// msh_run_simp_cmd(); // exeve(); envp_path
+	return (1);
 }
 
-int	msh_run_simp_cmd(t_node *cmd_nd, char **envp_list)
+int	msh_run_simp_cmd(t_node *cmd_nd, char **env_path)
 {
 	char	*file_path;
 	char	**cmd_argv;
 
-//	int execve(const char *filepath, char *const argv[], char *const envp[]);
-	file_path = msh_get_cmd_path();
-	cmd_argv = ft_split(cmd_nd->str2);
-	execve(file_path, cmd_argv, envp_list);	//envp 설정 어떻게 해야함 
+	file_path = msh_get_cmd_path(cmd_nd->str1, env_path);
+	cmd_argv = ft_split(cmd_nd->str2, ' ');
+	execve(file_path, cmd_argv, env_path);
 	return (-1);
 }
 
+char	*msh_get_cmd_path(char *cmd, char **env_path)
+{
+	char		*cmd_path;
+	char		*tmp;
+	int			i;
+	struct stat	buf;
+
+	i = 0;
+	while (env_path[i])
+	{
+		tmp = ft_strjoin(env_path[i], "/");
+		cmd_path = ft_strjoin(tmp, cmd);
+		free(tmp);
+	//	printf("cmd_path %s\n", cmd_path);
+		if (stat(cmd_path, &buf) == 0)
+			return (cmd_path);
+		free(cmd_path);
+		i++;
+	}
 
 
 
+	return (NULL);
+}
+
+
+//dup2
 
 /* redirection */
 int	msh_redirection(t_node *redirct_nd, int fd[2])
@@ -178,9 +226,10 @@ int	msh_redirection(t_node *redirct_nd, int fd[2])
 	while (redirct_nd)
 	{
 		redirct_nd = redirct_nd->left;
-		if (msh_set_redirection(redirct_nd) == -1)
+		if (msh_set_redirection(redirct_nd, fd) == -1)
 			return (-1);
 	}
+	// 왜 안도ㅑ?
 	if (dup2(STD_IN, fd[STD_IN]) == -1)
 		return (-1);
 	if (dup2(STD_OUT, fd[STD_OUT]) == -1)
@@ -196,14 +245,12 @@ int	msh_set_redirection(t_node *redirct_nd, int	fd[2])
 	if (ft_strncmp(redirct_nd->str1, "<", 2) == 0) // 입력 리다이렉션
 		fd[STD_IN] = open(redirct_nd->str2, O_RDONLY);
 	else if (ft_strncmp(redirct_nd->str1, ">", 2) == 0) // 출력
-		fd[STD_OUT]= open(redirct_nd->str2, O_WRONLY | O_CREATE | O_TRUNC, 0644);
+		fd[STD_OUT]= open(redirct_nd->str2, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	else if (ft_strncmp(redirct_nd->str1, ">>", 2) == 0) // 출력 붙여쓰기
-		fd[STD_OUT] = open(redirct_nd->str2, O_WRONLY | O_CREATE | O_APPEND, 0644);
+		fd[STD_OUT] = open(redirct_nd->str2, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	else if (ft_strncmp(redirct_nd->str1, "<<", 2) == 0)
 		; // here doc.. 이거는 여기가 아니라 저 저 저어기 tokenzier에서 처리하는게 더 낫지 않나? 
 	else
 		return (-1);
 	return (1);
 }
-
-
