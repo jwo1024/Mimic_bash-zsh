@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:14:37 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/09/29 18:16:33 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/29 18:33:06 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,10 @@ int	msh_redirection(t_node *redirct_nd, int fd[2])
 			return (-1);
 		redirct_nd = redirct_nd->left;
 	}
-	fprintf(stderr, "a\n");
 	if (fd[STD_IN] != STD_IN && dup2(fd[STD_IN], STD_IN) == -1)
 		return (-1);
-			fprintf(stderr, "b\n");
-
 	if (fd[STD_OUT] != STD_OUT && dup2(fd[STD_OUT], STD_OUT) == -1)
 		return (-1);
-	fprintf(stderr, "c\n");
-
 	return (1);
 }
 
