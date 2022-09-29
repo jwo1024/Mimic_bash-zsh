@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:47 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/09/29 23:53:33 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/29 23:57:49 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,17 @@ int	msh_run_builtin(t_node *cmd_nd)
 {
 	int	rtn;
 
-	rtn = 0; // builtin 실행 반환값
+	rtn = 0;
 	if (cmd_nd->str1 == NULL)
 		return (-1);
+	/*
+		fprintf로 builtin 명령어 임을 임시로 출력하도록 해두었습니다.
+
+		if (ft_strncmp(cmd_nd->str1, "echo", 5) == 0)
+			rtn =  msh_builtin_echo();
+	*/
 	if (ft_strncmp(cmd_nd->str1, "echo", 5) == 0)
-		fprintf(stderr, "builtin cmd echo\n"); // rtn =  msh_builtin_echo();
+		fprintf(stderr, "builtin cmd echo\n");
 	else if(ft_strncmp(cmd_nd->str1, "cd", 3) == 0)
 		fprintf(stderr, "builtin cmd cd\n");
 	else if(ft_strncmp(cmd_nd->str1, "pwd", 3) == 0)
@@ -82,5 +88,5 @@ int	msh_run_builtin(t_node *cmd_nd)
 		fprintf(stderr, "builtin cmd exit\n");	
 	else
 		return (-1);
-	exit (0); // exit(rtn);
+	exit (rtn);
 }
