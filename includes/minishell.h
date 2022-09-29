@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:07:12 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/09/29 18:14:58 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/29 23:42:06 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ pid_t	*msh_executor_malloc_pids(t_tree *tree);
 int		msh_run_cmd(t_node *cmd_nd, int fd[2], char **envp_list);
 int		msh_run_simp_cmd(t_node *cmd_nd, char **env_path);
 char	*msh_get_cmd_path(char *cmd, char **env_path);
+int		msh_run_builtin(t_node *cmd_nd);
 
 /* msh _redirection */
 int		msh_redirection(t_node *redirct_nd, int fd[2]);

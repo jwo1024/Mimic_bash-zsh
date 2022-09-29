@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:47 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/09/29 22:00:52 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/29 23:53:33 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,11 @@ int	msh_run_cmd(t_node *cmd_nd, int fd[2], char **env_path)
 	if (msh_redirection(cmd_nd->left, fd) == -1)
 		fprintf(stderr, "msh_redirection() wrong\n"); // error() 수정
 	// msh_set_wordsplit(); //// 더블쿼터 싱글쿼터
-	// msh_run_builtin(); // built in 함수 있는지 검사 (있다면 해당함수명령 실행 exit) (없다면 return)
-	// 만약 built in 함수라면 -> 여기서 종료하기.. 
-		// return (rtn);
+	msh_run_builtin(cmd_nd->right);
 	// $? 이거 어디다 저장해두나요..? ? ? ? ?  ?
 
-	msh_run_simp_cmd(cmd_nd->right, env_path);
-	// msh_run_simp_cmd(); // exeve(); envp_path
+	msh_run_simp_cmd(cmd_nd->right, env_path); //envp_path...
+
 	return (1); // someting wrong
 }
 
@@ -59,4 +57,30 @@ char	*msh_get_cmd_path(char *cmd, char **env_path)
 	}
 
 	return (NULL);
+}
+
+int	msh_run_builtin(t_node *cmd_nd)
+{
+	int	rtn;
+
+	rtn = 0; // builtin 실행 반환값
+	if (cmd_nd->str1 == NULL)
+		return (-1);
+	if (ft_strncmp(cmd_nd->str1, "echo", 5) == 0)
+		fprintf(stderr, "builtin cmd echo\n"); // rtn =  msh_builtin_echo();
+	else if(ft_strncmp(cmd_nd->str1, "cd", 3) == 0)
+		fprintf(stderr, "builtin cmd cd\n");
+	else if(ft_strncmp(cmd_nd->str1, "pwd", 3) == 0)
+		fprintf(stderr, "builtin cmd pwd\n");
+	else if(ft_strncmp(cmd_nd->str1, "export", 7) == 0)\
+		fprintf(stderr, "builtin cmd export\n");
+	else if(ft_strncmp(cmd_nd->str1, "unset", 6) == 0)
+		fprintf(stderr, "builtin cmd unset\n");
+	else if(ft_strncmp(cmd_nd->str1, "env", 4) == 0)
+		fprintf(stderr, "builtin cmd env\n");
+	else if(ft_strncmp(cmd_nd->str1, "exit", 5) == 0)
+		fprintf(stderr, "builtin cmd exit\n");	
+	else
+		return (-1);
+	exit (0); // exit(rtn);
 }
