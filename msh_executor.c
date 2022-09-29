@@ -143,7 +143,6 @@ pid_t	*msh_executor_fork(t_node *pipe_nd, char **env_path, pid_t *pids)
 		fd[STD_IN] = pipe_fd[PIPE_OUT];
 		close(pipe_fd[PIPE_IN]);
 	}
-
 	return (pids);
 }
 
@@ -169,7 +168,8 @@ int	msh_executor_wait_child(int *pids)
 /* run */
 int	msh_run_cmd(t_node *cmd_nd, int fd[2], char **env_path)
 {
-	msh_redirection(cmd_nd->left, fd);
+	if (msh_redirection(cmd_nd->left, fd) == -1)
+		fprintf(stderr, "msh_redirection() wrong\n");
 	// msh_set_wordsplit(); //// 더블쿼터 싱글쿼터
 	// msh_run_builtin(); // built in 함수 있는지 검사 (있다면 해당함수명령 실행 exit) (없다면 return)
 	// 만약 built in 함수라면 -> 여기서 종료하기.. 
@@ -205,14 +205,11 @@ char	*msh_get_cmd_path(char *cmd, char **env_path)
 		tmp = ft_strjoin(env_path[i], "/");
 		cmd_path = ft_strjoin(tmp, cmd);
 		free(tmp);
-	//	printf("cmd_path %s\n", cmd_path);
 		if (stat(cmd_path, &buf) == 0)
 			return (cmd_path);
 		free(cmd_path);
 		i++;
 	}
-
-
 
 	return (NULL);
 }
@@ -225,14 +222,13 @@ int	msh_redirection(t_node *redirct_nd, int fd[2])
 {
 	while (redirct_nd)
 	{
-		redirct_nd = redirct_nd->left;
 		if (msh_set_redirection(redirct_nd, fd) == -1)
 			return (-1);
+		redirct_nd = redirct_nd->left;
 	}
-	// 왜 안도ㅑ?
-	if (dup2(STD_IN, fd[STD_IN]) == -1)
+	if (dup2(fd[STD_IN], STD_IN) == -1)
 		return (-1);
-	if (dup2(STD_OUT, fd[STD_OUT]) == -1)
+	if (dup2(fd[STD_OUT], STD_OUT) == -1)
 		return (-1);
 	return (1);
 }
