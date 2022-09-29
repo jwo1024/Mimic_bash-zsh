@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:41 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/09/29 18:30:06 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/29 23:31:21 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	msh_executor(t_tree *tree, char **envp_list) // env..
 	// 환경변수 PATH 가공하여 이차원배열로 받아오기
 	env_path = msh_executor_get_path(envp_list);
 	// pipe 존재만큼 pid 배열 생성
-	pids = msh_executor_malloc_pids(tree); // process가 1개일 경우에는 ?
+	pids = msh_executor_malloc_pids(tree); // process가 1개일 경우에는 ? && built in 일때
 	if (pids == NULL)
 		return (-1);
 	// 자식 프로세스 fork 및 파이프 할당
@@ -47,25 +47,32 @@ pid_t	*msh_executor_fork(t_node *pipe_nd, char **env_path, pid_t *pids)
 	{
 		if (pipe_nd->right)
 		{
-			pipe(pipe_fd);
-			fd[STD_OUT] = pipe_fd[PIPE_IN];
-			if (fd[STD_IN] > 2)
-				close(fd[STD_IN]);
+			pipe(pipe_fd); // if -1 ? 
+			fd[STD_OUT] = pipe_fd[PIPE_IN]; 
 		}
 		else
 			fd[STD_OUT] = STD_OUT;
+	
+	
 		pids[i] = fork();
 		if (pids[i++] == 0)
 		{
 			if (pipe_nd->right)
 				close(pipe_fd[PIPE_OUT]);
-			msh_run_cmd(pipe_nd->left, fd, env_path);
-			exit(0);
+			exit(msh_run_cmd(pipe_nd->left, fd, env_path));
+		}
+	
+
+		if (fd[STD_IN] > 2)
+				close(fd[STD_IN]);
+		if (pipe_nd->right)
+		{
+			fd[STD_IN] = pipe_fd[PIPE_OUT];
+			close(fd[STD_OUT]);
 		}
 		pipe_nd = pipe_nd->right;
-		fd[STD_IN] = pipe_fd[PIPE_OUT];
-		close(pipe_fd[PIPE_IN]);
 	}
+	// 한번 fd 흐름 따라서 다 닫혔는지 확인필요  lsof -p <pid>
 	return (pids);
 }
 
@@ -82,7 +89,6 @@ int	msh_executor_wait_child(int *pids)
 	}
 	// 마지막 statloc 해석
 	// rtn (마지막 종료상태 ) ;
-//	printf("bbbb\n");
 	return (1);
 }
 

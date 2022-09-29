@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:14:37 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/09/29 18:33:06 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/29 21:55:54 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	msh_redirection(t_node *redirct_nd, int fd[2])
 	{
 		if (msh_set_redirection(redirct_nd, fd) == -1)
 			return (-1);
-		redirct_nd = redirct_nd->left;
+		redirct_nd = redirct_nd->right;
 	}
 	if (fd[STD_IN] != STD_IN && dup2(fd[STD_IN], STD_IN) == -1)
 		return (-1);
@@ -33,11 +33,20 @@ int	msh_set_redirection(t_node *redirct_nd, int	fd[2])
 	// error "bash: a.txt: Permission denied" // a.txt = redirct_nd->str2
 
 	if (ft_strncmp(redirct_nd->str1, "<", 2) == 0) // 입력 리다이렉션
+	{
+		close (fd[STD_IN]);
 		fd[STD_IN] = open(redirct_nd->str2, O_RDONLY);
+	}
 	else if (ft_strncmp(redirct_nd->str1, ">", 2) == 0) // 출력
+	{
+		close (fd[STD_OUT]);
 		fd[STD_OUT]= open(redirct_nd->str2, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	}
 	else if (ft_strncmp(redirct_nd->str1, ">>", 2) == 0) // 출력 붙여쓰기
+	{
+		close (fd[STD_OUT]);
 		fd[STD_OUT] = open(redirct_nd->str2, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	}
 	else if (ft_strncmp(redirct_nd->str1, "<<", 2) == 0)
 		; // here doc.. 이거는 여기가 아니라 저 저 저어기 tokenzier에서 처리하는게 더 낫지 않나? 
 	else
