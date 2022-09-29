@@ -1,5 +1,7 @@
 {
 	"files.associations": {
-		"msh_tree.h": "c"
+		"msh_tree.h": "c",
+		"unistd.h": "c",
+		"minishell.h": "c"
 	}
 }
