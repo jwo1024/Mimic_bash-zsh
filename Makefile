@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+         #
+#    By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 16:37:49 by jaeyjeon          #+#    #+#              #
-#    Updated: 2022/09/29 18:15:19 by jiwolee          ###   ########seoul.kr   #
+#    Updated: 2022/09/30 14:52:02 by jaeyjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,11 @@ SRC3			= ./tokenizer/tokenizer.c \
 				  ./tokenizer/signal.c \
 				  ./tokenizer/get_env.c \
 				  ./tokenizer/utils2.c \
-				  ./builtin/builtin_utils.c
+				  ./builtin/do_pwd.c \
+				  ./builtin/do_echo.c \
+				  ./builtin/builtin_utils.c \
+				  ./builtin/do_env.c \
+				  ./builtin/do_cd.c
 
 SRCS			= $(SRC1) $(SRC2) $(SRC3)
 

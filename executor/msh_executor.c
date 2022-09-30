@@ -3,22 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   msh_executor.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:41 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/09/29 23:31:21 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/30 14:53:00 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "msh_tree.h"
 
-int	msh_executor(t_tree *tree, char **envp_list) // env.. 
+int	msh_executor(t_tree *tree, char **envp_list) // env..
 {
 	pid_t	*pids;
 	int		rtn;
 	char	**env_path;
 
+	(void)rtn;
 	// 환경변수 PATH 가공하여 이차원배열로 받아오기
 	env_path = msh_executor_get_path(envp_list);
 	// pipe 존재만큼 pid 배열 생성
@@ -47,13 +48,13 @@ pid_t	*msh_executor_fork(t_node *pipe_nd, char **env_path, pid_t *pids)
 	{
 		if (pipe_nd->right)
 		{
-			pipe(pipe_fd); // if -1 ? 
-			fd[STD_OUT] = pipe_fd[PIPE_IN]; 
+			pipe(pipe_fd); // if -1 ?
+			fd[STD_OUT] = pipe_fd[PIPE_IN];
 		}
 		else
 			fd[STD_OUT] = STD_OUT;
-	
-	
+
+
 		pids[i] = fork();
 		if (pids[i++] == 0)
 		{
@@ -61,7 +62,7 @@ pid_t	*msh_executor_fork(t_node *pipe_nd, char **env_path, pid_t *pids)
 				close(pipe_fd[PIPE_OUT]);
 			exit(msh_run_cmd(pipe_nd->left, fd, env_path));
 		}
-	
+
 
 		if (fd[STD_IN] > 2)
 				close(fd[STD_IN]);

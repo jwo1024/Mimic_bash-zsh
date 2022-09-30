@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:07:12 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/09/29 23:42:06 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/30 14:51:18 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,15 @@ int		check_word(char *word);
 int		do_exit(char *word);
 int		do_echo(char *word, int fd);
 int		do_env(t_list *env_list, int fd);
+int		do_cd(char *s, int fd);
 int		check_opt(char *s);
 int		check_dequot(char *s);
+int		find_equal(char *word);
 char	*del_dequot(char *s);
 void	do_del_dequot(char *new_str, char *s, char c, t_index *idx);
 
 /* msh_executor */
-int	msh_executor(t_tree *tree, char **envp_list);
+int		msh_executor(t_tree *tree, char **envp_list);
 pid_t	*msh_executor_fork(t_node *pipe_nd, char **env_path, pid_t *pids);
 int		msh_executor_wait_child(int *pids);
 char	**msh_executor_get_path(char **envp_list);
