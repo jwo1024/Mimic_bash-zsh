@@ -3,34 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   msh_executor.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:41 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/09/30 14:53:00 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/09/30 16:53:58 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "msh_tree.h"
 
-int	msh_executor(t_tree *tree, char **envp_list) // env..
+int	msh_executor(t_tree *tree, char **envp_list) // env.. 
 {
 	pid_t	*pids;
 	int		rtn;
 	char	**env_path;
 
-	(void)rtn;
-	// 환경변수 PATH 가공하여 이차원배열로 받아오기
 	env_path = msh_executor_get_path(envp_list);
-	// pipe 존재만큼 pid 배열 생성
-	pids = msh_executor_malloc_pids(tree); // process가 1개일 경우에는 ? && built in 일때
-	if (pids == NULL)
-		return (-1);
-	// 자식 프로세스 fork 및 파이프 할당
-		// export시 단일 명령어로 실행될때만 적용되는 사안은 자식 프로세스가 아닌 메인 프로세스에서 실행된다고 보아도 무방한가?
-	msh_executor_fork(tree->top, env_path, pids);
-
-	rtn = msh_executor_wait_child(pids);
+	rtn = -1;
+	if (tree->top->right == NULL) 
+		rtn = msh_run_builtin(tree->top->left->right);
+	if (rtn == -1) // 1개 cmd이면서 builtin이면 -1이 아닌 수를 뱉는다. 
+	{
+		pids = msh_executor_malloc_pids(tree);
+		if (pids == NULL)
+			return (-1);
+		if (rtn == -1)
+			msh_executor_fork(tree->top, env_path, pids);
+		rtn = msh_executor_wait_child(pids);
+	}
+	// $?시 출력할 rtn 저장.. 
 	return (1);
 }
 
@@ -48,12 +50,12 @@ pid_t	*msh_executor_fork(t_node *pipe_nd, char **env_path, pid_t *pids)
 	{
 		if (pipe_nd->right)
 		{
-			pipe(pipe_fd); // if -1 ?
-			fd[STD_OUT] = pipe_fd[PIPE_IN];
+			pipe(pipe_fd); // if -1 ? 
+			fd[STD_OUT] = pipe_fd[PIPE_IN]; 
 		}
 		else
 			fd[STD_OUT] = STD_OUT;
-
+	
 
 		pids[i] = fork();
 		if (pids[i++] == 0)
@@ -62,7 +64,7 @@ pid_t	*msh_executor_fork(t_node *pipe_nd, char **env_path, pid_t *pids)
 				close(pipe_fd[PIPE_OUT]);
 			exit(msh_run_cmd(pipe_nd->left, fd, env_path));
 		}
-
+	
 
 		if (fd[STD_IN] > 2)
 				close(fd[STD_IN]);
@@ -134,7 +136,3 @@ pid_t	*msh_executor_malloc_pids(t_tree *tree)
 	pids = ft_calloc(cnt + 1, sizeof(pid_t));
 	return (pids);
 }
-
-
-
-

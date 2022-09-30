@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:47 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/09/29 23:57:49 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/09/30 16:54:08 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,15 @@
 /* run */
 int	msh_run_cmd(t_node *cmd_nd, int fd[2], char **env_path)
 {
+	int	rtn;
+
+	rtn = -1;
 	if (msh_redirection(cmd_nd->left, fd) == -1)
 		fprintf(stderr, "msh_redirection() wrong\n"); // error() 수정
 	// msh_set_wordsplit(); //// 더블쿼터 싱글쿼터
-	msh_run_builtin(cmd_nd->right);
+	rtn = msh_run_builtin(cmd_nd->right);
+	if (rtn != -1)
+		exit(rtn);
 	// $? 이거 어디다 저장해두나요..? ? ? ? ?  ?
 
 	msh_run_simp_cmd(cmd_nd->right, env_path); //envp_path...
@@ -88,5 +93,5 @@ int	msh_run_builtin(t_node *cmd_nd)
 		fprintf(stderr, "builtin cmd exit\n");	
 	else
 		return (-1);
-	exit (rtn);
+	return (rtn);
 }
