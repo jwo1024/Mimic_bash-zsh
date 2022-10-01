@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:38:45 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/09/23 16:57:57 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/01 20:24:38 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ enum e_ttype
 	T_CMD = 8,
 	T_SIMP_CMD = 9,
 	T_AND = 10,
-	T_OR = 11
+	T_OR = 11,
+	T_HEREDOC = 12
 };
 
 typedef struct s_node{
