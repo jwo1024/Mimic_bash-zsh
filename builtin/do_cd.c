@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:33:47 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/09/29 15:49:38 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/03 14:02:03 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	do_cd(char *s, int fd)
 	}
 	if (chdir(dir) != 0)
 	{
+		msh_print_errno(s);
 		ft_putstr_fd("cd: no such file or directory: ", fd); // 임시
 		ft_putstr_fd(dir, fd);
 		ft_putstr_fd("\n", fd);

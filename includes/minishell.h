@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:07:12 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/09/30 14:51:18 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/03 14:12:51 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,16 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/stat.h>
+#include	<errno.h>
+
 
 
 enum	e_pipe_fd {
 	PIPE_OUT = 0,
 	PIPE_IN = 1,
 	STD_IN = 0,
-	STD_OUT = 1
+	STD_OUT = 1,
+	STD_ERROR = 2 // error.. 
 };
 
 /*signal*/
@@ -64,6 +67,7 @@ int		do_exit(char *word);
 int		do_echo(char *word, int fd);
 int		do_env(t_list *env_list, int fd);
 int		do_cd(char *s, int fd);
+/*builin utils*/
 int		check_opt(char *s);
 int		check_dequot(char *s);
 int		find_equal(char *word);
@@ -77,7 +81,6 @@ int		msh_executor_wait_child(int *pids);
 char	**msh_executor_get_path(char **envp_list);
 pid_t	*msh_executor_malloc_pids(t_tree *tree);
 
-
 /* msh_run_cmd */
 int		msh_run_cmd(t_node *cmd_nd, int fd[2], char **envp_list);
 int		msh_run_simp_cmd(t_node *cmd_nd, char **env_path);
@@ -85,8 +88,12 @@ char	*msh_get_cmd_path(char *cmd, char **env_path);
 int		msh_run_builtin(t_node *cmd_nd);
 
 /* msh _redirection */
-int		msh_redirection(t_node *redirct_nd, int fd[2]);
-int		msh_set_redirection(t_node *redirct_nd, int	fd[2]);
+int		msh_redirection(t_node *redirct_nd, int *fd);
+int		msh_set_redirection(t_node *redirct_nd, int	*fd); // int *fd;
+int		*msh_nopipe_builtin_redirection(t_node *redirct_nd);
+
+/* msh_error */
+void	msh_print_errno(char *str);
 
 
 #endif

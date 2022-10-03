@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:40:39 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/09/23 19:32:48 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/03 12:02:26 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	do_sigint(pid_t pid)
 		rl_redisplay();
 		ft_putstr_fd("  \n", 1);
 		rl_on_new_line();
-		rl_replace_line("", 0);
+	//	rl_replace_line("", 0);
 		rl_redisplay();
 	}
 	else

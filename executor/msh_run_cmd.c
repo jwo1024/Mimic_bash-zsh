@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:47 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/01 23:21:53 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/03 14:24:08 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,17 @@ int	msh_run_cmd(t_node *cmd_nd, int fd[2], char **env_path)
 	rtn = msh_run_builtin(cmd_nd->right); // msh_run_builin_cmd();
 	if (rtn != -1)
 		exit(rtn);
-	// $? 이거 어디다 저장해두나요..? ? ? ? ?  ?
 
 	msh_run_simp_cmd(cmd_nd->right, env_path); //envp_path...
 
-	// bash: syntax error near unexpected token `>>'
+	// bash: syntax error near unexpected token `>>' //
 
 	//	./a.txt: No such file or directory
 	//	bash: ---: command not found
-	
-	fprintf(stderr, "errrorororo %s errno%d\n", strerror(errno), errno);
 
-	return (127); // someting wrong
+	fprintf(stderr, "minishell: %s: %s: errno%d\n", cmd_nd->right->str1, strerror(errno), errno);
+
+	return (127); // someting wrong (command not found)
 }
 
 int	msh_run_simp_cmd(t_node *cmd_nd, char **env_path)
@@ -86,7 +85,7 @@ int	msh_run_builtin(t_node *cmd_nd)
 		if (ft_strncmp(cmd_nd->str1, "echo", 5) == 0)
 			rtn =  msh_builtin_echo();
 	*/
-	if (ft_strncmp(cmd_nd->str1, "echo", 5) == 0)
+	if (ft_strncmp(cmd_nd->str1, "echo", 5) == 0) // fd 어떻게 넘겨줘..? 
 		fprintf(stderr, "builtin cmd echo\n");
 	else if(ft_strncmp(cmd_nd->str1, "cd", 3) == 0)
 		fprintf(stderr, "builtin cmd cd\n");

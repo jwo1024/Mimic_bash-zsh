@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:41 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/02 00:14:49 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/03 14:51:54 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,38 +14,79 @@
 #include "msh_tree.h"
 
 int	msh_exit_status(int statloc);
+int	msh_nopipe_builtin(t_tree *tree);
 
-int	msh_nopipe_builtin(t_tree *tree)
+int	msh_nopipe_builtin(t_tree *tree) // + envp_list;
 {
 	int		rtn;
 	t_node	*cmd_nd;
-	int		fd[2];
+	t_node	*sim_cmd_nd;
+	int		*fd;
 
 	rtn = 0;
-	cmd_nd = tree->top->left->right;
-	if (tree->top->right || cmd_nd->str1 == NULL)
-		return (-1);
+	cmd_nd = tree->top->left;
+	sim_cmd_nd = cmd_nd->right;
 
-	if(ft_strncmp(cmd_nd->str1, "export", 7) == 0)\
+	if (tree->top->right || sim_cmd_nd->str1 == NULL) // 오른쪽이 있거나, NULL이면 처리 
+		return (-1);
+	// 서브함수화. 
+	if (ft_strncmp(sim_cmd_nd->str1, "echo", 5) == 0)
 	{
-		msh_redirection(cmd_nd->left, &fd);
+		fd = msh_nopipe_builtin_redirection(cmd_nd->left);
+	//	fprintf(stderr, "builtin cmd echo, fd %d %d type %d\n", fd[0], fd[1], cmd_nd->type);
+		do_echo(sim_cmd_nd->str2, fd[STD_OUT]);
+	}
+	else if(ft_strncmp(sim_cmd_nd->str1, "cd", 3) == 0)
+	{
+		fd = msh_nopipe_builtin_redirection(cmd_nd->left);
+	//	fprintf(stderr, "builtin cmd cd\n");
+		do_cd(sim_cmd_nd->str2, 2); // directory 체크하는 함수 필요? fd[3]형태로 보낼 필요 잇음
+	}
+	else if(ft_strncmp(sim_cmd_nd->str1, "pwd", 3) == 0)
+	{
+		fd = msh_nopipe_builtin_redirection(cmd_nd->left);
+	//	fprintf(stderr, "builtin cmd pwd\n");
+		do_pwd(fd[STD_OUT]);
+	}
+	else if(ft_strncmp(sim_cmd_nd->str1, "export", 7) == 0)
+	{
+		fd = msh_nopipe_builtin_redirection(cmd_nd->left);
 		fprintf(stderr, "builtin cmd export\n");
 	}
-	else if(ft_strncmp(cmd_nd->str1, "unset", 6) == 0)
+	else if(ft_strncmp(sim_cmd_nd->str1, "unset", 6) == 0)
 	{
-		msh_redirection(cmd_nd->left, &fd);
+		fd = msh_nopipe_builtin_redirection(cmd_nd->left);
 		fprintf(stderr, "builtin cmd unset\n");
 	}
-	else if(ft_strncmp(cmd_nd->str1, "exit", 5) == 0)
+	else if(ft_strncmp(sim_cmd_nd->str1, "env", 4) == 0)
 	{
-		msh_redirection(cmd_nd->left, &fd);
+		fd = msh_nopipe_builtin_redirection(cmd_nd->left);
+		fprintf(stderr, "builtin cmd env\n");
+		// do_env(env_list, fd[STD_OUT]);
+	}
+	else if(ft_strncmp(sim_cmd_nd->str1, "exit", 5) == 0)
+	{
+		fd = msh_nopipe_builtin_redirection(cmd_nd->left);
 		fprintf(stderr, "builtin cmd exit\n");
 		exit(0); // 기존에 가지고잇던 $? 상태 반환 혹은 exit 100 => 100 반환
 	}
 	else
 		return (-1);
+//
+	if (fd[STD_IN] > 2)
+		close(fd[STD_IN]);
+	if (fd[STD_OUT] > 2)
+		close(fd[STD_OUT]);
+
+	free(fd);
+//
+//
 	return (rtn);
 }
+
+
+////////////////////////////
+
 
 int	msh_executor(t_tree *tree, char **envp_list) // env.. 
 {
@@ -55,8 +96,8 @@ int	msh_executor(t_tree *tree, char **envp_list) // env..
 
 	env_path = msh_executor_get_path(envp_list);
 	rtn = -1;
-	if (tree->top->right == NULL) 
-		rtn = msh_run_builtin(tree->top->left->right); // redirection 이 있으면 ? 여기서 처리하면 안되는 건가.
+	if (tree->top->right == NULL) // redirection 이 있으면 ? 여기서 처리하면 안되는 건가.
+		rtn = msh_nopipe_builtin(tree);
 	if (rtn == -1) // 1개 cmd이면서 builtin이면 -1이 아닌 수를 뱉는다. 
 	{
 		pids = msh_executor_malloc_pids(tree);
@@ -67,7 +108,8 @@ int	msh_executor(t_tree *tree, char **envp_list) // env..
 		rtn = msh_executor_wait_child(pids);
 	}
 	// $?시 출력할 rtn 저장.. 
-	return (rtn); 
+
+	return (rtn);
 }
 
 /* fork wait*/
@@ -75,10 +117,10 @@ pid_t	*msh_executor_fork(t_node *pipe_nd, char **env_path, pid_t *pids)
 {
 	int		i;
 	int		pipe_fd[2];
-	int		fd[2];
+	int		fd[2]; // int *fd; fd[3]
 
 	i = 0;
-	fd[STD_IN] = STD_IN;
+	fd[STD_IN] = STD_IN; // fd = msh_fd3_calloc(void);
 	fd[STD_OUT] = STD_OUT;
 	while (pipe_nd)
 	{
@@ -129,6 +171,8 @@ int	msh_executor_wait_child(int *pids)
 	return (msh_exit_status(statloc));
 }
 
+
+
 /* utils */
 char	**msh_executor_get_path(char **envp_list)
 {
@@ -174,7 +218,7 @@ pid_t	*msh_executor_malloc_pids(t_tree *tree)
 int	msh_exit_status(int statloc)
 {
 	if (statloc << 8 == 0)
-		return (statloc >> 8); // exit status ? 127이 왜 안나오는지 모르겟다. (아 내가 따로 처리해줘야하나)
+		return (statloc >> 8); // exit status ? 127이 왜 안나오는지 모르겟다. (아 내가 따로 처리해줘야하나 parser?)
 	fprintf(stderr, "exit err\n");
 	return (statloc >> 8); // signal no ? 
 }
