@@ -6,12 +6,46 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:41 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/09/30 16:53:58 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/02 00:14:49 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "msh_tree.h"
+
+int	msh_exit_status(int statloc);
+
+int	msh_nopipe_builtin(t_tree *tree)
+{
+	int		rtn;
+	t_node	*cmd_nd;
+	int		fd[2];
+
+	rtn = 0;
+	cmd_nd = tree->top->left->right;
+	if (tree->top->right || cmd_nd->str1 == NULL)
+		return (-1);
+
+	if(ft_strncmp(cmd_nd->str1, "export", 7) == 0)\
+	{
+		msh_redirection(cmd_nd->left, &fd);
+		fprintf(stderr, "builtin cmd export\n");
+	}
+	else if(ft_strncmp(cmd_nd->str1, "unset", 6) == 0)
+	{
+		msh_redirection(cmd_nd->left, &fd);
+		fprintf(stderr, "builtin cmd unset\n");
+	}
+	else if(ft_strncmp(cmd_nd->str1, "exit", 5) == 0)
+	{
+		msh_redirection(cmd_nd->left, &fd);
+		fprintf(stderr, "builtin cmd exit\n");
+		exit(0); // 기존에 가지고잇던 $? 상태 반환 혹은 exit 100 => 100 반환
+	}
+	else
+		return (-1);
+	return (rtn);
+}
 
 int	msh_executor(t_tree *tree, char **envp_list) // env.. 
 {
@@ -22,7 +56,7 @@ int	msh_executor(t_tree *tree, char **envp_list) // env..
 	env_path = msh_executor_get_path(envp_list);
 	rtn = -1;
 	if (tree->top->right == NULL) 
-		rtn = msh_run_builtin(tree->top->left->right);
+		rtn = msh_run_builtin(tree->top->left->right); // redirection 이 있으면 ? 여기서 처리하면 안되는 건가.
 	if (rtn == -1) // 1개 cmd이면서 builtin이면 -1이 아닌 수를 뱉는다. 
 	{
 		pids = msh_executor_malloc_pids(tree);
@@ -33,7 +67,7 @@ int	msh_executor(t_tree *tree, char **envp_list) // env..
 		rtn = msh_executor_wait_child(pids);
 	}
 	// $?시 출력할 rtn 저장.. 
-	return (1);
+	return (rtn); 
 }
 
 /* fork wait*/
@@ -92,7 +126,7 @@ int	msh_executor_wait_child(int *pids)
 	}
 	// 마지막 statloc 해석
 	// rtn (마지막 종료상태 ) ;
-	return (1);
+	return (msh_exit_status(statloc));
 }
 
 /* utils */
@@ -135,4 +169,12 @@ pid_t	*msh_executor_malloc_pids(t_tree *tree)
 	}
 	pids = ft_calloc(cnt + 1, sizeof(pid_t));
 	return (pids);
+}
+
+int	msh_exit_status(int statloc)
+{
+	if (statloc << 8 == 0)
+		return (statloc >> 8); // exit status ? 127이 왜 안나오는지 모르겟다. (아 내가 따로 처리해줘야하나)
+	fprintf(stderr, "exit err\n");
+	return (statloc >> 8); // signal no ? 
 }

@@ -6,11 +6,12 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:47 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/09/30 16:54:08 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/01 23:21:53 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include	<errno.h>
 
 /* run */
 int	msh_run_cmd(t_node *cmd_nd, int fd[2], char **env_path)
@@ -21,14 +22,21 @@ int	msh_run_cmd(t_node *cmd_nd, int fd[2], char **env_path)
 	if (msh_redirection(cmd_nd->left, fd) == -1)
 		fprintf(stderr, "msh_redirection() wrong\n"); // error() 수정
 	// msh_set_wordsplit(); //// 더블쿼터 싱글쿼터
-	rtn = msh_run_builtin(cmd_nd->right);
+	rtn = msh_run_builtin(cmd_nd->right); // msh_run_builin_cmd();
 	if (rtn != -1)
 		exit(rtn);
 	// $? 이거 어디다 저장해두나요..? ? ? ? ?  ?
 
 	msh_run_simp_cmd(cmd_nd->right, env_path); //envp_path...
 
-	return (1); // someting wrong
+	// bash: syntax error near unexpected token `>>'
+
+	//	./a.txt: No such file or directory
+	//	bash: ---: command not found
+	
+	fprintf(stderr, "errrorororo %s errno%d\n", strerror(errno), errno);
+
+	return (127); // someting wrong
 }
 
 int	msh_run_simp_cmd(t_node *cmd_nd, char **env_path)
@@ -39,6 +47,7 @@ int	msh_run_simp_cmd(t_node *cmd_nd, char **env_path)
 	file_path = msh_get_cmd_path(cmd_nd->str1, env_path);
 	cmd_argv = ft_split(cmd_nd->str2, ' ');
 	execve(file_path, cmd_argv, env_path);
+	// errno 읽어야한다... 
 	return (-1);
 }
 
