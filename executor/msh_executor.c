@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:41 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/03 15:20:41 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/03 15:34:08 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int	msh_nopipe_builtin(t_tree *tree) // + envp_list;
 //
 	return (rtn);
 }
-
 
 ////////////////////////////
 
