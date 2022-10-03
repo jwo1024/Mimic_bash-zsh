@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:14:37 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/03 13:54:21 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/03 15:23:34 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	msh_set_redirection(t_node *redirct_nd, int	*fd)
 	return (1);
 }
 
-int	*msh_nopipe_builtin_redirection(t_node *redirct_nd) 
+int	*msh_nopipe_builtin_redirection(t_node *redirct_nd) // 이걸 일반적으로 만들고 
 {
 	int	*fd;
 	
