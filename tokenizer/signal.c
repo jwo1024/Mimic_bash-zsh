@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:40:39 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/09/23 19:32:48 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/04 18:22:58 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	do_sigint(pid_t pid)
 		rl_redisplay();
 	}
 	else
-		ft_putstr_fd("", 1);
+		ft_putstr_fd("\n", 1);
 }
 
 void	do_sigquit(pid_t pid)
@@ -54,7 +54,7 @@ void	do_sigquit(pid_t pid)
 		ft_putstr_fd("  \b\b", 1);
 	}
 	else
-		ft_putstr_fd("exit\n", 1);
+		ft_putstr_fd("Quit: 3\n", 1);
 }
 
 void	do_sigterm(void)
