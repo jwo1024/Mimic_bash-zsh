@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:07:12 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/09/30 14:51:18 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/04 20:17:21 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	do_sigint(pid_t pid);
 void	do_sigquit(pid_t pid);
 void	do_sigterm(void);
 /*get_env*/
-t_list	*get_env(char **envp);
+char	**get_env(char **envp);
 /*utils*/
 void	ft_putstr_fd(char *s, int fd);
 
@@ -62,13 +62,17 @@ int		do_pwd(int fd);
 int		check_word(char *word);
 int		do_exit(char *word);
 int		do_echo(char *word, int fd);
-int		do_env(t_list *env_list, int fd);
+int		do_env(char **env_list, int fd);
 int		do_cd(char *s, int fd);
 int		check_opt(char *s);
 int		check_dequot(char *s);
 int		find_equal(char *word);
 char	*del_dequot(char *s);
 void	do_del_dequot(char *new_str, char *s, char c, t_index *idx);
+char	**do_export(char *word, char **env_list, int fd);
+char	**change_env(char *str, char **env_list);
+int		check_export_word(char *word, int fd);
+int		check_dup(char *str, char *env_list);
 
 /* msh_executor */
 int		msh_executor(t_tree *tree, char **envp_list);

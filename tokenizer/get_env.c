@@ -6,27 +6,29 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 23:31:54 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/09/27 21:29:37 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/03 18:12:42 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_list	*get_env(char **envp)
+char	**get_env(char **envp)
 {
-	t_list	*list_head;
-	t_list	*new;
+	char	**list;
 	int		i;
 
 	i = 0;
 	while (envp[i])
 		i++;
+	list = malloc(sizeof(char *) * (i + 1));
+	if (list == NULL)
+		return (NULL);
 	i = 0;
 	while (envp[i])
 	{
-		new = ft_lstnew(ft_strdup(envp[i]));
-		ft_lstadd_back(&list_head, new);
+		list[i] = ft_strdup(envp[i]);
 		i++;
 	}
-	return (list_head);
+	list[i] = NULL;
+	return (list);
 }

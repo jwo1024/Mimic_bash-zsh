@@ -6,7 +6,7 @@
 #    By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 16:37:49 by jaeyjeon          #+#    #+#              #
-#    Updated: 2022/09/30 14:52:02 by jaeyjeon         ###   ########.fr        #
+#    Updated: 2022/10/03 18:13:20 by jaeyjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,8 @@ SRC3			= ./tokenizer/tokenizer.c \
 				  ./builtin/do_echo.c \
 				  ./builtin/builtin_utils.c \
 				  ./builtin/do_env.c \
-				  ./builtin/do_cd.c
+				  ./builtin/do_cd.c \
+				  ./builtin/do_export.c
 
 SRCS			= $(SRC1) $(SRC2) $(SRC3)
 

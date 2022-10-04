@@ -6,30 +6,25 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:04:58 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/09/29 16:00:25 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/03 20:31:51 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	do_env(t_list *env_list, int fd)
+int	do_env(char **env_list, int fd)
 {
-	t_list	*curr;
+	int	i;
 
-	curr = env_list;
-	while (curr->next != NULL)
+	i = 0;
+	while (env_list[i] != NULL)
 	{
-		if (find_equal(curr->content))
+		if (find_equal(env_list[i]))
 		{
-			ft_putstr_fd((char *)(curr->content), fd);
+			ft_putstr_fd(env_list[i], fd);
 			ft_putstr_fd("\n", fd);
-			curr = curr->next;
 		}
-	}
-	if (find_equal(curr->content))
-	{
-		ft_putstr_fd((char *)(curr->content), fd);
-		ft_putstr_fd("\n", fd);
+		i++;
 	}
 	return (0);
 }
