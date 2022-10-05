@@ -6,7 +6,7 @@
 #    By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 16:37:49 by jaeyjeon          #+#    #+#              #
-#    Updated: 2022/10/03 13:52:41 by jiwolee          ###   ########seoul.kr   #
+#    Updated: 2022/10/05 21:35:20 by jiwolee          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME			= minishell
 
 CC				= cc
 RM				= rm -rf
-CFLAGS			= -Wall -Wextra -Werror
+CFLAGS			= -Wall -Wextra -Werror -g
 
 READLINE_LIB	= -lreadline -L/opt/homebrew/opt/readline/lib
 READLINE_INC	= -I/opt/homebrew/opt/readline/include
@@ -33,7 +33,8 @@ SRC2			= ./msh_tree/msh_tree.c \
 				  ./executor/msh_executor.c \
 				  ./executor/msh_run_cmd.c \
 				  ./executor/msh_redirection.c \
-				  ./executor/msh_error.c
+				  ./executor/msh_error.c \
+				  ./executor/msh_run_builtin.c
 
 SRC3			= ./tokenizer/tokenizer.c \
 				  ./tokenizer/utils.c \
