@@ -28,7 +28,6 @@ int	msh_run_builtin(t_node *simp_cmd, int *fd, char **envp_list)
 	{ 
 		fprintf(stderr, "builtin cmd echo \n");
 		rtn = do_echo(simp_cmd->str2, fd[STD_OUT]);
-
 	}
 	else if(ft_strncmp(simp_cmd->str1, "cd", 3) == 0)
 	{

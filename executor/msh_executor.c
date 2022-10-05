@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:41 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/05 22:11:23 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/05 23:25:36 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	msh_executor(t_tree *tree, char **envp_list) // env..
 	env_path = msh_executor_get_path(envp_list);
 	rtn = -1;
 	if (tree->top->right == NULL) // redirection 이 있으면 ? 여기서 처리하면 안되는 건가.
-		rtn = msh_nopipe_builtin(tree);
+		rtn = msh_nopipe_builtin(tree, envp_list);
 	if (rtn == -1) // 1개 cmd이면서 builtin이면 -1이 아닌 수를 뱉는다. 
 	{
 		pids = msh_executor_malloc_pids(tree);
