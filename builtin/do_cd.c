@@ -6,13 +6,14 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:33:47 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/09/29 15:49:38 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/05 02:26:52 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "tokenizer.h"
 
+// pwd, oldpwd 값 바뀌는거 수정해야함
 int	do_cd(char *s, int fd)
 {
 	char	*dir;

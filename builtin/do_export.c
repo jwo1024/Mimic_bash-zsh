@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:52:20 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/04 20:51:26 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/04 21:02:05 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,23 +81,12 @@ int	check_export_word(char *word, int fd)
 	while (word[i] != '=' && word[i] != '\0')
 		i++;
 	if (ft_isalpha(word[0]) == 0 && word[0] != '_')
-	{
-		ft_putstr_fd("export: not an identifier: ", fd);
-		write(2, word, i);
-		ft_putstr_fd("\n", fd);
-		free(word);
-		return (1);
-	}
+		return (error_print_export("export: not an identifier: ", word, fd, i));
 	while (word[j] != '\0' && word[j] != '=')
 	{
 		if (!(ft_isalnum(word[j]) || word[j] == '_'))
-		{
-			ft_putstr_fd("export: not valid in this context:", fd);
-			write(2, word, i);
-			ft_putstr_fd("\n", fd);
-			free(word);
-			return (1);
-		}
+			return (error_print_export("export: not valid in this context: ", \
+			word, fd, i));
 		j++;
 	}
 	if (find_equal(word) == 0)
@@ -125,4 +114,13 @@ int	check_dup(char *str, char *env)
 			return (1);
 	}
 	return (0);
+}
+
+int	error_print_export(char *str, char *word, int fd, int i)
+{
+	ft_putstr_fd(str, fd);
+	write(fd, word, i);
+	ft_putstr_fd("\n", fd);
+	free(word);
+	return (1);
 }

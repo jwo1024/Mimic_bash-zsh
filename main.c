@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 18:28:02 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/05 23:26:35 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/06 04:01:42 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,10 @@ int	main(int argc, char *argv[], char *envp[])
 		{
 			if (str[0] != '\0')
 			{
-				envp_list = do_export("export QQ0ASD=12334 _BBV=300 0QQASD=9393 IU=4242 asd=123bcd=123", envp_list, 1);
-				do_env(envp_list, 1);
 				add_history(str);
 				tree = msh_parser(msh_start_tokenize(str));
 				exit_status = msh_executor(tree, envp_list);
+				(void)exit_status;
 				msh_tree_delete(tree);
 			}
 			continue ;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:07:12 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/05 23:12:35 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/06 04:00:58 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@
 # include <termios.h>
 # include "../libft/libft.h"
 # include "msh_tree.h"
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/stat.h>
-#include <errno.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <sys/stat.h>
+# include <errno.h>
 
 enum	e_pipe_fd {
 	PIPE_OUT = 0,
@@ -57,24 +57,6 @@ t_node	*msh_parse_get_tokens_top(t_tree *tree);
 int		msh_parse_add_redirect(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd);
 int		msh_parse_add_pipe_cmd(t_tree *tree, t_tree *tokens, t_node *cur_pipe_nd);
 int		msh_parse_add_simcmd(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd);
-
-/*builtin*/
-int		do_pwd(int fd);
-int		check_word(char *word);
-int		do_exit(char *word);
-int		do_echo(char *word, int fd);
-int		do_env(char **env_list, int fd);
-int		do_cd(char *s, int fd);
-int		check_opt(char *s);
-int		check_dequot(char *s);
-int		find_equal(char *word);
-char	*del_dequot(char *s);
-void	do_del_dequot(char *new_str, char *s, char c, t_index *idx);
-char	**do_export(char *word, char **env_list, int fd);
-char	**change_env(char *str, char **env_list);
-int		check_export_word(char *word, int fd);
-int		check_dup(char *str, char *env_list);
-
 
 /* msh_executor */
 int		msh_executor(t_tree *tree, char **envp_list);
