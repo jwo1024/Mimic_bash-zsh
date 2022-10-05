@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+         #
+#    By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 16:37:49 by jaeyjeon          #+#    #+#              #
-#    Updated: 2022/10/03 18:13:20 by jaeyjeon         ###   ########.fr        #
+#    Updated: 2022/10/05 22:19:34 by jiwolee          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,9 @@ SRC2			= ./msh_tree/msh_tree.c \
 				  ./parser/msh_parser2.c \
 				  ./executor/msh_executor.c \
 				  ./executor/msh_run_cmd.c \
-				  ./executor/msh_redirection.c
+				  ./executor/msh_redirection.c \
+				  ./executor/msh_error.c \
+				  ./executor/msh_run_builtin.c
 
 SRC3			= ./tokenizer/tokenizer.c \
 				  ./tokenizer/utils.c \
