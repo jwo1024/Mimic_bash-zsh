@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:07:12 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/05 22:27:31 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/05 23:12:35 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int		check_dup(char *str, char *env_list);
 
 /* msh_executor */
 int		msh_executor(t_tree *tree, char **envp_list);
-pid_t	*msh_executor_fork(t_node *pipe_nd, char **env_path, pid_t *pids);
+pid_t	*msh_executor_fork(t_node *pipe_nd, char **envp_list, pid_t *pids);
 int		msh_executor_wait_child(int *pids);
 char	**msh_executor_get_path(char **envp_list);
 pid_t	*msh_executor_malloc_pids(t_tree *tree);
@@ -86,8 +86,8 @@ int		msh_exit_status(int statloc);
 
 /* msh_run_cmd */
 int		msh_run_cmd(t_node *cmd_nd, int fd[2], char **envp_list);
-int		msh_run_simp_cmd(t_node *cmd_nd, char **env_path);
-char	*msh_get_cmd_path(char *cmd, char **env_path);
+int		msh_run_simp_cmd(t_node *cmd_nd, char **envp_list);
+char	*msh_get_cmd_path(char *cmd, char **envp_list);
 
 /* msh _redirection */
 int		msh_redirection(t_node *redirct_nd, int *fd);
@@ -102,8 +102,8 @@ int		*msh_nopipe_builtin_redirection(t_node *redirct_nd);
 void	msh_print_errno(char *str);
 
 /* msh_run_builtin.c */
-int		msh_run_builtin(t_node *cmd_nd, int *fd);
-int		msh_nopipe_builtin(t_tree *tree);
+int		msh_run_builtin(t_node *simp_cmd, int *fd, char **envp_list);
+int		msh_nopipe_builtin(t_tree *tree, char **envp_list);
 int		msh_is_builtin(t_node *simp_cmd_nd);
 int		*msh_init_fd(void) ;
 

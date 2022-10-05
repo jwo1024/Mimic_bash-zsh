@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 18:28:02 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/04 20:39:07 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/05 23:08:41 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int argc, char *argv[], char *envp[])
 				do_env(envp_list, 1);
 				add_history(str);
 				tree = msh_parser(msh_start_tokenize(str));
-				msh_executor(tree, envp); // envp_list 대신 임시
+				msh_executor(tree, envp_list);
 				msh_tree_delete(tree);
 			}
 			continue ;

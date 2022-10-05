@@ -14,7 +14,7 @@
 #include "minishell.h"
 
 
-int	msh_run_builtin(t_node *simp_cmd, int *fd)
+int	msh_run_builtin(t_node *simp_cmd, int *fd, char **envp_list)
 {
 	int	rtn;
 
@@ -47,7 +47,7 @@ int	msh_run_builtin(t_node *simp_cmd, int *fd)
 	else if(ft_strncmp(simp_cmd->str1, "env", 4) == 0)
 	{
 		fprintf(stderr, "\nbuiltin cmd env\n");
-		// do_env(env_list, fd);
+		rtn = do_env(envp_list, fd[STD_OUT]);
 	}
 	else if(ft_strncmp(simp_cmd->str1, "exit", 5) == 0)
 	{
@@ -60,7 +60,7 @@ int	msh_run_builtin(t_node *simp_cmd, int *fd)
 }
 
 
-int	msh_nopipe_builtin(t_tree *tree) // + envp_list;
+int	msh_nopipe_builtin(t_tree *tree, char **envp_list) // + envp_list;
 {
 	int		rtn;
 	t_node	*cmd_nd;
@@ -79,7 +79,7 @@ int	msh_nopipe_builtin(t_tree *tree) // + envp_list;
 		return (-1);
 	msh_set_redirection(cmd_nd->left, fd);
 
-	rtn = msh_run_builtin(sim_cmd_nd, fd);
+	rtn = msh_run_builtin(sim_cmd_nd, fd, envp_list);
 	if (rtn == -1) // envp_list
 		fprintf(stderr, "cant be happen msh_nopipe_builtin()\n");
 
