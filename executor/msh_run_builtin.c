@@ -28,6 +28,8 @@ int	msh_run_builtin(t_node *simp_cmd, int *fd, char **envp_list)
 	{ 
 		fprintf(stderr, "builtin cmd echo \n");
 		rtn = do_echo(simp_cmd->str2, fd[STD_OUT]);
+		fprintf(stderr, "\nfinish builtin cmd echo%d\n", fd[STD_OUT]);
+
 	}
 	else if(ft_strncmp(simp_cmd->str1, "cd", 3) == 0)
 	{
@@ -40,13 +42,19 @@ int	msh_run_builtin(t_node *simp_cmd, int *fd, char **envp_list)
 		rtn = do_pwd(fd[STD_OUT]);
 	}
 	else if(ft_strncmp(simp_cmd->str1, "export", 7) == 0)
+	{
 		fprintf(stderr, "builtin cmd export\n");
+		do_export(simp_cmd->str2, fd[STD_OUT]);
+		rtn = 0;
+	}
 	else if(ft_strncmp(simp_cmd->str1, "unset", 6) == 0)
 		fprintf(stderr, "builtin cmd unset\n");
 	else if(ft_strncmp(simp_cmd->str1, "env", 4) == 0)
 	{
-		fprintf(stderr, "\nbuiltin cmd env\n");
-		rtn = do_env(envp_list, fd[STD_OUT]);
+		fprintf(stderr, "\nbuiltin cmd env\n"); // env ls 실행되어야함
+		rtn = do_env(envp_list, fd[STD_OUT]); // env | cat -e 파이프로 안넘어감 왜?
+		fprintf(stderr, "\nfinish builtin cmd env %d\n", fd[STD_OUT]);
+
 	}
 	else if(ft_strncmp(simp_cmd->str1, "exit", 5) == 0)
 	{
@@ -96,7 +104,7 @@ int	msh_is_builtin(t_node *simp_cmd_nd)
 {
 	if (simp_cmd_nd == NULL || simp_cmd_nd->str1 == NULL)
 		return (-1);
-	if (ft_strncmp(simp_cmd_nd->str1, "echo", 5) == 0) // fd 어떻게 넘겨줘..? 
+	if (ft_strncmp(simp_cmd_nd->str1, "echo", 5) == 0)
 		;
 	else if(ft_strncmp(simp_cmd_nd->str1, "cd", 3) == 0)
 		;

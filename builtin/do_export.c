@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   do_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:52:20 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/04 21:02:05 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/06 21:12:04 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**do_export(char *word, char **env_list, int fd)
+char	**do_export(char *word, int fd)
 {
 	char	*copy_word;
 	char	*part;
@@ -27,13 +27,13 @@ char	**do_export(char *word, char **env_list, int fd)
 		part = ft_substr(copy_word, idx->j, idx->i - idx->j);
 		if (check_export_word(part, fd))
 			break ;
-		env_list = change_env(part, env_list);
+		envp_list = change_env(part, envp_list);
 		if (copy_word[idx->i] == ' ')
 			idx->i++;
 		idx->j = idx->i;
 	}
 	free (copy_word);
-	return (env_list);
+	return (NULL);
 }
 
 // 아무것도 안들어있으면 ABC순 정렬해서 env 출력해야함

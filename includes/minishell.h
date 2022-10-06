@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:07:12 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/06 04:00:58 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/06 21:12:45 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ enum	e_pipe_fd {
 	STD_OUT = 1,
 	STD_ERROR = 2
 };
+
+	static char	**envp_list;
+
 
 /*signal*/
 void	set_signal(void);;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:04:58 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/03 20:31:51 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/06 22:03:17 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	do_env(char **env_list, int fd)
 	int	i;
 
 	i = 0;
+//		ft_putstr_fd(env_list[i], fd);
+
 	while (env_list[i] != NULL)
 	{
 		if (find_equal(env_list[i]))
@@ -26,6 +28,9 @@ int	do_env(char **env_list, int fd)
 		}
 		i++;
 	}
+	fprintf(stderr, "\nwhy1?\n");
+	fprintf(stdout, "\nwhy2?\n");
+
 	return (0);
 }
 

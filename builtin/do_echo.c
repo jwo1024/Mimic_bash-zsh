@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 15:21:27 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/09/27 21:02:45 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/06 21:24:49 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ int	do_echo(char *word, int fd)
 	if (opt == 0 && copy_str[opt] != '\0')
 		ft_putstr_fd("\n", fd);
 	free (copy_str);
+
+	fprintf(stderr, "why1?\n");
+	fprintf(stdout, "why2?\n");
+
 	return (0);
 }
 

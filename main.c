@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 18:28:02 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/06 04:01:42 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/06 21:18:01 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 #include "tokenizer.h"
 #include "msh_tree.h"
 
+
+
 int	main(int argc, char *argv[], char *envp[])
 {
 	char	*str;
-	char	**envp_list;
 	t_tree	*tree;
 	int		exit_status;
 
@@ -37,6 +38,7 @@ int	main(int argc, char *argv[], char *envp[])
 				exit_status = msh_executor(tree, envp_list);
 				(void)exit_status;
 				msh_tree_delete(tree);
+				fprintf(stderr, "exit status %d\n", exit_status);
 			}
 			continue ;
 		}

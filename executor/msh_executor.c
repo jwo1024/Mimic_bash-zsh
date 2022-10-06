@@ -6,22 +6,24 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:41 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/05 23:25:36 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/06 17:10:01 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "msh_tree.h"
 
-int	msh_executor(t_tree *tree, char **envp_list) // env.. 
+int	msh_executor(t_tree *tree, char **envp_list)
 {
 	pid_t	*pids;
 	int		rtn;
 	char	**env_path;
 
+	if (tree == NULL)
+		return (258); // syntax error
 	env_path = msh_executor_get_path(envp_list);
 	rtn = -1;
-	if (tree->top->right == NULL) // redirection 이 있으면 ? 여기서 처리하면 안되는 건가.
+	if (tree->top->right == NULL)
 		rtn = msh_nopipe_builtin(tree, envp_list);
 	if (rtn == -1) // 1개 cmd이면서 builtin이면 -1이 아닌 수를 뱉는다. 
 	{
@@ -40,9 +42,9 @@ int	msh_executor(t_tree *tree, char **envp_list) // env..
 /* fork wait*/
 pid_t	*msh_executor_fork(t_node *pipe_nd, char **env_path, pid_t *pids)
 {
-	int		i;
-	int		pipe_fd[2];
-	int		*fd; // int *fd; fd[3]
+	int	i;
+	int	pipe_fd[2];
+	int	*fd;
 
 	i = 0;
 	fd = msh_init_fd();
@@ -141,8 +143,8 @@ pid_t	*msh_executor_malloc_pids(t_tree *tree)
 
 int	msh_exit_status(int statloc)
 {
-	if (statloc << 8 == 0)
-		return (statloc >> 8); // exit status ? 127이 왜 안나오는지 모르겟다. (아 내가 따로 처리해줘야하나 parser?)
-	fprintf(stderr, "exit err\n");
-	return (statloc >> 8); // signal no ? 
+	if ((statloc & 255) == 0)
+		return ((statloc & 65280) >> 8);
+	fprintf(stderr, "exit status error %d, %d, %d\n", statloc & 255, statloc >> 8, statloc << 8);
+	return ((statloc & 127) + 128); // signal no + 128
 }

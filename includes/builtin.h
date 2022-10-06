@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:49:11 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/06 04:02:18 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/06 21:11:57 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		check_dequot(char *s);
 int		find_equal(char *word);
 char	*del_dequot(char *s);
 void	do_del_dequot(char *new_str, char *s, char c, t_index *idx);
-char	**do_export(char *word, char **env_list, int fd);
+char	**do_export(char *word, int fd);
 char	**change_env(char *str, char **env_list);
 int		check_export_word(char *word, int fd);
 int		check_dup(char *str, char *env_list);

@@ -6,7 +6,7 @@
 #    By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 16:37:49 by jaeyjeon          #+#    #+#              #
-#    Updated: 2022/10/05 22:19:34 by jiwolee          ###   ########seoul.kr   #
+#    Updated: 2022/10/06 21:13:05 by jiwolee          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME			= minishell
 
 CC				= cc
 RM				= rm -rf
-CFLAGS			= -Wall -Wextra -Werror
+CFLAGS			= -Wall -Wextra -Werror -g
 
 READLINE_LIB	= -lreadline -L/opt/homebrew/opt/readline/lib
 READLINE_INC	= -I/opt/homebrew/opt/readline/include
