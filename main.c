@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 18:28:02 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/06 20:23:31 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/06 20:35:50 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	main(int argc, char *argv[], char *envp[])
 		{
 			if (str[0] != '\0')
 			{
+				add_history(str);
 				tree = msh_parser(msh_start_tokenize(str));
 				exit_status = msh_executor(tree, envp_list);
 				(void)exit_status;

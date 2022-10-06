@@ -42,8 +42,7 @@ int	msh_run_builtin(t_node *simp_cmd, int *fd, char **envp_list)
 	else if(ft_strncmp(simp_cmd->str1, "export", 7) == 0)
 	{
 		fprintf(stderr, "builtin cmd export\n");
-		envp_list = do_export(simp_cmd->str2, envp_list, fd[STD_OUT]);
-		rtn = 0;
+		rtn = do_export(simp_cmd->str2, envp_list, fd[STD_OUT]);
 	}
 	else if(ft_strncmp(simp_cmd->str1, "unset", 6) == 0)
 		fprintf(stderr, "builtin cmd unset\n");
