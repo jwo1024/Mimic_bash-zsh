@@ -6,15 +6,14 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:52:20 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/06 20:35:11 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/06 21:44:33 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	do_export(char *word, char **env_list, int fd)
+int	do_export(char *word, int fd)
 {
-	char	**save_env;
 	char	*copy_word;
 	char	*part;
 	t_index	*idx;
@@ -22,7 +21,7 @@ int	do_export(char *word, char **env_list, int fd)
 	idx = make_idx();
 	copy_word = ft_strdup(&word[7]);
 	if (word[6] == '\0')
-		print_env(env_list, fd);
+		print_env(fd);
 	while (copy_word[idx->j] != '\0')
 	{
 		while (copy_word[idx->i] != '\0' && copy_word[idx->i] != ' ')
@@ -30,9 +29,7 @@ int	do_export(char *word, char **env_list, int fd)
 		part = ft_substr(copy_word, idx->j, idx->i - idx->j);
 		if (check_export_word(part, fd))
 			break ;
-		save_env = change_env(part, env_list); // 여기서 교환하는 과정에 제대로 안되는듯
-		free(env_list);
-		env_list = save_env;
+		g_envp_list = change_env(part);
 		if (copy_word[idx->i] == ' ')
 			idx->i++;
 		idx->j = idx->i;
@@ -41,8 +38,8 @@ int	do_export(char *word, char **env_list, int fd)
 	return (0);
 }
 
-// 아무것도 안들어있으면 ABC순 정렬해서 env 출력해야함
-char	**change_env(char *str, char **env_list)
+// env_list 전역변수로 수정하기
+char	**change_env(char *str)
 {
 	char	**new_list;
 	int		i;
@@ -51,27 +48,28 @@ char	**change_env(char *str, char **env_list)
 
 	i = 0;
 	j = 0;
-	while (env_list[i] != NULL)
+	while (g_envp_list[i] != NULL)
 		i++;
 	oldsize = i - 1;
 	new_list = malloc_env(i + 3);
 	if (new_list == NULL)
-		return (env_list);
+		return (g_envp_list);
 	i = 0;
-	while (env_list[i] != NULL)
+	while (g_envp_list[i] != NULL)
 	{
-		if (check_dup(str, env_list[i]))
+		if (check_dup(str, g_envp_list[i]))
 		{
-			free(env_list[i]);
-			env_list[i] = str;
+			free(g_envp_list[i]);
+			g_envp_list[i] = str;
 			free_env(new_list);
-			return (env_list);
+			return (g_envp_list);
 		}
 		if (i == oldsize)
 			new_list[j++] = str;
-		new_list[j++] = ft_strdup(env_list[i++]);
+		new_list[j++] = ft_strdup(g_envp_list[i++]);
 	}
 	new_list[j] = NULL;
+	free_env(g_envp_list);
 	return (new_list);
 }
 

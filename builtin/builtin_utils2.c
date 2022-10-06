@@ -6,18 +6,18 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 17:57:21 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/06 17:58:29 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/06 21:36:52 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_env(char **env_list, int fd)
+void	print_env(int fd)
 {
 	char	**copy_env;
 	int		i;
 
-	copy_env = sort_env(env_list);
+	copy_env = sort_env();
 	i = 0;
 	while (copy_env[i] != NULL)
 	{
@@ -27,7 +27,7 @@ void	print_env(char **env_list, int fd)
 	free_env(copy_env);
 }
 
-char	**sort_env(char **env_list)
+char	**sort_env(void)
 {
 	int		i;
 	int		j;
@@ -35,12 +35,12 @@ char	**sort_env(char **env_list)
 	char	*temp;
 
 	i = 0;
-	while (env_list[i] != NULL)
+	while (g_envp_list[i] != NULL)
 		i++;
 	new = malloc_env(i + 1);
 	i = -1;
-	while (env_list[++i] != NULL)
-		new[i] = ft_strdup(env_list[i]);
+	while (g_envp_list[++i] != NULL)
+		new[i] = ft_strdup(g_envp_list[i]);
 	i = -1;
 	while (new[++i] != NULL)
 	{

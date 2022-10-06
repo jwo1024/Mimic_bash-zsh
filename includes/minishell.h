@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:07:12 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/06 20:34:03 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/06 21:24:38 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # include <fcntl.h>
 # include <sys/stat.h>
 # include <errno.h>
+
+char	**g_envp_list;
 
 enum	e_pipe_fd {
 	PIPE_OUT = 0,

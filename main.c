@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 18:28:02 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/06 20:35:50 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/06 21:39:32 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,12 @@
 int	main(int argc, char *argv[], char *envp[])
 {
 	char	*str;
-	char	**envp_list;
 	t_tree	*tree;
 	int		exit_status;
 
 	(void)argc;
 	(void)argv;
-	envp_list = get_env(envp);
+	g_envp_list = get_env(envp);
 	set_signal();
 	while (1)
 	{
@@ -34,7 +33,7 @@ int	main(int argc, char *argv[], char *envp[])
 			{
 				add_history(str);
 				tree = msh_parser(msh_start_tokenize(str));
-				exit_status = msh_executor(tree, envp_list);
+				exit_status = msh_executor(tree, g_envp_list);
 				(void)exit_status;
 				msh_tree_delete(tree);
 			}

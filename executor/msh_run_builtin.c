@@ -19,6 +19,7 @@ int	msh_run_builtin(t_node *simp_cmd, int *fd, char **envp_list)
 	int	rtn;
 
 	rtn = 0;
+	(void)envp_list;
 	if (simp_cmd->str1 == NULL)
 		return (-1);
 	if (fd == NULL) // 나중에 지우기
@@ -32,7 +33,7 @@ int	msh_run_builtin(t_node *simp_cmd, int *fd, char **envp_list)
 	else if(ft_strncmp(simp_cmd->str1, "cd", 3) == 0)
 	{
 		fprintf(stderr, "\nbuiltin cmd cd\n");
-		rtn = do_cd(simp_cmd->str2, envp_list, fd[STD_ERROR]);
+		rtn = do_cd(simp_cmd->str2, fd[STD_ERROR]);
 	}
 	else if(ft_strncmp(simp_cmd->str1, "pwd", 3) == 0)
 	{
@@ -42,14 +43,17 @@ int	msh_run_builtin(t_node *simp_cmd, int *fd, char **envp_list)
 	else if(ft_strncmp(simp_cmd->str1, "export", 7) == 0)
 	{
 		fprintf(stderr, "builtin cmd export\n");
-		rtn = do_export(simp_cmd->str2, envp_list, fd[STD_OUT]);
+		rtn = do_export(simp_cmd->str2, fd[STD_OUT]);
 	}
 	else if(ft_strncmp(simp_cmd->str1, "unset", 6) == 0)
+	{
 		fprintf(stderr, "builtin cmd unset\n");
+		rtn = do_unset(simp_cmd->str2, fd[STD_ERROR]);
+	}
 	else if(ft_strncmp(simp_cmd->str1, "env", 4) == 0)
 	{
 		fprintf(stderr, "\nbuiltin cmd env\n");
-		rtn = do_env(envp_list, fd[STD_OUT]);
+		rtn = do_env(fd[STD_OUT]);
 	}
 	else if(ft_strncmp(simp_cmd->str1, "exit", 5) == 0)
 	{
