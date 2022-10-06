@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   msh_executor.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:41 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/05 23:25:36 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/06 19:20:36 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "msh_tree.h"
 
-int	msh_executor(t_tree *tree, char **envp_list) // env.. 
+int	msh_executor(t_tree *tree, char **envp_list) // env..
 {
 	pid_t	*pids;
 	int		rtn;
@@ -23,7 +23,7 @@ int	msh_executor(t_tree *tree, char **envp_list) // env..
 	rtn = -1;
 	if (tree->top->right == NULL) // redirection 이 있으면 ? 여기서 처리하면 안되는 건가.
 		rtn = msh_nopipe_builtin(tree, envp_list);
-	if (rtn == -1) // 1개 cmd이면서 builtin이면 -1이 아닌 수를 뱉는다. 
+	if (rtn == -1) // 1개 cmd이면서 builtin이면 -1이 아닌 수를 뱉는다.
 	{
 		pids = msh_executor_malloc_pids(tree);
 		if (pids == NULL)
@@ -32,7 +32,7 @@ int	msh_executor(t_tree *tree, char **envp_list) // env..
 			msh_executor_fork(tree->top, env_path, pids);
 		rtn = msh_executor_wait_child(pids);
 	}
-	// $?시 출력할 rtn 저장.. 
+	// $?시 출력할 rtn 저장..
 
 	return (rtn);
 }
@@ -50,12 +50,12 @@ pid_t	*msh_executor_fork(t_node *pipe_nd, char **env_path, pid_t *pids)
 	{
 		if (pipe_nd->right)
 		{
-			pipe(pipe_fd); // if -1 ? 
-			fd[STD_OUT] = pipe_fd[PIPE_IN]; 
+			pipe(pipe_fd); // if -1 ?
+			fd[STD_OUT] = pipe_fd[PIPE_IN];
 		}
 		else
 			fd[STD_OUT] = STD_OUT;
-	
+
 
 		pids[i] = fork();
 		if (pids[i++] == 0)
@@ -64,7 +64,7 @@ pid_t	*msh_executor_fork(t_node *pipe_nd, char **env_path, pid_t *pids)
 				close(pipe_fd[PIPE_OUT]);
 			exit(msh_run_cmd(pipe_nd->left, fd, env_path));
 		}
-	
+
 
 		if (fd[STD_IN] > 2)
 				close(fd[STD_IN]);
@@ -144,5 +144,5 @@ int	msh_exit_status(int statloc)
 	if (statloc << 8 == 0)
 		return (statloc >> 8); // exit status ? 127이 왜 안나오는지 모르겟다. (아 내가 따로 처리해줘야하나 parser?)
 	fprintf(stderr, "exit err\n");
-	return (statloc >> 8); // signal no ? 
+	return (statloc >> 8); // signal no ?
 }

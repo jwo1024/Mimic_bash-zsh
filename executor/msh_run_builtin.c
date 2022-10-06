@@ -25,14 +25,14 @@ int	msh_run_builtin(t_node *simp_cmd, int *fd, char **envp_list)
 		return (-1);
 
 	if (ft_strncmp(simp_cmd->str1, "echo", 5) == 0)
-	{ 
+	{
 		fprintf(stderr, "builtin cmd echo \n");
 		rtn = do_echo(simp_cmd->str2, fd[STD_OUT]);
 	}
 	else if(ft_strncmp(simp_cmd->str1, "cd", 3) == 0)
 	{
 		fprintf(stderr, "\nbuiltin cmd cd\n");
-		rtn = do_cd(simp_cmd->str2, fd[STD_ERROR]);
+		rtn = do_cd(simp_cmd->str2, envp_list, fd[STD_ERROR]);
 	}
 	else if(ft_strncmp(simp_cmd->str1, "pwd", 3) == 0)
 	{
@@ -40,7 +40,11 @@ int	msh_run_builtin(t_node *simp_cmd, int *fd, char **envp_list)
 		rtn = do_pwd(fd[STD_OUT]);
 	}
 	else if(ft_strncmp(simp_cmd->str1, "export", 7) == 0)
+	{
 		fprintf(stderr, "builtin cmd export\n");
+		envp_list = do_export(simp_cmd->str2, envp_list, fd[STD_OUT]);
+		rtn = 0;
+	}
 	else if(ft_strncmp(simp_cmd->str1, "unset", 6) == 0)
 		fprintf(stderr, "builtin cmd unset\n");
 	else if(ft_strncmp(simp_cmd->str1, "env", 4) == 0)
@@ -50,7 +54,7 @@ int	msh_run_builtin(t_node *simp_cmd, int *fd, char **envp_list)
 	}
 	else if(ft_strncmp(simp_cmd->str1, "exit", 5) == 0)
 	{
-		fprintf(stderr, "\nbuiltin cmd exit\n");	
+		fprintf(stderr, "\nbuiltin cmd exit\n");
 		exit(0); // 뒤에 숫자가 들어오면 뒤에 숫자로 exit, 아니면 기존 $? 로 exit
 	}
 	else
@@ -72,7 +76,7 @@ int	msh_nopipe_builtin(t_tree *tree, char **envp_list) // + envp_list;
 	fd = msh_init_fd();
 	if (fd == NULL)
 		fprintf(stderr, "msh_nopipe_builtin() fd error\n");
-	if (tree->top->right || sim_cmd_nd == NULL || sim_cmd_nd->str1 == NULL) // 오른쪽이 있거나, NULL이면 처리 
+	if (tree->top->right || sim_cmd_nd == NULL || sim_cmd_nd->str1 == NULL) // 오른쪽이 있거나, NULL이면 처리
 		return (-1);
 	if (msh_is_builtin(sim_cmd_nd) == -1)
 		return (-1);
@@ -96,7 +100,7 @@ int	msh_is_builtin(t_node *simp_cmd_nd)
 {
 	if (simp_cmd_nd == NULL || simp_cmd_nd->str1 == NULL)
 		return (-1);
-	if (ft_strncmp(simp_cmd_nd->str1, "echo", 5) == 0) // fd 어떻게 넘겨줘..? 
+	if (ft_strncmp(simp_cmd_nd->str1, "echo", 5) == 0) // fd 어떻게 넘겨줘..?
 		;
 	else if(ft_strncmp(simp_cmd_nd->str1, "cd", 3) == 0)
 		;
