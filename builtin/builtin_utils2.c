@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 17:57:21 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/06 21:36:52 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/07 14:35:24 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ void	print_env_print_part(char *str, int fd)
 			ft_putstr_fd("\"", fd);
 		i++;
 	}
-	ft_putstr_fd("\"", fd);
+	if (find_equal(str))
+		ft_putstr_fd("\"", fd);
 	ft_putstr_fd("\n", fd);
 	str[0] = -1;
 }

@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:52:20 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/06 21:44:33 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/07 14:38:52 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	do_export(char *word, int fd)
 	return (0);
 }
 
-// env_list 전역변수로 수정하기
 char	**change_env(char *str)
 {
 	char	**new_list;
@@ -83,12 +82,12 @@ int	check_export_word(char *word, int fd)
 	while (word[i] != '=' && word[i] != '\0')
 		i++;
 	if (ft_isalpha(word[0]) == 0 && word[0] != '_')
-		return (error_print_export("minishell: export: not a valid identifier ", word, fd, i));
+		return (error_print_export("not a valid identifier", word, fd));
 	while (word[j] != '\0' && word[j] != '=')
 	{
 		if (!(ft_isalnum(word[j]) || word[j] == '_'))
-			return (error_print_export("minishell: export: not valid in this context: ", \
-			word, fd, i));
+			return (error_print_export("not a valid identifier", \
+			word, fd));
 		j++;
 	}
 	return (0);
@@ -114,10 +113,13 @@ int	check_dup(char *str, char *env)
 	return (0);
 }
 
-int	error_print_export(char *str, char *word, int fd, int i)
+int	error_print_export(char *str, char *word, int fd)
 {
+	ft_putstr_fd("minishell: export: ", fd);
+	write(fd, "`", 1);
+	ft_putstr_fd(word, fd);
+	write(fd, "\': ", 2);
 	ft_putstr_fd(str, fd);
-	write(fd, word, i);
 	ft_putstr_fd("\n", fd);
 	free(word);
 	return (1);

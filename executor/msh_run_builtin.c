@@ -58,7 +58,8 @@ int	msh_run_builtin(t_node *simp_cmd, int *fd, char **envp_list)
 	else if(ft_strncmp(simp_cmd->str1, "exit", 5) == 0)
 	{
 		fprintf(stderr, "\nbuiltin cmd exit\n");
-		exit(0); // 뒤에 숫자가 들어오면 뒤에 숫자로 exit, 아니면 기존 $? 로 exit
+		do_exit(simp_cmd->str2, fd[STD_ERROR]);
+		// 뒤에 숫자가 들어오면 뒤에 숫자로 exit, 아니면 기존 $? 로 exit
 	}
 	else
 		return (-1);

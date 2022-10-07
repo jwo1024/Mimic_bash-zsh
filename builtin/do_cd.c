@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:33:47 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/06 21:39:08 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/07 16:43:29 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ int	do_cd(char *s, int fd)
 	old_pwd = getcwd(NULL, 1024);
 	if (chdir(dir) != 0)
 	{
-		ft_putstr_fd("cd: no such file or directory: ", fd); // 임시
+		ft_putstr_fd("minishell: cd: ", fd); // 임시
 		ft_putstr_fd(dir, fd);
+		ft_putstr_fd(": No such file or directory", fd);
 		ft_putstr_fd("\n", fd);
 		free(old_pwd);
 		free(dir);
