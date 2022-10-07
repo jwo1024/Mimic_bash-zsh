@@ -65,7 +65,6 @@ int	msh_run_builtin(t_node *simp_cmd, int *fd, char **envp_list)
 	return (rtn);
 }
 
-
 int	msh_nopipe_builtin(t_tree *tree, char **envp_list) // + envp_list;
 {
 	int		rtn;
@@ -73,7 +72,7 @@ int	msh_nopipe_builtin(t_tree *tree, char **envp_list) // + envp_list;
 	t_node	*sim_cmd_nd;
 	int		*fd;
 
-	rtn = 0;
+	rtn = 1;
 	cmd_nd = tree->top->left;
 	sim_cmd_nd = cmd_nd->right;
 	fd = msh_init_fd();
@@ -83,11 +82,11 @@ int	msh_nopipe_builtin(t_tree *tree, char **envp_list) // + envp_list;
 		return (-1);
 	if (msh_is_builtin(sim_cmd_nd) == -1)
 		return (-1);
-	msh_set_redirection(cmd_nd->left, fd);
 
-	rtn = msh_run_builtin(sim_cmd_nd, fd, envp_list);
-	if (rtn == -1) // envp_list
-		fprintf(stderr, "cant be happen msh_nopipe_builtin()\n");
+	if (msh_set_redirection(cmd_nd->left, fd))
+		rtn = msh_run_builtin(sim_cmd_nd, fd, envp_list);
+//	if (rtn != 0) // envp_list
+//		fprintf(stderr, "cant be happen msh_nopipe_builtin()\n");
 
 	if (fd[STD_IN] > 2)
 		close(fd[STD_IN]);
@@ -103,7 +102,7 @@ int	msh_is_builtin(t_node *simp_cmd_nd)
 {
 	if (simp_cmd_nd == NULL || simp_cmd_nd->str1 == NULL)
 		return (-1);
-	if (ft_strncmp(simp_cmd_nd->str1, "echo", 5) == 0) // fd 어떻게 넘겨줘..?
+	if (ft_strncmp(simp_cmd_nd->str1, "echo", 5) == 0)
 		;
 	else if(ft_strncmp(simp_cmd_nd->str1, "cd", 3) == 0)
 		;
@@ -116,8 +115,9 @@ int	msh_is_builtin(t_node *simp_cmd_nd)
 	else if(ft_strncmp(simp_cmd_nd->str1, "env", 4) == 0)
 		;
 	else if(ft_strncmp(simp_cmd_nd->str1, "exit", 5) == 0)
-		;
+		write(2, "exit\n", 5); //
 	else
 		return (-1);
 	return (1);
 }
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:07:12 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/06 21:24:38 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/07 16:08:55 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,9 @@ int		msh_set_redirection_open(t_node *redirct_nd, int *fd);
 int		*msh_create_redirect_fd(void);
 
 
-int		*msh_nopipe_builtin_redirection(t_node *redirct_nd);
-
 /* msh_error */
-void	msh_print_errno(char *str);
+int		msh_print_errno(char *str, int *fd);
+int		msh_print_error_str(char *cmd_str, char *error_str, int *fd);
 
 /* msh_run_builtin.c */
 int		msh_run_builtin(t_node *simp_cmd, int *fd, char **envp_list);

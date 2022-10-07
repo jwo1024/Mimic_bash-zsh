@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:47 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/05 23:10:46 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/07 16:00:47 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@ int	msh_run_cmd(t_node *cmd_nd, int *fd, char **envp_list)
 	int	rtn;
 
 	rtn = -1;
-	if (msh_redirection(cmd_nd->left, fd) == -1)
-		fprintf(stderr, "msh_redirection() wrong\n"); // error() 수정
+	if (msh_redirection(cmd_nd->left, fd) == -1) // -1 이 나오는 경우? 
+		return (1);
+
 	// msh_set_wordsplit(); //// 더블쿼터 싱글쿼터
 	rtn = msh_run_builtin(cmd_nd->right, fd, envp_list); // msh_run_builin_cmd();
 	if (rtn != -1)
-		exit(rtn);
+		return (rtn);
 
 	msh_run_simp_cmd(cmd_nd->right, envp_list); //envp_path...
 
@@ -33,9 +34,23 @@ int	msh_run_cmd(t_node *cmd_nd, int *fd, char **envp_list)
 	//	./a.txt: No such file or directory
 	//	bash: ---: command not found
 
-	fprintf(stderr, "minishell: %s: %s: errno%d\n", cmd_nd->right->str1, strerror(errno), errno);
 
-	return (127); // someting wrong (command not found)
+	if (errno == 14) // bad address
+	{
+		msh_print_error_str(cmd_nd->right->str1, "command not found", fd); //str1 이 존재하지 않는 경우도 있나요
+	//	fprintf(stderr, "minishell: %s: command not found: %s errno%d: msh_run_cmd()\n", cmd_nd->right->str1, strerror(errno), errno);
+		return (127);
+	}
+	else if (errno == 13)
+	{
+		msh_print_errno(cmd_nd->right->str1, fd);
+	//	fprintf(stderr, "minishell: %s: %s: errno%d: msh_run_cmd()\n", cmd_nd->right->str1, strerror(errno), errno);
+		return (126);
+	}
+	else
+		fprintf(stderr, "minishell: somethin else wrong: %s: %s: errno%d\n", cmd_nd->right->str1, strerror(errno), errno);
+
+	return (1); 
 }
 
 int	msh_run_simp_cmd(t_node *cmd_nd, char **envp_list)
@@ -46,7 +61,6 @@ int	msh_run_simp_cmd(t_node *cmd_nd, char **envp_list)
 	file_path = msh_get_cmd_path(cmd_nd->str1, envp_list);
 	cmd_argv = ft_split(cmd_nd->str2, ' ');
 	execve(file_path, cmd_argv, envp_list);
-	// errno 읽어야한다... 
 	return (-1);
 }
 
