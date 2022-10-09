@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:21:21 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/09/26 12:58:28 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/09 20:35:32 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	msh_parse_add_pipe_cmd(t_tree *tree, t_tree *tokens, t_node *cur_pipe_nd)
 	else
 		new_pipe = msh_parse_get_tokens_top(tokens);
 	new_pipe->left = msh_tree_create_node(T_CMD, NULL);
+	new_pipe->left->parent = new_pipe;
 	if (cur_pipe_nd == NULL && tree->top == NULL)
 		tree->top = new_pipe;
 	else
