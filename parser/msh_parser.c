@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:02:23 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/09 21:10:36 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/09 21:28:47 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,21 @@ t_tree	*msh_parser(t_tree *tokens)
 	tree = msh_tree_create_tree();
 	msh_parse_add_pipe_cmd(tree, NULL, NULL);
 	cur_pipe = tree->top;
-	rtn = msh_parse_check_type(tree, tokens, &cur_pipe);
-	if (rtn == -1)
+
+	while (1)
 	{
-		printf("syntax error, something wrong\n"); // 체크용 임시. 
-		msh_tree_delete(tree);
-		msh_tree_delete(tokens);
-		return (NULL);
+		rtn = msh_parse_check_type(tree, tokens, &cur_pipe);
+		if (rtn == -1)
+		{
+			printf("syntax error, something wrong\n"); // 체크용 임시. 
+			msh_tree_delete(tree);
+			msh_tree_delete(tokens);
+			return (NULL);
+		}
+		else if (rtn == 0)
+			break ;
+		cur_pipe = cur_pipe->right;
+
 	}
 	msh_tree_delete(tokens);
 	return (tree);
@@ -153,9 +161,9 @@ int	msh_parse_pipe(t_tree *tree, t_tree *tokens, t_node **cur_pipe)
 	next = tokens->top->left;
 	cur_cmd = (*cur_pipe)->left;
 	if (tokens->top->type == T_WORD)
-		rtn = msh_parse_word(tree, tokens, cur_cmd, next);
+		rtn = 1;
 	else if (tokens->top->type == T_REDIR)
-		rtn = msh_parse_redirect(tree, tokens, cur_cmd, next);
+		rtn = 1;
 	else
 	{
 		msh_print_parse_error(tokens->top->str1);
