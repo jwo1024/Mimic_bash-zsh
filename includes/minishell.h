@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:07:12 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/07 16:08:55 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/10 10:07:42 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ int		*msh_create_redirect_fd(void);
 /* msh_error */
 int		msh_print_errno(char *str, int *fd);
 int		msh_print_error_str(char *cmd_str, char *error_str, int *fd);
+void	msh_error_parse(char *str);
+
 
 /* msh_run_builtin.c */
 int		msh_run_builtin(t_node *simp_cmd, int *fd, char **envp_list);
