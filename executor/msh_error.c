@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 13:43:26 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/10 10:10:48 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/10 11:30:00 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	msh_print_errno(char *cmd_str, int *fd)
 	ft_putstr_fd(errno_str, fd[STD_ERROR]);
 	ft_putstr_fd("\n", fd[STD_ERROR]);
 	// ft_strjoin?
-	free(errno_str);
+//	free(errno_str);
 	return (-1);
 }
 
