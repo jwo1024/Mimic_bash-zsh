@@ -6,51 +6,36 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:47 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/07 16:00:47 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/10 13:00:33 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include	<errno.h>
 
-/* run */
 int	msh_run_cmd(t_node *cmd_nd, int *fd, char **envp_list)
 {
 	int	rtn;
 
 	rtn = -1;
-	if (msh_redirection(cmd_nd->left, fd) == -1) // -1 이 나오는 경우? 
+	if (msh_redirection(cmd_nd->left, fd) == -1)
 		return (1);
-
-	// msh_set_wordsplit(); //// 더블쿼터 싱글쿼터
-	rtn = msh_run_builtin(cmd_nd->right, fd, envp_list); // msh_run_builin_cmd();
+	rtn = msh_run_builtin(cmd_nd->right, fd, envp_list);
 	if (rtn != -1)
 		return (rtn);
-
 	msh_run_simp_cmd(cmd_nd->right, envp_list); //envp_path...
-
-	// bash: syntax error near unexpected token `>>' //
-
-	//	./a.txt: No such file or directory
-	//	bash: ---: command not found
-
-
-	if (errno == 14) // bad address
+	if (errno == 14) //str1 이 존재하지 않는 경우도 있나요
 	{
-		msh_print_error_str(cmd_nd->right->str1, "command not found", fd); //str1 이 존재하지 않는 경우도 있나요
-	//	fprintf(stderr, "minishell: %s: command not found: %s errno%d: msh_run_cmd()\n", cmd_nd->right->str1, strerror(errno), errno);
+		msh_print_error_str(cmd_nd->right->str1, "command not found", fd);
 		return (127);
 	}
 	else if (errno == 13)
 	{
 		msh_print_errno(cmd_nd->right->str1, fd);
-	//	fprintf(stderr, "minishell: %s: %s: errno%d: msh_run_cmd()\n", cmd_nd->right->str1, strerror(errno), errno);
 		return (126);
 	}
 	else
-		fprintf(stderr, "minishell: somethin else wrong: %s: %s: errno%d\n", cmd_nd->right->str1, strerror(errno), errno);
-
-	return (1); 
+		msh_print_errno(cmd_nd->right->str1, fd);
+	return (1);
 }
 
 int	msh_run_simp_cmd(t_node *cmd_nd, char **envp_list)
@@ -60,6 +45,8 @@ int	msh_run_simp_cmd(t_node *cmd_nd, char **envp_list)
 
 	file_path = msh_get_cmd_path(cmd_nd->str1, envp_list);
 	cmd_argv = ft_split(cmd_nd->str2, ' ');
+	if (file_path == NULL)
+		file_path = ft_substr(cmd_argv[0], 0, ft_strlen(cmd_argv[0]));
 	execve(file_path, cmd_argv, envp_list);
 	return (-1);
 }
@@ -82,6 +69,5 @@ char	*msh_get_cmd_path(char *cmd, char **envp_list)
 		free(cmd_path);
 		i++;
 	}
-
 	return (NULL);
 }

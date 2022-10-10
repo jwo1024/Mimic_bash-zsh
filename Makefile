@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+         #
+#    By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 16:37:49 by jaeyjeon          #+#    #+#              #
-#    Updated: 2022/10/07 16:40:56 by jaeyjeon         ###   ########.fr        #
+#    Updated: 2022/10/10 12:45:18 by jiwolee          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,8 @@ CC				= cc
 RM				= rm -rf
 CFLAGS			= -Wall -Wextra -Werror
 
-READLINE_LIB	= -lreadline -L/opt/homebrew/opt/readline/lib
-READLINE_INC	= -I/opt/homebrew/opt/readline/include
+READLINE_LIB	= -lreadline -L/Users/jiwolee/.brew/opt/readline/lib
+READLINE_INC	= -I/Users/jiwolee/.brew/opt/readline/include
 
 LIB_DIR			= ./libft
 HEADER			= ./includes
@@ -34,7 +34,8 @@ SRC2			= ./msh_tree/msh_tree.c \
 				  ./executor/msh_run_cmd.c \
 				  ./executor/msh_redirection.c \
 				  ./executor/msh_error.c \
-				  ./executor/msh_run_builtin.c
+				  ./executor/msh_run_builtin.c \
+				  ./executor/msh_executor_fork_wait.c
 
 SRC3			= ./tokenizer/tokenizer.c \
 				  ./tokenizer/utils.c \

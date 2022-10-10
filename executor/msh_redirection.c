@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:14:37 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/07 16:09:33 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/10 13:22:37 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	msh_redirection(t_node *redirct_nd, int *fd) // msh_apply_redirection
 {
 	if (fd == NULL)
-		return (-1); // fd 
+		return (-1);
 	if (msh_set_redirection(redirct_nd, fd) == NULL)
 		return (-1);
 	if (fd[STD_IN] != STD_IN && dup2(fd[STD_IN], STD_IN) == -1)
@@ -40,13 +40,7 @@ int	*msh_set_redirection(t_node *redirct_nd, int *fd)
 
 int	msh_set_redirection_open(t_node *redirct_nd, int *fd)
 {
-	// 만약 open에 실패 하였을때 오류 처리... ?
-	// error "bash: a.txt: Permission denied" // a.txt = redirct_nd->str2
-	// std_error 추가하기
-//	int	std;
-// 	fd[std];
-
-	if (ft_strncmp(redirct_nd->str1, "<", 2) == 0) // 입력 리다이렉션
+	if (ft_strncmp(redirct_nd->str1, "<", 2) == 0)
 	{
 		if (fd[STD_IN] > 2)
 			close (fd[STD_IN]);
@@ -54,7 +48,7 @@ int	msh_set_redirection_open(t_node *redirct_nd, int *fd)
 		if (fd[STD_IN] == -1)
 			return (msh_print_errno(redirct_nd->str2, fd));
 	}
-	else if (ft_strncmp(redirct_nd->str1, ">", 2) == 0) // 출력
+	else if (ft_strncmp(redirct_nd->str1, ">", 2) == 0)
 	{
 		if (fd[STD_OUT] > 2)
 			close (fd[STD_OUT]);
@@ -62,7 +56,7 @@ int	msh_set_redirection_open(t_node *redirct_nd, int *fd)
 		if (fd[STD_OUT] == -1)
 			return (msh_print_errno(redirct_nd->str2, fd));
 	}
-	else if (ft_strncmp(redirct_nd->str1, ">>", 2) == 0) // 출력 붙여쓰기
+	else if (ft_strncmp(redirct_nd->str1, ">>", 3) == 0)
 	{
 		if (fd[STD_OUT] > 2)
 			close (fd[STD_OUT]);
@@ -70,11 +64,10 @@ int	msh_set_redirection_open(t_node *redirct_nd, int *fd)
 		if (fd[STD_OUT] == -1)
 			return (msh_print_errno(redirct_nd->str2, fd));
 	}
-	else if (ft_strncmp(redirct_nd->str1, "<<", 2) == 0)
+	else if (ft_strncmp(redirct_nd->str1, "<<", 3) == 0)
 		; // here doc.. 이거는 여기가 아니라 저 저 저어기 tokenzier에서 처리하는게 더 낫지 않나? 근데 ls 를 word로 처리한다. . . . . 
 	else
 		return (-1);
-		
 	return (1);
 }
 
@@ -84,7 +77,7 @@ int	*msh_init_fd(void) // init fd
 
 	fd = (int *)malloc(sizeof(int) * 3);
 	if (fd == NULL)
-		return (NULL); //msh_print_errno("malloc error", fd);
+		return (NULL); //msh_print_errno("malloc error", fd); ?
 	fd[0] = STD_IN;
 	fd[1] = STD_OUT;
 	fd[2] = STD_ERROR;

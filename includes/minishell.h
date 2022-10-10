@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:07:12 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/10 10:07:42 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/10 13:20:50 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,16 @@ int		msh_parse_add_simcmd(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd);
 
 /* msh_executor */
 int		msh_executor(t_tree *tree, char **envp_list);
-pid_t	*msh_executor_fork(t_node *pipe_nd, char **envp_list, pid_t *pids);
-int		msh_executor_wait_child(int *pids);
+
 char	**msh_executor_get_path(char **envp_list);
 pid_t	*msh_executor_malloc_pids(t_tree *tree);
+
+/* msh_executor_fork_wait */
+pid_t	*msh_executor_fork(t_node *pipe_nd, char **envp_list, pid_t *pids);
+int		msh_executor_wait_child(int *pids);
 int		msh_exit_status(int statloc);
+void	msh_executor_fork_set_pipe1(t_node *pipe_nd, int *pipe_fd, int *fd);
+void	msh_executor_fork_set_pipe2(t_node *pipe_nd, int *pipe_fd, int *fd);
 
 /* msh_run_cmd */
 int		msh_run_cmd(t_node *cmd_nd, int fd[2], char **envp_list);
@@ -90,7 +95,6 @@ void	msh_error_parse(char *str);
 int		msh_run_builtin(t_node *simp_cmd, int *fd, char **envp_list);
 int		msh_nopipe_builtin(t_tree *tree, char **envp_list);
 int		msh_is_builtin(t_node *simp_cmd_nd);
-int		*msh_init_fd(void) ;
-
+int		*msh_init_fd(void);
 
 #endif
