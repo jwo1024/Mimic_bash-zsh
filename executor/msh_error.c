@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 13:43:26 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/07 15:59:43 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/10 10:10:48 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,35 @@ int	msh_print_errno(char *cmd_str, int *fd)
 	char	*errno_str;
 
 	errno_str = strerror(errno);
-//	fprintf(stderr, "minishell: %s: %s\n", str, strerror(errno), errno);
-	write(fd[STD_ERROR], "minishell: ", 11);
-	write(fd[STD_ERROR], cmd_str, ft_strlen(cmd_str));
-	write(fd[STD_ERROR], ": ", fd[STD_ERROR]);
-	write(fd[STD_ERROR], errno_str, ft_strlen(errno_str));
-	write(fd[STD_ERROR], "\n", 1);
-
+	ft_putstr_fd("minishell : ", fd[STD_ERROR]);
+	ft_putstr_fd(cmd_str, fd[STD_ERROR]);
+	ft_putstr_fd(": ", fd[STD_ERROR]);
+	ft_putstr_fd(errno_str, fd[STD_ERROR]);
+	ft_putstr_fd("\n", fd[STD_ERROR]);
 	// ft_strjoin?
-//	free(errno_str);
+	free(errno_str);
 	return (-1);
 }
 
 int	msh_print_error_str(char *cmd_str, char *error_str, int *fd)
 {
-	write(fd[STD_ERROR], "minishell: ", 11);
-	write(fd[STD_ERROR], cmd_str, ft_strlen(cmd_str));
-	write(fd[STD_ERROR], ": ", 2);
-	write(fd[STD_ERROR], error_str, ft_strlen(error_str));
-	write(fd[STD_ERROR], "\n", 1);
-
+	ft_putstr_fd("minishell : ", fd[STD_ERROR]);
+	ft_putstr_fd(cmd_str, fd[STD_ERROR]);
+	ft_putstr_fd(": ", fd[STD_ERROR]);
+	ft_putstr_fd(error_str, fd[STD_ERROR]);
+	ft_putstr_fd("\n", fd[STD_ERROR]);
 	return (-1);
+}
+
+void	msh_error_parse(char *str)
+{
+	if (str == NULL)
+		ft_putstr_fd("minishell: syntax error near unexpected token \
+														'newline'\n", 2);
+	else
+	{
+		ft_putstr_fd("minishell: syntax error near unexpected token '", 2);
+		ft_putstr_fd(str, 2);
+		ft_putstr_fd("'\n", 2);
+	}
 }

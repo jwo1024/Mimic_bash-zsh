@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:21:21 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/09 20:35:32 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/10 10:06:16 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,10 @@ int	msh_parse_add_simcmd(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd)
 	char	*str;
 	char	*tmp;
 
-	if (tree == NULL || tokens == NULL || \
-		cur_cmd_nd == NULL || cur_cmd_nd->right != NULL)
+	if (tree == NULL || tokens == NULL || tree->top == NULL \
+		|| cur_cmd_nd == NULL || cur_cmd_nd->right != NULL)
 		return (-1);
-	token = msh_parse_get_tokens_top(tokens); // token이 잘못되었다면 ?
+	token = msh_parse_get_tokens_top(tokens);
 	token->type = T_SIMP_CMD;
 	str = ft_strdup(token->str1);
 	cur_cmd_nd->right = token;
