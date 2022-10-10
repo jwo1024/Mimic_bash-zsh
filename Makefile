@@ -6,7 +6,7 @@
 #    By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 16:37:49 by jaeyjeon          #+#    #+#              #
-#    Updated: 2022/10/10 12:45:18 by jiwolee          ###   ########seoul.kr   #
+#    Updated: 2022/10/10 14:11:42 by jiwolee          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,8 @@ CC				= cc
 RM				= rm -rf
 CFLAGS			= -Wall -Wextra -Werror
 
-READLINE_LIB	= -lreadline -L/Users/jiwolee/.brew/opt/readline/lib
-READLINE_INC	= -I/Users/jiwolee/.brew/opt/readline/include
+READLINE_LIB	= -lreadline -L/opt/homebrew/opt/readline/lib
+READLINE_INC	= -I/opt/homebrew/opt/readline/include
 
 LIB_DIR			= ./libft
 HEADER			= ./includes
