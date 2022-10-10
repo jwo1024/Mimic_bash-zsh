@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:57:18 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/09/27 21:19:22 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/10 22:41:07 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,10 @@ t_node	*make_new(char *str, int size);
 void	add_next(t_node *new, t_node *start);
 void	do_change_redir(char *str, char *s, t_index *idx, char op);
 void	do_change_each_oper(char *str, char *s, t_index *idx, char op);
+char	*get_env_to_str(char *env_name);
+char	*get_env_at_tokenizer(char *s);
+int		is_env(char *s);
+char	*del_dequot(char *s);
+void	do_del_dequot(char *new_str, char *s, char c, t_index *idx);
 
 #endif

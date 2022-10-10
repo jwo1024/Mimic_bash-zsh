@@ -6,14 +6,14 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 15:21:27 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/09/27 21:02:45 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/10 22:40:09 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "tokenizer.h"
 
-int	do_echo(char *word, int fd)
+int	do_echo(char *word, int *fd)
 {
 	char	*copy_str;
 	int		opt;
@@ -22,10 +22,9 @@ int	do_echo(char *word, int fd)
 	copy_str = ft_strdup(&word[5]);
 	while (check_opt(&copy_str[opt]) != 0)
 		opt += check_opt(&copy_str[opt]);
-	copy_str = del_dequot(copy_str);
-	ft_putstr_fd(&copy_str[opt], fd);
+	ft_putstr_fd(&copy_str[opt], fd[STD_OUT]);
 	if (opt == 0 && copy_str[opt] != '\0')
-		ft_putstr_fd("\n", fd);
+		ft_putstr_fd("\n", fd[STD_OUT]);
 	free (copy_str);
 	return (0);
 }
@@ -81,39 +80,4 @@ int	check_dequot(char *s)
 			i++;
 	}
 	return (0);
-}
-
-char	*del_dequot(char *s)
-{
-	char	*new_str;
-	t_index	*idx;
-
-	idx = make_idx();
-	new_str = malloc(sizeof(char) * (ft_strlen(s) + 1));
-	while (s[idx->i] != '\0')
-	{
-		if (s[idx->i] == '\"')
-			do_del_dequot(new_str, s, '\"', idx);
-		else if (s[idx->i] == '\'')
-			do_del_dequot(new_str, s, '\'', idx);
-		else
-			new_str[idx->j++] = s[idx->i++];
-	}
-	new_str[idx->j] = '\0';
-	free (s);
-	free (idx);
-	return (new_str);
-}
-
-void	do_del_dequot(char *new_str, char *s, char c, t_index *idx)
-{
-	if (check_dequot(&s[idx->i]))
-	{
-		idx->i++;
-		while (s[idx->i] != c)
-			new_str[idx->j++] = s[idx->i++];
-		idx->i++;
-	}
-	else
-		new_str[idx->j++] = s[idx->i++];
 }

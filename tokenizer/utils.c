@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:14:34 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/09/23 00:01:14 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/10 22:35:57 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,22 @@ int	skip_dquot(char *s)
 	int	i;
 
 	i = 0;
-	if (s[i++] == '\"')
+	if (s[i] == '\"')
 	{
+		i++;
 		while (s[i] != '\"' && s[i] != '\0')
-		{
-			if (s[i] == '\\' && (s[i + 1] == '\"' || s[i + 1] == '\''))
-				i += 2;
-			else
 				i++;
-		}
 	}
-	else if (s[i++] == '\'')
+	else if (s[i] == '\'')
 	{
+		i++;
 		while (s[i] != '\'' && s[i] != '\0')
-		{
-			if (s[i] == '\\' && (s[i + 1] == '\"' || s[i + 1] == '\''))
-				i += 2;
-			else
 				i++;
-		}
 	}
+	if (s[i] == '\"' || s[i] == '\'')
+		i++;
+	else if (s[i] == '\0')
+		return (1);
 	return (i);
 }
 
@@ -88,11 +84,4 @@ int	count_new_space(char *s, char c)
 		i++;
 	}
 	return (i + count);
-}
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	if (fd < 0 || !(s))
-		return ;
-	write(fd, s, ft_strlen(s));
 }

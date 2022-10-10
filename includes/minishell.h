@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:07:12 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/10 13:20:50 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/10 22:41:03 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ void	do_sigquit(pid_t pid);
 void	do_sigterm(void);
 /*get_env*/
 char	**get_env(char **envp);
-/*utils*/
-void	ft_putstr_fd(char *s, int fd);
 
 /*parser*/
 t_tree	*msh_parser(t_tree *tokens);

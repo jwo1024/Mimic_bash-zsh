@@ -6,13 +6,13 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 17:57:21 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/07 14:35:24 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/10 20:31:47 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_env(int fd)
+void	print_env(int *fd)
 {
 	char	**copy_env;
 	int		i;
@@ -58,21 +58,21 @@ char	**sort_env(void)
 	return (new);
 }
 
-void	print_env_print_part(char *str, int fd)
+void	print_env_print_part(char *str, int *fd)
 {
 	int	i;
 
 	i = 0;
-	ft_putstr_fd("declare -x ", fd);
+	ft_putstr_fd("declare -x ", fd[STD_OUT]);
 	while (str[i] != '\0')
 	{
-		write(fd, &str[i], fd);
+		write(fd[STD_OUT], &str[i], 1);
 		if (str[i] == '=')
-			ft_putstr_fd("\"", fd);
+			ft_putstr_fd("\"", fd[STD_OUT]);
 		i++;
 	}
 	if (find_equal(str))
-		ft_putstr_fd("\"", fd);
-	ft_putstr_fd("\n", fd);
+		ft_putstr_fd("\"", fd[STD_OUT]);
+	ft_putstr_fd("\n", fd[STD_OUT]);
 	str[0] = -1;
 }

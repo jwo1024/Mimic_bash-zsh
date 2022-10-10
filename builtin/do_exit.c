@@ -6,13 +6,13 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 14:43:40 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/07 17:01:00 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/10 20:25:18 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	do_exit(char *word, int fd)
+int	do_exit(char *word, int *fd)
 {
 	char	*copy_str;
 	int		i;
@@ -25,12 +25,12 @@ int	do_exit(char *word, int fd)
 	{
 		if (ft_isdigit(copy_str[i++]) == 0)
 		{
-			ft_putstr_fd("bash: exit: ", fd);
+			ft_putstr_fd("bash: exit: ", fd[STD_ERROR]);
 			i = 0;
 			while (copy_str[i] != '\0' && copy_str[i] != ' ')
-				write(fd, &copy_str[i++], 1);
-			ft_putstr_fd(": numeric argument required", fd);
-			ft_putstr_fd("\n", fd);
+				write(fd[STD_ERROR], &copy_str[i++], 1);
+			ft_putstr_fd(": numeric argument required", fd[STD_ERROR]);
+			ft_putstr_fd("\n", fd[STD_ERROR]);
 			exit(255);
 		}
 	}
@@ -39,8 +39,8 @@ int	do_exit(char *word, int fd)
 	{
 		if (copy_str[i] == ' ')
 		{
-			ft_putstr_fd("bash: exit: too many arguments", fd);
-			ft_putstr_fd("\n", fd);
+			ft_putstr_fd("bash: exit: too many arguments", fd[STD_ERROR]);
+			ft_putstr_fd("\n", fd[STD_ERROR]);
 			return (1);
 		}
 	}

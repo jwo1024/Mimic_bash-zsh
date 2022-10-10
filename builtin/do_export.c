@@ -6,13 +6,13 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:52:20 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/07 14:38:52 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/10 20:27:35 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	do_export(char *word, int fd)
+int	do_export(char *word, int *fd)
 {
 	char	*copy_word;
 	char	*part;
@@ -72,15 +72,11 @@ char	**change_env(char *str)
 	return (new_list);
 }
 
-int	check_export_word(char *word, int fd)
+int	check_export_word(char *word, int *fd)
 {
-	int	i;
 	int	j;
 
-	i = 0;
 	j = 0;
-	while (word[i] != '=' && word[i] != '\0')
-		i++;
 	if (ft_isalpha(word[0]) == 0 && word[0] != '_')
 		return (error_print_export("not a valid identifier", word, fd));
 	while (word[j] != '\0' && word[j] != '=')
@@ -113,14 +109,14 @@ int	check_dup(char *str, char *env)
 	return (0);
 }
 
-int	error_print_export(char *str, char *word, int fd)
+int	error_print_export(char *str, char *word, int *fd)
 {
-	ft_putstr_fd("minishell: export: ", fd);
-	write(fd, "`", 1);
-	ft_putstr_fd(word, fd);
-	write(fd, "\': ", 2);
-	ft_putstr_fd(str, fd);
-	ft_putstr_fd("\n", fd);
+	ft_putstr_fd("minishell: export: ", fd[STD_ERROR]);
+	write(fd[STD_ERROR], "`", 1);
+	ft_putstr_fd(word, fd[STD_ERROR]);
+	write(fd[STD_ERROR], "\': ", 2);
+	ft_putstr_fd(str, fd[STD_ERROR]);
+	ft_putstr_fd("\n", fd[STD_ERROR]);
 	free(word);
 	return (1);
 }

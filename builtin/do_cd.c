@@ -6,14 +6,14 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:33:47 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/07 16:43:29 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/10 20:30:56 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "tokenizer.h"
 
-int	do_cd(char *s, int fd)
+int	do_cd(char *s, int *fd)
 {
 	char	*dir;
 	char	*save_dir;
@@ -31,10 +31,10 @@ int	do_cd(char *s, int fd)
 	old_pwd = getcwd(NULL, 1024);
 	if (chdir(dir) != 0)
 	{
-		ft_putstr_fd("minishell: cd: ", fd); // 임시
-		ft_putstr_fd(dir, fd);
-		ft_putstr_fd(": No such file or directory", fd);
-		ft_putstr_fd("\n", fd);
+		ft_putstr_fd("minishell: cd: ", fd[STD_ERROR]);
+		ft_putstr_fd(dir, fd[STD_ERROR]);
+		ft_putstr_fd(": No such file or directory", fd[STD_ERROR]);
+		ft_putstr_fd("\n", fd[STD_ERROR]);
 		free(old_pwd);
 		free(dir);
 		return (1);

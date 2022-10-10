@@ -6,19 +6,18 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 18:11:29 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/06 21:49:23 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/10 20:14:46 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	do_unset(char *word, int fd)
+int	do_unset(char *word)
 {
 	int		i;
 	char	*str;
 
 	i = 0;
-	(void)fd;
 	str = ft_strdup(&word[6]);
 	while (g_envp_list[i] != NULL)
 	{

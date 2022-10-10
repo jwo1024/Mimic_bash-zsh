@@ -6,13 +6,13 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:04:58 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/06 21:31:59 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/10 20:24:58 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	do_env(int fd)
+int	do_env(int *fd)
 {
 	int	i;
 
@@ -21,8 +21,8 @@ int	do_env(int fd)
 	{
 		if (find_equal(g_envp_list[i]))
 		{
-			ft_putstr_fd(g_envp_list[i], fd);
-			ft_putstr_fd("\n", fd);
+			ft_putstr_fd(g_envp_list[i], fd[STD_OUT]);
+			ft_putstr_fd("\n", fd[STD_OUT]);
 		}
 		i++;
 	}

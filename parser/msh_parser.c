@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:02:23 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/10 10:07:50 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/10 20:03:45 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,8 @@ int	msh_parse_pipe(t_tree *tree, t_tree *tokens, t_node **cur_pipe)
 	*cur_pipe = (*cur_pipe)->right;
 	next = tokens->top->left;
 	cur_cmd = (*cur_pipe)->left;
+	(void) cur_cmd; //수정필요
+	(void) next; //수정필요
 	if (tokens->top->type == T_WORD)
 		rtn = 1;
 	else if (tokens->top->type == T_REDIR)
