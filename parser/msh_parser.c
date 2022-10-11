@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:02:23 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/10 20:03:45 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/12 02:20:06 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ t_tree	*msh_parser(t_tree *tokens)
 	int		rtn;
 	t_node	*cur_pipe;
 
+	if (tokens == NULL) // 존재하지않는 환경변수 하나만 입력받았을때 NULL이 들어오면 바로 끝내줘야해서 추가했습니다
+		return (NULL);
 	tree = msh_tree_create_tree();
 	msh_parse_add_pipe_cmd(tree, NULL, NULL);
 	cur_pipe = tree->top;

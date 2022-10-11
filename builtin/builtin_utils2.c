@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 17:57:21 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/10 20:31:47 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/11 17:54:37 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,29 +29,28 @@ void	print_env(int *fd)
 
 char	**sort_env(void)
 {
-	int		i;
-	int		j;
+	t_index	i;
 	char	**new;
 	char	*temp;
 
-	i = 0;
-	while (g_envp_list[i] != NULL)
-		i++;
-	new = malloc_env(i + 1);
-	i = -1;
-	while (g_envp_list[++i] != NULL)
-		new[i] = ft_strdup(g_envp_list[i]);
-	i = -1;
-	while (new[++i] != NULL)
+	i.i = 0;
+	while (g_envp_list[i.i] != NULL)
+		i.i++;
+	new = malloc_env(i.i + 1);
+	i.i = -1;
+	while (g_envp_list[++i.i] != NULL)
+		new[i.i] = ft_strdup(g_envp_list[i.i]);
+	i.i = -1;
+	while (new[++i.i] != NULL)
 	{
-		j = i;
-		while (new[++j])
+		i.j = i.i;
+		while (new[++i.j] != NULL)
 		{
-			if (ft_strncmp(new[i], new[j], ft_strlen(new[i])) > 0)
+			if (ft_strncmp(new[i.i], new[i.j], ft_strlen(new[i.i])) > 0)
 			{
-				temp = new[i];
-				new[i] = new[j];
-				new[j] = temp;
+				temp = new[i.i];
+				new[i.i] = new[i.j];
+				new[i.j] = temp;
 			}
 		}
 	}

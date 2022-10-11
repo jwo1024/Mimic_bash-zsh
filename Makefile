@@ -6,7 +6,7 @@
 #    By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 16:37:49 by jaeyjeon          #+#    #+#              #
-#    Updated: 2022/10/10 22:41:41 by jaeyjeon         ###   ########.fr        #
+#    Updated: 2022/10/12 02:10:29 by jaeyjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRC3			= ./tokenizer/tokenizer.c \
 				  ./tokenizer/utils.c \
 				  ./tokenizer/signal.c \
 				  ./tokenizer/get_env.c \
+				  ./tokenizer/get_env2.c \
 				  ./tokenizer/utils2.c \
 				  ./tokenizer/utils3.c \
 				  ./builtin/do_pwd.c \
@@ -49,6 +50,7 @@ SRC3			= ./tokenizer/tokenizer.c \
 				  ./builtin/do_env.c \
 				  ./builtin/do_cd.c \
 				  ./builtin/do_export.c \
+				  ./builtin/do_export2.c \
 				  ./builtin/builtin_utils2.c \
 				  ./builtin/do_unset.c \
 				  ./builtin/do_exit.c

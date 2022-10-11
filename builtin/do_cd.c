@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:33:47 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/11 12:16:55 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/12 00:55:33 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ int	do_cd(char *s, int *fd) // chdir() errno 확인하기
 	char	*save_dir;
 	char	*old_pwd;
 
+	printf("cd : %s\n", s);
 	if (s[3] == '\0')
 		return (chdir(getenv("HOME")));
-	dir = ft_strdup(&s[3]);
+	dir = del_dequot(ft_strdup(&s[3]));
 	if (dir[0] == '~' && (dir[1] == '\0' || dir[1] == '/'))
 	{
 		save_dir = ft_strjoin(getenv("HOME"), &dir[1]);

@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 23:31:54 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/11 15:59:51 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/11 23:29:17 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,15 @@ char	*get_env_at_tokenizer(char *s)
 		if (copy_str[idx.i] == '$')
 		{
 			copy_str[idx.i] = -2;
+			printf("env name : %s\n", get_env_name(&copy_str[idx.i + 1]));
 			env = get_env_to_str(get_env_name(&copy_str[idx.i + 1]));
 			copy_str = get_merged_env_str(copy_str, env);
+			if (copy_str == NULL)
+				break ;
+			idx.i = 0;
 		}
-		idx.i++;
+		else
+			idx.i++;
 	}
 	free(s);
 	s = copy_str;
@@ -97,70 +102,21 @@ char	*get_merged_env_str(char *s, char *env)
 	char	*front;
 	char	*rear;
 	char	*merge1;
+	char	*merge2;
 
 	i = 0;
 	while (s[i] != -2)
 		i++;
-	front = ft_substr(s, 0, i);
-	rear = ft_strdup(&s[get_env_name_size(&s[i + 1]) + i + 1]);
-	if (env == NULL)
-	{
-		merge1 = ft_strjoin(front, rear);
-		free(front);
-		free(rear);
-		return (merge1);
-	}
+	printf("at merged_env_str : %s / %s\n", s, env);
+	if (i != 0)
+		front = ft_substr(s, 0, i);
 	else
-	{
-		merge1 = ft_strjoin(front, env);
-		free (front);
-		free (env);
-		front = ft_strjoin(merge1, rear);
-		free (rear);
-		free (merge1);
-		free (s);
-	}
-	return (front);
-}
-
-int	get_env_name_size(char *s)
-{
-	int		i;
-
-	i = 0;
-	if (ft_isalpha(s[0]) == 0 && s[0] != '_')
-		return (i);
-	while (s[i] != '\0')
-	{
-		if (!(ft_isalnum(s[i]) || s[i] == '_'))
-			break ;
-		i++;
-	}
-	return (i);
-}
-
-char	*get_env_name(char *s)
-{
-	int		i;
-	int		j;
-	char	*name;
-
-	j = 0;
-	i = get_env_name_size(s);
-	if (i == 0)
-		return (NULL);
-	name = malloc(sizeof(char) * (i + 1));
-	if (name == NULL)
-	{
-		ft_putstr_fd("malloc error\n", STD_ERROR);
-		exit(1);
-	}
-	while (i != 0)
-	{
-		name[j] = s[j];
-		j++;
-		i--;
-	}
-	name[j] = '\0';
-	return (name);
+		front = NULL;
+	if (s[get_env_name_size(&s[i + 1]) + i + 1] != '\0')
+		rear = ft_strdup(&s[get_env_name_size(&s[i + 1]) + i + 1]);
+	else
+		rear = NULL;
+	merge1 = ft_strjoin_check_null(front, env);
+	merge2 = ft_strjoin_check_null(merge1, rear);
+	return (merge2);
 }

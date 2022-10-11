@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 18:28:02 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/11 16:45:58 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/11 23:29:24 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	main(int argc, char *argv[], char *envp[])
 			{
 				add_history(str);
 				tree = msh_parser(msh_start_tokenize(str));
+				if (tree == NULL)
+					continue ;
 				exit_status = msh_executor(tree);
 				msh_tree_delete(tree);
 				fprintf(stderr, "exit status %d\n", exit_status);

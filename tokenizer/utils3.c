@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 22:40:20 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/10 22:42:07 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/11 23:28:18 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,30 @@ void	do_del_dequot(char *new_str, char *s, char c, t_index *idx)
 	}
 	else
 		new_str[idx->j++] = s[idx->i++];
+}
+
+char	*ft_strjoin_check_null(char *s1, char *s2)
+{
+	char	*result;
+
+	if (s1 != NULL && s2 != NULL)
+	{
+		result = ft_strjoin(s1, s2);
+		free(s1);
+		free(s2);
+		return (result);
+	}
+	if (s1 == NULL && s2 != NULL)
+	{
+		result = ft_strdup(s2);
+		free(s2);
+		return (result);
+	}
+	if (s1 != NULL && s2 == NULL)
+	{
+		result = ft_strdup(s1);
+		free(s1);
+		return (result);
+	}
+	return (NULL);
 }

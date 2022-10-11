@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:57:18 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/11 13:41:43 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/11 22:57:06 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ void	do_del_dequot(char *new_str, char *s, char c, t_index *idx);
 char	*get_env_name(char *s);
 int		get_env_name_size(char *s);
 char	*get_merged_env_str(char *s, char *env);
+char	*ft_strjoin_check_null(char *s1, char *s2);
 
 #endif

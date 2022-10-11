@@ -6,34 +6,53 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 18:11:29 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/10 20:14:46 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/12 01:33:53 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "tokenizer.h"
 
 int	do_unset(char *word)
 {
-	int		i;
+	t_index	*idx;
 	char	*str;
+	char	*copystr;
 
-	i = 0;
-	str = ft_strdup(&word[6]);
-	while (g_envp_list[i] != NULL)
+	idx = make_idx();
+	copystr = del_dequot(ft_strdup(&word[6]));
+	str = ft_strdup(copystr);
+	while (copystr[idx->k] != '\0')
 	{
-		if (check_unset_dup(str, g_envp_list[i]))
+		while (copystr[idx->k] != '\0' && copystr[idx->k] != ' ')
+			str[idx->j++] = copystr[idx->k++];
+		str[idx->j] = '\0';
+		while (g_envp_list[idx->i] != NULL)
 		{
-			free(g_envp_list[i]);
-			while (g_envp_list[i + 1] != NULL)
-			{
-				g_envp_list[i] = g_envp_list[i + 1];
-				i++;
-			}
-			g_envp_list[i] = g_envp_list[i + 1];
+			if (check_unset_dup(str, g_envp_list[idx->i]))
+				unset_env(idx);
+			idx->i++;
 		}
-		i++;
+		if (copystr[idx->k] != '\0')
+			idx->k++;
+		idx->j = 0;
+		idx->i = 0;
 	}
+	free(copystr);
+	free(str);
+	free(idx);
 	return (1);
+}
+
+void	unset_env(t_index *idx)
+{
+	free(g_envp_list[idx->i]);
+	while (g_envp_list[idx->i + 1] != NULL)
+	{
+		g_envp_list[idx->i] = g_envp_list[idx->i + 1];
+		idx->i++;
+	}
+	g_envp_list[idx->i] = g_envp_list[idx->i + 1];
 }
 
 int	check_unset_dup(char *str, char *env)

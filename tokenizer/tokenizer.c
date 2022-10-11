@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:14:28 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/11 15:58:50 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/11 23:25:51 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ t_tree	*msh_start_tokenize(char *s)
 
 	list = NULL;
 	s = get_env_at_tokenizer(s);
+	if (s == NULL)
+		return (NULL);
 	change_whitespace(s);
 	s = change_oper(s);
-	s = del_dequot(s);
-	printf ("-- %s --\n", s); // 나중에 삭제
+	printf (" %s \n", s); // 나중에 삭제
 	list = split_str(s);
 	tokens = msh_tree_create_tree();
 	tokens->top = list;

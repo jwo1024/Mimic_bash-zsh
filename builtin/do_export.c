@@ -6,11 +6,12 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:52:20 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/11 01:23:47 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/12 02:14:15 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "tokenizer.h"
 
 int	do_export(char *word, int *fd)
 {
@@ -18,24 +19,41 @@ int	do_export(char *word, int *fd)
 	char	*part;
 	t_index	*idx;
 
+	printf("export: %s\n", word);
 	idx = make_idx();
-	copy_word = ft_strdup(&word[7]);
+	copy_word = del_dequot(change_str_at_export(ft_strdup(&word[7])));
 	if (word[6] == '\0')
 		print_env(fd);
 	while (copy_word[idx->j] != '\0')
 	{
-		while (copy_word[idx->i] != '\0' && copy_word[idx->i] != ' ')
+		while (copy_word[idx->i] != '\0' && copy_word[idx->i] != -1)
 			idx->i++;
 		part = ft_substr(copy_word, idx->j, idx->i - idx->j);
 		if (check_export_word(part, fd))
 			break ;
 		g_envp_list = change_env(part);
-		if (copy_word[idx->i] == ' ')
+		if (copy_word[idx->i] == -1)
 			idx->i++;
 		idx->j = idx->i;
 	}
 	free (copy_word);
 	return (0);
+}
+
+char	*change_str_at_export(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == '\'' || s[i] == '\"')
+			i += skip_dquot(&s[i]);
+		if (s[i] == ' ')
+			s[i] = -1;
+		i++;
+	}
+	return (s);
 }
 
 char	**change_env(char *str)
@@ -85,36 +103,4 @@ int	check_export_word(char *word, int *fd)
 		j++;
 	}
 	return (0);
-}
-
-int	check_dup(char *str, char *env)
-{
-	int	j;
-
-	j = 0;
-	if (str[j] == env[j])
-	{
-		while (str[j] != '=' && str[j] != '\0')
-		{
-			j++;
-			if (str[j] != env[j])
-				break ;
-		}
-		if ((str[j] == '=' && env[j] == '=') || \
-		(str[j] == '\0' && env[j] == '\0'))
-			return (1);
-	}
-	return (0);
-}
-
-int	error_print_export(char *str, char *word, int *fd)
-{
-	ft_putstr_fd("minishell: export: ", fd[STD_ERROR]);
-	write(fd[STD_ERROR], "`", 1);
-	ft_putstr_fd(word, fd[STD_ERROR]);
-	write(fd[STD_ERROR], "\': ", 2);
-	ft_putstr_fd(str, fd[STD_ERROR]);
-	ft_putstr_fd("\n", fd[STD_ERROR]);
-	free(word);
-	return (1);
 }
