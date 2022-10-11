@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:52:20 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/10 20:27:35 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/11 01:23:47 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ char	**change_env(char *str)
 		i++;
 	oldsize = i - 1;
 	new_list = malloc_env(i + 3);
-	if (new_list == NULL)
-		return (g_envp_list);
 	i = 0;
 	while (g_envp_list[i] != NULL)
 	{

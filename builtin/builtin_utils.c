@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:52:32 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/06 17:58:04 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/11 01:30:10 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ t_index	*make_idx(void)
 	t_index	*new;
 
 	new = malloc(sizeof(t_index));
+	if (new == NULL)
+	{
+		ft_putstr_fd("malloc Error\n", STD_ERROR);
+		exit(1);
+	}
 	new->i = 0;
 	new->j = 0;
 	return (new);
@@ -48,6 +53,11 @@ char	**malloc_env(int size)
 
 	i = 0;
 	new = malloc(sizeof(char *) * size);
+	if (new == NULL)
+	{
+		ft_putstr_fd("malloc Error\n", STD_ERROR);
+		exit(1);
+	}
 	while (i != size)
 	{
 		new[i] = NULL;

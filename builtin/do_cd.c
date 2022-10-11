@@ -6,14 +6,14 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:33:47 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/10 20:30:56 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/11 12:16:55 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "tokenizer.h"
 
-int	do_cd(char *s, int *fd)
+int	do_cd(char *s, int *fd) // chdir() errno 확인하기
 {
 	char	*dir;
 	char	*save_dir;

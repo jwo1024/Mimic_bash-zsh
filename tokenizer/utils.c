@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:14:34 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/10 22:35:57 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/11 13:51:09 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,30 +42,6 @@ int	skip_dquot(char *s)
 	else if (s[i] == '\0')
 		return (1);
 	return (i);
-}
-
-int	count_dquot(char *s)
-{
-	int	i;
-	int	countsin;
-	int	countdou;
-
-	i = 0;
-	countsin = 0;
-	countdou = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] == '\\' && (s[i + 1] == '\"' || s[i + 1] == '\''))
-			i++;
-		else if (s[i] == '\"')
-			countdou++;
-		else if (s[i] == '\'')
-			countsin++;
-		i++;
-	}
-	if (countsin % 2 == 0 && countdou % 2 == 0)
-		return (0);
-	return (1);
 }
 
 int	count_new_space(char *s, char c)
