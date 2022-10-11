@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:07:12 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/10 22:41:03 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/11 16:45:43 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		msh_parse_add_pipe_cmd(t_tree *tree, t_tree *tokens, t_node *cur_pipe_nd);
 int		msh_parse_add_simcmd(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd);
 
 /* msh_executor */
-int		msh_executor(t_tree *tree, char **envp_list);
+int		msh_executor(t_tree *tree);
 
 char	**msh_executor_get_path(char **envp_list);
 pid_t	*msh_executor_malloc_pids(t_tree *tree);
@@ -90,8 +90,8 @@ void	msh_error_parse(char *str);
 
 
 /* msh_run_builtin.c */
-int		msh_run_builtin(t_node *simp_cmd, int *fd, char **envp_list);
-int		msh_nopipe_builtin(t_tree *tree, char **envp_list);
+int		msh_run_builtin(t_node *simp_cmd, int *fd);
+int		msh_nopipe_builtin(t_tree *tree);
 int		msh_is_builtin(t_node *simp_cmd_nd);
 int		*msh_init_fd(void);
 

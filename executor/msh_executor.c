@@ -6,13 +6,13 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:41 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/10 12:46:00 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/11 16:49:25 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	msh_executor(t_tree *tree, char **envp_list)
+int	msh_executor(t_tree *tree)
 {
 	pid_t	*pids;
 	int		rtn;
@@ -20,10 +20,10 @@ int	msh_executor(t_tree *tree, char **envp_list)
 
 	if (tree == NULL)
 		return (258);
-	env_path = msh_executor_get_path(envp_list);
+	env_path = msh_executor_get_path(g_envp_list);
 	rtn = -1;
 	if (tree->top->right == NULL)
-		rtn = msh_nopipe_builtin(tree, envp_list);
+		rtn = msh_nopipe_builtin(tree);
 	if (rtn == -1)
 	{
 		pids = msh_executor_malloc_pids(tree);

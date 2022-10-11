@@ -14,12 +14,11 @@
 #include "minishell.h"
 
 
-int	msh_run_builtin(t_node *simp_cmd, int *fd, char **envp_list)
+int	msh_run_builtin(t_node *simp_cmd, int *fd)
 {
 	int	rtn;
 
 	rtn = 0;
-	(void)envp_list;
 	if (simp_cmd->str1 == NULL)
 		return (-1);
 	if (fd == NULL) // 나중에 지우기
@@ -66,7 +65,7 @@ int	msh_run_builtin(t_node *simp_cmd, int *fd, char **envp_list)
 	return (rtn);
 }
 
-int	msh_nopipe_builtin(t_tree *tree, char **envp_list) // + envp_list;
+int	msh_nopipe_builtin(t_tree *tree) // + envp_list;
 {
 	int		rtn;
 	t_node	*cmd_nd;
@@ -85,7 +84,7 @@ int	msh_nopipe_builtin(t_tree *tree, char **envp_list) // + envp_list;
 		return (-1);
 
 	if (msh_set_redirection(cmd_nd->left, fd))
-		rtn = msh_run_builtin(sim_cmd_nd, fd, envp_list);
+		rtn = msh_run_builtin(sim_cmd_nd, fd);
 //	if (rtn != 0) // envp_list
 //		fprintf(stderr, "cant be happen msh_nopipe_builtin()\n");
 
