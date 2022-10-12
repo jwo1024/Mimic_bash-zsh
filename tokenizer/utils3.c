@@ -3,21 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 22:40:20 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/11 23:28:18 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/12 23:04:17 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "tokenizer.h"
 
-char	*del_dequot(char *s)
+// parser에서 편리하게 사용하기 위해 char *str -> char **str 로 바꾸어 사용했습니다. 
+char	*del_dequot(char **str)
 {
+	char	*s;
 	char	*new_str;
 	t_index	*idx;
 
+	s = *str;
 	idx = make_idx();
 	new_str = malloc(sizeof(char) * (ft_strlen(s) + 1));
 	while (s[idx->i] != '\0')
@@ -32,6 +35,7 @@ char	*del_dequot(char *s)
 	new_str[idx->j] = '\0';
 	free (s);
 	free (idx);
+	*str = new_str;
 	return (new_str);
 }
 
