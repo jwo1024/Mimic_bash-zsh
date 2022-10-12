@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:52:20 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/12 02:14:15 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/13 00:09:05 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	do_export(char *word, int *fd)
 
 	printf("export: %s\n", word);
 	idx = make_idx();
-	copy_word = del_dequot(change_str_at_export(ft_strdup(&word[7])));
+//	copy_word = del_dequot(change_str_at_export(ft_strdup(&word[7])));
+	copy_word = word; // 임시
 	if (word[6] == '\0')
 		print_env(fd);
 	while (copy_word[idx->j] != '\0')

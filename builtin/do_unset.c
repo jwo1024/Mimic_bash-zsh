@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 18:11:29 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/12 01:33:53 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/13 00:09:01 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	do_unset(char *word)
 	char	*copystr;
 
 	idx = make_idx();
-	copystr = del_dequot(ft_strdup(&word[6]));
+//	copystr = del_dequot(ft_strdup(&word[6]));
+	copystr = word; // 임시
 	str = ft_strdup(copystr);
 	while (copystr[idx->k] != '\0')
 	{

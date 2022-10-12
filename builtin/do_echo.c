@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 15:21:27 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/11 18:13:42 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/13 00:03:42 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	do_echo(char *word, int *fd)
 	copy_str = ft_strdup(&word[5]);
 	while (check_opt(&copy_str[opt]) != 0)
 		opt += check_opt(&copy_str[opt]);
-	copy_str = del_dequot(copy_str);
+//	copy_str = del_dequot(copy_str); // del_dequot형태를 조금 바꾸면서 일단 주석처리 들어갓습니다... 
 	ft_putstr_fd(&copy_str[opt], fd[STD_OUT]);
 	if (opt == 0 && copy_str[opt] != '\0')
 		ft_putstr_fd("\n", fd[STD_OUT]);

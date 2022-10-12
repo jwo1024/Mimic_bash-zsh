@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 14:43:40 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/11 23:49:07 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/13 00:09:48 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	do_exit(char *word, int *fd)
 	int		i;
 
 	printf("exit: %s\n", word);
-	copy_str = del_dequot(ft_strdup(&word[5]));
+//	copy_str = del_dequot(ft_strdup(&word[5]));
+	copy_str = word; // 임시
 	if (copy_str[0] == '\0')
 		exit(0);
 	i = 0;
