@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 18:28:02 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/11 23:29:24 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/12 23:55:33 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	main(int argc, char *argv[], char *envp[])
 	(void)argv;
 	g_envp_list = get_env(envp);
 	set_signal();
+	exit_status = 0;
 	while (1)
 	{
 		str = readline("\033[0;36mminishell $ \033[0m");

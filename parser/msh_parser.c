@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:02:23 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/12 02:20:06 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/12 23:42:04 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ t_tree	*msh_parser(t_tree *tokens)
 	return (tree);
 }
 
+
+// msh_parse_check_type_pipe
 int	msh_parse_check_type(t_tree *tree, t_tree *tokens, t_node **cur_pipe)
 {
 	int		rtn;
@@ -51,12 +53,12 @@ int	msh_parse_check_type(t_tree *tree, t_tree *tokens, t_node **cur_pipe)
 	cur_cmd = (*cur_pipe)->left;
 	curr = tokens->top;
 	next = tokens->top->left;
-	if (curr->type == T_WORD)
-			rtn = msh_parse_word(tree, tokens, cur_cmd, next);
+	if (curr->type == T_WORD && del_dequot(&curr->str1))
+		rtn = msh_parse_word(tree, tokens, cur_cmd, next);
 	else if (curr->type == T_REDIR)
-			rtn = msh_parse_redirect(tree, tokens, cur_cmd, next);
+		rtn = msh_parse_redirect(tree, tokens, cur_cmd, next);
 	else if (curr->type == T_NULL)
-			rtn = 0 ;
+		rtn = 0 ;
 	else
 	{
 		msh_error_parse(curr->str1);
@@ -74,11 +76,12 @@ int	msh_parse_redirect(t_tree *tree, t_tree *tokens, \
 	rtn = -1;
 	if (tree == NULL || tokens == NULL || cur_cmd == NULL || cur_token == NULL)
 		return (rtn);
-	if (cur_token->type == T_WORD)
+	if (cur_token->type == T_WORD && del_dequot(&cur_token->str1))
 	{
 		msh_parse_add_redirect(tree, tokens, cur_cmd);
+		/* 함수 나누기 msh_parse_check_alltype */
 		next = tokens->top->left;
-		if (tokens->top->type == T_WORD)
+		if (tokens->top->type == T_WORD && del_dequot(&tokens->top->str1))
 			rtn = msh_parse_word(tree, tokens, cur_cmd, next);
 		else if (tokens->top->type == T_REDIR)
 			rtn = msh_parse_redirect(tree, tokens, cur_cmd, next);
@@ -103,14 +106,15 @@ int	msh_parse_word(t_tree *tree, t_tree *tokens, \
 	rtn = -1;
 	if (tree == NULL || tokens == NULL || cur_cmd == NULL || cur_tokens == NULL)
 		return (rtn);
-	if (cur_tokens->type == T_WORD)
+	if (cur_tokens->type == T_WORD && del_dequot(&cur_tokens->str1))
 		rtn = msh_parse_word(tree, tokens, cur_cmd, cur_tokens->left);
 	else
 	{
 		if (msh_parse_add_simcmd(tree, tokens, cur_cmd) == -1)
 			return (rtn);
+		/* 함수 나누기 msh_parse_check_alltype */
 		next = tokens->top->left;
-		if (tokens->top->type == T_WORD)
+		if (tokens->top->type == T_WORD && del_dequot(&tokens->top->str1))
 			rtn = msh_parse_word(tree, tokens, cur_cmd, next);
 		else if (tokens->top->type == T_REDIR)
 			rtn = msh_parse_redirect(tree, tokens, cur_cmd, next);
@@ -127,16 +131,9 @@ int	msh_parse_word(t_tree *tree, t_tree *tokens, \
 int	msh_parse_pipe(t_tree *tree, t_tree *tokens, t_node **cur_pipe)
 {
 	int		rtn;
-	t_node	*next;
-	t_node	*cur_cmd;
 
 	rtn = msh_parse_add_pipe_cmd(tree, tokens, *cur_pipe);
-	*cur_pipe = (*cur_pipe)->right;
-	next = tokens->top->left;
-	cur_cmd = (*cur_pipe)->left;
-	(void) cur_cmd; //수정필요
-	(void) next; //수정필요
-	if (tokens->top->type == T_WORD)
+	if (tokens->top->type == T_WORD && del_dequot(&tokens->top->str1))
 		rtn = 1;
 	else if (tokens->top->type == T_REDIR)
 		rtn = 1;

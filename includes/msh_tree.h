@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_tree.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:38:45 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/01 20:24:38 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/12 21:53:15 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ enum e_ttype
 typedef struct s_node{
 	enum e_ttype	type;
 	char			*str1;
-	char			*str2;
+	char			**str2; // 수정
 	struct s_node	*left;
 	struct s_node	*right;
 	struct s_node	*parent;

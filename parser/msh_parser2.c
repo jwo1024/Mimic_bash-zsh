@@ -6,13 +6,16 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:21:21 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/10 10:06:16 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/12 22:31:26 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "msh_tree.h"
 
+int	msh_cnt_typewords(t_node *node);
+
+// str2
 t_node	*msh_parse_get_tokens_top(t_tree *tree)
 {
 	t_node	*rtn;
@@ -38,7 +41,11 @@ int	msh_parse_add_redirect(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd)
 		return (-1);
 	redir_node = msh_parse_get_tokens_top(tokens);
 	file_node = msh_parse_get_tokens_top(tokens);
-	redir_node->str2 = file_node->str1;
+	redir_node->str2 = ft_calloc(2, sizeof(char *));
+	if (redir_node->str2 == NULL)
+		return (-1);
+	redir_node->str2[0] = file_node->str1;
+	redir_node->str2[1] = NULL;
 	file_node->str1 = NULL;
 	if (cur_cmd_nd->left != NULL)
 	{
@@ -78,8 +85,9 @@ int	msh_parse_add_pipe_cmd(t_tree *tree, t_tree *tokens, t_node *cur_pipe_nd)
 int	msh_parse_add_simcmd(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd)
 {
 	t_node	*token;
+	t_node	*tmp;
 	char	*str;
-	char	*tmp;
+	int		cnt;
 
 	if (tree == NULL || tokens == NULL || tree->top == NULL \
 		|| cur_cmd_nd == NULL || cur_cmd_nd->right != NULL)
@@ -88,18 +96,28 @@ int	msh_parse_add_simcmd(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd)
 	token->type = T_SIMP_CMD;
 	str = ft_strdup(token->str1);
 	cur_cmd_nd->right = token;
+	token->str2 = ft_calloc(msh_cnt_typewords(tokens->top) + 2, sizeof(char *));
+	cnt = 0;
+	token->str2[cnt++] = ft_strdup(token->str1);
 	while (tokens->top->type == T_WORD)
 	{
-		token = msh_parse_get_tokens_top(tokens);
-		tmp = ft_strjoin(str, " ");
-		free(str);
-		str = tmp;
-		tmp = ft_strjoin(str, token->str1);
-		free(str);
-		str = tmp;
-		msh_tree_clear_node(token);
-		free(token);
+		tmp = msh_parse_get_tokens_top(tokens);
+		token->str2[cnt++] = tmp->str1;
+		free(tmp);
 	}
-	cur_cmd_nd->right->str2 = str;
+	token->str2[cnt] = NULL;
 	return (1);
+}
+
+int	msh_cnt_typewords(t_node *node)
+{
+	int	cnt;
+
+	cnt = 0;
+	while (node->type == T_WORD)
+	{
+		node = node->left;
+		cnt++;
+	}
+	return (cnt);
 }

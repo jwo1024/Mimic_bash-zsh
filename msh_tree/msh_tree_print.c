@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_tree_print.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:38:33 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/06 16:06:14 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/12 21:55:20 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@ int	msh_tree_print_node(t_node *node)
 {
 	if (node == NULL)
 		return (-1);
-	printf("node type: %d, str1 %s, str2 %s \n", \
-			node->type, node->str1, node->str2);
+	printf("node type: %d, str1 %s, str2", \
+			node->type, node->str1); // pf
+	for (int i = 0; node->str2 && node->str2[i]; i++)
+		printf(" %s", node->str2[i]);
+	printf("\n");
 	return (1);
 }
 

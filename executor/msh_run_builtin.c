@@ -27,12 +27,12 @@ int	msh_run_builtin(t_node *simp_cmd, int *fd)
 	if (ft_strncmp(simp_cmd->str1, "echo", 5) == 0)
 	{
 		fprintf(stderr, "builtin cmd echo \n");
-		rtn = do_echo(simp_cmd->str2, fd);
+		rtn = do_echo(simp_cmd->str2[0], fd); // 임시 방편 simp_cmd->str2 -> simp_cmd->str2[0]
 	}
 	else if(ft_strncmp(simp_cmd->str1, "cd", 3) == 0)
 	{
 		fprintf(stderr, "\nbuiltin cmd cd\n");
-		rtn = do_cd(simp_cmd->str2, fd);
+		rtn = do_cd(simp_cmd->str2[0], fd);
 	}
 	else if(ft_strncmp(simp_cmd->str1, "pwd", 3) == 0)
 	{
@@ -42,12 +42,12 @@ int	msh_run_builtin(t_node *simp_cmd, int *fd)
 	else if(ft_strncmp(simp_cmd->str1, "export", 7) == 0)
 	{
 		fprintf(stderr, "builtin cmd export\n");
-		rtn = do_export(simp_cmd->str2, fd);
+		rtn = do_export(simp_cmd->str2[0], fd);
 	}
 	else if(ft_strncmp(simp_cmd->str1, "unset", 6) == 0)
 	{
 		fprintf(stderr, "builtin cmd unset\n");
-		rtn = do_unset(simp_cmd->str2);
+		rtn = do_unset(simp_cmd->str2[0]);
 	}
 	else if(ft_strncmp(simp_cmd->str1, "env", 4) == 0)
 	{
@@ -57,8 +57,7 @@ int	msh_run_builtin(t_node *simp_cmd, int *fd)
 	else if(ft_strncmp(simp_cmd->str1, "exit", 5) == 0)
 	{
 		fprintf(stderr, "\nbuiltin cmd exit\n");
-		do_exit(simp_cmd->str2, fd);
-		// 뒤에 숫자가 들어오면 뒤에 숫자로 exit, 아니면 기존 $? 로 exit
+		do_exit(simp_cmd->str2[0], fd);
 	}
 	else
 		return (-1);
