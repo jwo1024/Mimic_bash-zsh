@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_run_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:47 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/13 22:07:53 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/13 23:33:15 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,11 @@ int	msh_run_simp_cmd(t_node *simpcmd, char **env_path)
 {
 	char	*file_path;
 
-	file_path = msh_get_cmd_path(simpcmd->str1, env_path);
-	if (file_path == NULL)
+	file_path = NULL;
+	if (ft_strrchr(simpcmd->str1, '/') != NULL)
 		file_path = ft_substr(simpcmd->str2[0], 0, ft_strlen(simpcmd->str2[0]));
+	else
+		file_path = msh_get_cmd_path(simpcmd->str1, env_path);
 	execve(file_path, simpcmd->str2, g_envp_list);
 	return (-1);
 }
@@ -57,6 +59,8 @@ char	*msh_get_cmd_path(char *cmd, char **env_path)
 	struct stat	buf;
 
 	i = 0;
+	if (cmd == NULL || cmd[0] == '\0')
+		return (NULL);
 	while (env_path[i])
 	{
 		tmp = ft_strjoin(env_path[i], "/");
