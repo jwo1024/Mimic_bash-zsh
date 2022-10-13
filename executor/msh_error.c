@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 13:43:26 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/10 20:15:10 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/13 21:59:32 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,16 @@ int	msh_print_errno(char *cmd_str, int *fd)
 	return (-1);
 }
 
-int	msh_print_error_str(char *cmd_str, char *error_str, int *fd)
+int	msh_print_error_str(char *cmd_str, char *word, char *error_str, int *fd)
 {
-	ft_putstr_fd("minishell : ", fd[STD_ERROR]);
+	ft_putstr_fd("minishell: ", fd[STD_ERROR]);
 	ft_putstr_fd(cmd_str, fd[STD_ERROR]);
 	ft_putstr_fd(": ", fd[STD_ERROR]);
+	if (word != NULL)
+	{
+		ft_putstr_fd(word, fd[STD_ERROR]);
+		ft_putstr_fd(": ", fd[STD_ERROR]);
+	}
 	ft_putstr_fd(error_str, fd[STD_ERROR]);
 	ft_putstr_fd("\n", fd[STD_ERROR]);
 	return (-1);

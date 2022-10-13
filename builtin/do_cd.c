@@ -6,18 +6,20 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:33:47 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/13 19:16:43 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/13 22:03:32 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "tokenizer.h"
+#include "msh_tree.h"
 
 int	do_cd(char **s, int *fd) // chdir() errno 확인하기
 {
 	char	*dir;
 	char	*save_dir;
 	char	*old_pwd;
+	int		errno;
 
 	if (s[1] == NULL || s[1][0] == '\0')
 		return (chdir(getenv("HOME")));
@@ -28,17 +30,9 @@ int	do_cd(char **s, int *fd) // chdir() errno 확인하기
 		free(dir);
 		dir = save_dir;
 	}
-	old_pwd = getcwd(NULL, 1024);
+	old_pwd = getcwd(NULL, 0);
 	if (chdir(dir) != 0)
-	{
-		ft_putstr_fd("minishell: cd: ", fd[STD_ERROR]);
-		ft_putstr_fd(dir, fd[STD_ERROR]);
-		ft_putstr_fd(": No such file or directory", fd[STD_ERROR]);
-		ft_putstr_fd("\n", fd[STD_ERROR]);
-		free(old_pwd);
-		free(dir);
-		return (1);
-	}
+		return (print_cd_error(dir, old_pwd, fd, errno));
 	else
 		change_pwd(old_pwd);
 	free (dir);
@@ -57,4 +51,12 @@ void	change_pwd(char *old_pwd)
 	pwd2 = ft_strjoin("PWD=", old_pwd);
 	change_env(pwd2);
 	free(old_pwd);
+}
+
+int	print_cd_error(char *dir, char *old_pwd, int *fd, int err)
+{
+	msh_print_error_str("cd", dir, strerror(err), fd);
+	free(old_pwd);
+	free(dir);
+	return (1);
 }

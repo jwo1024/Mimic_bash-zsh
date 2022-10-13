@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_run_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:47 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/12 23:41:05 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/13 22:07:53 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	msh_run_cmd(t_node *cmd_nd, int *fd, char **env_path)
 	if (rtn != -1)
 		return (rtn);
 	msh_run_simp_cmd(cmd_nd->right, env_path); //envp_path...
-	if (errno == 14) //str1 이 존재하지 않는 경우도 있나요 
+	if (errno == 14) //str1 이 존재하지 않는 경우도 있나요
 	{
-		msh_print_error_str(cmd_nd->right->str1, "command not found", fd);
+		msh_print_error_str(cmd_nd->right->str1, NULL, "command not found", fd);
 		return (127);
 	}
 	else if (errno == 13)
