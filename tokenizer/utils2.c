@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 20:38:59 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/11 17:24:18 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/13 19:31:33 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ t_node	*split_str(char *str)
 				add_next(make_new(&str[save], i - save), start);
 		}
 	}
-	add_next(msh_tree_create_node(T_NULL, NULL), start);
+	if (start == NULL)
+		start = make_new(NULL, 0);
+	else
+		add_next(msh_tree_create_node(T_NULL, NULL), start);
 	return (start);
 }
 

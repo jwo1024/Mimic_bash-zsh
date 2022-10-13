@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 17:34:28 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/11 17:34:49 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/13 20:17:23 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	get_env_name_size(char *s)
 
 	i = 0;
 	if (ft_isalpha(s[0]) == 0 && s[0] != '_')
-		return (i);
+		return (i + 1);
 	while (s[i] != '\0')
 	{
 		if (!(ft_isalnum(s[i]) || s[i] == '_'))

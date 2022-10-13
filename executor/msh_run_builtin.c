@@ -31,12 +31,12 @@ int	msh_run_builtin(t_node *simp_cmd, int *fd)
 	}
 	else if(ft_strncmp(simp_cmd->str1, "cd", 3) == 0)
 	{
-		fprintf(stderr, "\nbuiltin cmd cd\n");
+		fprintf(stderr, "builtin cmd cd\n");
 		rtn = do_cd(simp_cmd->str2, fd);
 	}
 	else if(ft_strncmp(simp_cmd->str1, "pwd", 3) == 0)
 	{
-		fprintf(stderr, "\nbuiltin cmd pwd\n");
+		fprintf(stderr, "builtin cmd pwd\n");
 		rtn = do_pwd(fd);
 	}
 	else if(ft_strncmp(simp_cmd->str1, "export", 7) == 0)
@@ -51,12 +51,12 @@ int	msh_run_builtin(t_node *simp_cmd, int *fd)
 	}
 	else if(ft_strncmp(simp_cmd->str1, "env", 4) == 0)
 	{
-		fprintf(stderr, "\nbuiltin cmd env\n");
+		fprintf(stderr, "builtin cmd env\n");
 		rtn = do_env(fd);
 	}
 	else if(ft_strncmp(simp_cmd->str1, "exit", 5) == 0)
 	{
-		fprintf(stderr, "\nbuiltin cmd exit\n");
+		fprintf(stderr, "builtin cmd exit\n");
 		rtn = do_exit(simp_cmd->str2, fd);
 	}
 	else

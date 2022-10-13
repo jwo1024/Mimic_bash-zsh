@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:14:28 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/11 23:25:51 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/13 20:31:50 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,21 @@
 #include "tokenizer.h"
 #include "msh_tree.h"
 
-t_tree	*msh_start_tokenize(char *s)
+t_tree	*msh_start_tokenize(char *s, int exit_status)
 {
 	t_node	*list;
 	t_tree	*tokens;
 
 	list = NULL;
-	s = get_env_at_tokenizer(s);
+	s = get_env_at_tokenizer(s, exit_status);
 	if (s == NULL)
 		return (NULL);
 	change_whitespace(s);
 	s = change_oper(s);
-	printf (" %s \n", s); // 나중에 삭제
+	printf("token: %s\n", s);
 	list = split_str(s);
+	if (list == NULL)
+		return (NULL);
 	tokens = msh_tree_create_tree();
 	tokens->top = list;
 	return (tokens);
@@ -43,9 +45,9 @@ void	change_whitespace(char *s)
 		{
 			i += skip_dquot(&s[i]);
 		}
-		if (is_whitespace(s[i]))
+		else if (is_whitespace(s[i]))
 			s[i] = -1;
-		if (s[i] != '\0')
+		else if (s[i] != '\0')
 			i++;
 	}
 }

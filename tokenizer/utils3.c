@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 22:40:20 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/12 23:04:17 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/13 19:39:58 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "tokenizer.h"
 
-// parser에서 편리하게 사용하기 위해 char *str -> char **str 로 바꾸어 사용했습니다. 
 char	*del_dequot(char **str)
 {
 	char	*s;

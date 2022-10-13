@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:52:20 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/13 17:54:05 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/13 18:11:21 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,9 @@
 
 int	do_export(char **word, int *fd)
 {
-	int		j;
 	int		i;
 
-	j = 0;
-	while (word[j] != NULL)
-		printf("exit : %s\n", word[j++]);
-
 	i = 1;
-	j = 0;
 	if (word[1] == NULL || word[1][0] == '\0')
 		print_env(fd);
 	while (word[i] != NULL)

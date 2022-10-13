@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 23:31:54 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/11 23:29:17 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/13 20:38:07 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	**get_env(char **envp)
 	return (list);
 }
 
-char	*get_env_to_str(char *env_name)
+char	*get_env_to_str(char *env_name, int exit_status)
 {
 	t_index	idx;
 
@@ -42,6 +42,11 @@ char	*get_env_to_str(char *env_name)
 	idx.j = 0;
 	if (env_name == NULL)
 		return (NULL);
+	if (env_name[0] == '?' && env_name[1] == '\0')
+	{
+		free(env_name);
+		return (ft_itoa(exit_status));
+	}
 	while (g_envp_list[++idx.i] != NULL)
 	{
 		if (env_name[0] == g_envp_list[idx.i][0])
@@ -65,33 +70,32 @@ char	*get_env_to_str(char *env_name)
 	return (NULL);
 }
 
-char	*get_env_at_tokenizer(char *s)
+char	*get_env_at_tokenizer(char *s, int exit)
 {
-	t_index	idx;
+	t_index	*idx;
 	char	*env;
 	char	*copy_str;
 
-	idx.i = 0;
-	idx.j = 0;
+	idx = make_idx();
 	copy_str = ft_strdup(s);
-	while (copy_str[idx.i] != '\0')
+	while (copy_str[idx->i] != '\0')
 	{
-		if (copy_str[idx.i] == '\'')
-			idx.i += skip_dquot(&copy_str[idx.i]);
-		if (copy_str[idx.i] == '$')
+		if (copy_str[idx->i] == '\'')
+			idx->i += skip_dquot(&copy_str[idx->i]);
+		if (copy_str[idx->i] == '$')
 		{
-			copy_str[idx.i] = -2;
-			printf("env name : %s\n", get_env_name(&copy_str[idx.i + 1]));
-			env = get_env_to_str(get_env_name(&copy_str[idx.i + 1]));
+			copy_str[idx->i] = -2;
+			env = get_env_to_str(get_env_name(&copy_str[idx->i + 1]), exit);
 			copy_str = get_merged_env_str(copy_str, env);
 			if (copy_str == NULL)
 				break ;
-			idx.i = 0;
+			idx->i = 0;
 		}
 		else
-			idx.i++;
+			idx->i++;
 	}
 	free(s);
+	free(idx);
 	s = copy_str;
 	return (s);
 }
@@ -107,7 +111,6 @@ char	*get_merged_env_str(char *s, char *env)
 	i = 0;
 	while (s[i] != -2)
 		i++;
-	printf("at merged_env_str : %s / %s\n", s, env);
 	if (i != 0)
 		front = ft_substr(s, 0, i);
 	else
