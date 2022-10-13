@@ -3,46 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   do_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 18:11:29 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/13 00:09:01 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/13 17:55:51 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "tokenizer.h"
 
-int	do_unset(char *word)
+int	do_unset(char **word, int *fd)
 {
 	t_index	*idx;
-	char	*str;
-	char	*copystr;
 
 	idx = make_idx();
-//	copystr = del_dequot(ft_strdup(&word[6]));
-	copystr = word; // 임시
-	str = ft_strdup(copystr);
-	while (copystr[idx->k] != '\0')
+	idx->k = 1;
+	while (word[idx->k] != NULL)
 	{
-		while (copystr[idx->k] != '\0' && copystr[idx->k] != ' ')
-			str[idx->j++] = copystr[idx->k++];
-		str[idx->j] = '\0';
+		check_export_word(word[idx->k], fd);
 		while (g_envp_list[idx->i] != NULL)
 		{
-			if (check_unset_dup(str, g_envp_list[idx->i]))
+			if (check_unset_dup(word[idx->k], g_envp_list[idx->i]))
 				unset_env(idx);
 			idx->i++;
 		}
-		if (copystr[idx->k] != '\0')
-			idx->k++;
-		idx->j = 0;
 		idx->i = 0;
+		idx->k++;
 	}
-	free(copystr);
-	free(str);
 	free(idx);
-	return (1);
+	return (0);
 }
 
 void	unset_env(t_index *idx)

@@ -3,55 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   do_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 15:21:27 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/13 00:03:42 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/13 17:54:52 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "tokenizer.h"
 
-int	do_echo(char *word, int *fd)
+int	do_echo(char **word, int *fd)
 {
-	char	*copy_str;
 	int		opt;
+	int		i;
 
-	opt = 0;
-	copy_str = ft_strdup(&word[5]);
-	while (check_opt(&copy_str[opt]) != 0)
-		opt += check_opt(&copy_str[opt]);
-//	copy_str = del_dequot(copy_str); // del_dequot형태를 조금 바꾸면서 일단 주석처리 들어갓습니다... 
-	ft_putstr_fd(&copy_str[opt], fd[STD_OUT]);
-	if (opt == 0 && copy_str[opt] != '\0')
+	if (word[1] == NULL)
+	{
 		ft_putstr_fd("\n", fd[STD_OUT]);
-	free (copy_str);
+		return (1);
+	}
+	opt = check_opt(word);
+	i = opt;
+	while (word[i] != NULL)
+	{
+		ft_putstr_fd(word[i], fd[STD_OUT]);
+		if (word[i + 1] != NULL)
+			ft_putchar_fd(' ', fd[STD_OUT]);
+		i++;
+	}
+	if (opt == 1)
+		ft_putstr_fd("\n", fd[STD_OUT]);
 	return (0);
 }
 
-int	check_opt(char *s)
+int	check_opt(char **s)
 {
-	int	count;
+	int		count;
+	int		count_n;
 
-	count = 0;
-	if (ft_strncmp("-n", s, 2) != 0)
-		return (0);
-	else
+	count = 1;
+	count_n = 2;
+	while (ft_strncmp("-n", s[count], 2) == 0)
 	{
-		count = 2;
-		while (s[count] != '\0')
-		{
-			if (s[count] == 'n')
-				count++;
-			else if (s[count] == ' ')
-			{
-				count++;
-				break ;
-			}
-			else
-				return (0);
-		}
+		while (s[count][count_n] == 'n')
+			count_n++;
+		if (s[count][count_n] != '\0')
+			break ;
+		count++;
+		count_n = 2;
+		if (s[count] == NULL)
+			break ;
 	}
 	return (count);
 }

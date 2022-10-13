@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 02:09:52 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/12 02:10:15 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/13 17:36:55 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,5 @@ int	error_print_export(char *str, char *word, int *fd)
 	write(fd[STD_ERROR], "\': ", 2);
 	ft_putstr_fd(str, fd[STD_ERROR]);
 	ft_putstr_fd("\n", fd[STD_ERROR]);
-	free(word);
 	return (1);
 }

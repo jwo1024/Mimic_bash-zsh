@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_parser2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:21:21 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/12 22:31:26 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/13 15:52:58 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	msh_parse_add_simcmd(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd)
 {
 	t_node	*token;
 	t_node	*tmp;
-	char	*str;
+	// char	*str; str을 사용중이 아니라서 컴파일시 에러
 	int		cnt;
 
 	if (tree == NULL || tokens == NULL || tree->top == NULL \
@@ -94,7 +94,7 @@ int	msh_parse_add_simcmd(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd)
 		return (-1);
 	token = msh_parse_get_tokens_top(tokens);
 	token->type = T_SIMP_CMD;
-	str = ft_strdup(token->str1);
+	// str = ft_strdup(token->str1); str을 사용중이 아니라서 컴파일시 에러
 	cur_cmd_nd->right = token;
 	token->str2 = ft_calloc(msh_cnt_typewords(tokens->top) + 2, sizeof(char *));
 	cnt = 0;

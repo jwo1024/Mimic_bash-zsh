@@ -3,41 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   do_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:52:20 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/13 00:09:05 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/13 17:54:05 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "tokenizer.h"
 
-int	do_export(char *word, int *fd)
+int	do_export(char **word, int *fd)
 {
-	char	*copy_word;
-	char	*part;
-	t_index	*idx;
+	int		j;
+	int		i;
 
-	printf("export: %s\n", word);
-	idx = make_idx();
-//	copy_word = del_dequot(change_str_at_export(ft_strdup(&word[7])));
-	copy_word = word; // 임시
-	if (word[6] == '\0')
+	j = 0;
+	while (word[j] != NULL)
+		printf("exit : %s\n", word[j++]);
+
+	i = 1;
+	j = 0;
+	if (word[1] == NULL || word[1][0] == '\0')
 		print_env(fd);
-	while (copy_word[idx->j] != '\0')
+	while (word[i] != NULL)
 	{
-		while (copy_word[idx->i] != '\0' && copy_word[idx->i] != -1)
-			idx->i++;
-		part = ft_substr(copy_word, idx->j, idx->i - idx->j);
-		if (check_export_word(part, fd))
+		if (check_export_word(word[i], fd))
 			break ;
-		g_envp_list = change_env(part);
-		if (copy_word[idx->i] == -1)
-			idx->i++;
-		idx->j = idx->i;
+		g_envp_list = change_env(ft_strdup(word[i]));
+		i++;
 	}
-	free (copy_word);
 	return (0);
 }
 
