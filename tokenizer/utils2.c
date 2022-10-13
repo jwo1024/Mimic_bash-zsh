@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 20:38:59 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/13 19:31:33 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/13 22:27:53 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ t_node	*make_new(char *str, int size)
 		type = T_PIPE;
 	else if (new_str[0] == '<')
 	{
-		if (new_str[1] == '<')
-			type = T_HEREDOC;
-		else
+	//	if (new_str[1] == '<')
+	//		type = T_HEREDOC;
+	//	else
 			type = T_REDIR;
 	}
 	else if (new_str[0] == '>')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:07:12 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/13 21:59:57 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/13 22:31:35 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,9 @@ int		msh_run_builtin(t_node *simp_cmd, int *fd);
 int		msh_nopipe_builtin(t_tree *tree);
 int		msh_is_builtin(t_node *simp_cmd_nd);
 int		*msh_init_fd(void);
+
+/* heredoc */
+int		msh_heredoc(char *key, t_node *node);
+int		msh_heredoc_child(char *key, char *file_path);
 
 #endif

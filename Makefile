@@ -6,7 +6,7 @@
 #    By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 16:37:49 by jaeyjeon          #+#    #+#              #
-#    Updated: 2022/10/12 23:05:03 by jiwolee          ###   ########seoul.kr   #
+#    Updated: 2022/10/13 22:23:36 by jiwolee          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,8 @@ SRC2			= ./msh_tree/msh_tree.c \
 				  ./executor/msh_redirection.c \
 				  ./executor/msh_error.c \
 				  ./executor/msh_run_builtin.c \
-				  ./executor/msh_executor_fork_wait.c
+				  ./executor/msh_executor_fork_wait.c \
+				  ./executor/msh_heredoc.c
 
 SRC3			= ./tokenizer/tokenizer.c \
 				  ./tokenizer/utils.c \

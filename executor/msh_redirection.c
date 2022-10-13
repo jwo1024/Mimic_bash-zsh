@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:14:37 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/12 22:10:03 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/13 22:41:59 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ int	msh_set_redirection_open(t_node *redirct_nd, int *fd)
 			close (fd[STD_IN]);
 		fd[STD_IN] = open(redirct_nd->str2[0], O_RDONLY); // str2 존재하지ㅣ 않을때는?
 		if (fd[STD_IN] == -1)
+		{
+			printf("errno");
 			return (msh_print_errno(redirct_nd->str2[0], fd));
+		}
 	}
 	else if (ft_strncmp(redirct_nd->str1, ">", 2) == 0)
 	{
@@ -65,7 +68,14 @@ int	msh_set_redirection_open(t_node *redirct_nd, int *fd)
 			return (msh_print_errno(redirct_nd->str2[0], fd));
 	}
 	else if (ft_strncmp(redirct_nd->str1, "<<", 3) == 0)
-		; // here doc.. 이거는 여기가 아니라 저 저 저어기 tokenzier에서 처리하는게 더 낫지 않나? 근데 ls 를 word로 처리한다. . . . . 
+	{
+		if (fd[STD_IN] > 2)
+			close (fd[STD_IN]);
+		fd[STD_IN] = open(redirct_nd->str2[0], O_RDONLY); // str2 존재하지ㅣ 않을때는?
+		if (fd[STD_IN] == -1)
+			return (msh_print_errno(redirct_nd->str2[0], fd));
+		unlink(redirct_nd->str2[0]);
+	}
 	else
 		return (-1);
 	return (1);
