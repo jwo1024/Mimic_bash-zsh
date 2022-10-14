@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:43:26 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/14 17:07:30 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/14 21:17:21 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ pid_t	*msh_executor_fork(t_node *pipe_nd, char **env_path, pid_t *pids)
 		msh_executor_fork_set_pipe2(pipe_nd, pipe_fd, fd);
 		pipe_nd = pipe_nd->right;
 	}
+	free (fd);
 	return (pids);
 }
 
