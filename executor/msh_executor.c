@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:41 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/11 16:49:25 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/14 16:31:14 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ pid_t	*msh_executor_malloc_pids(t_tree *tree)
 	cnt = 0;
 	while (pipe_nd)
 	{
-//		if (pipe_nd->type != T_PIPE)
-//			return (NULL);
+		if (pipe_nd->type != T_PIPE)
+			return (NULL);
 		pipe_nd = pipe_nd->right;
 		cnt++;
 	}

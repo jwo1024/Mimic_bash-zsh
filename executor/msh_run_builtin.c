@@ -1,4 +1,3 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -7,12 +6,11 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 20:29:31 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/05 22:59:51 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/14 17:03:41 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 int	msh_run_builtin(t_node *simp_cmd, int *fd)
 {
@@ -21,50 +19,28 @@ int	msh_run_builtin(t_node *simp_cmd, int *fd)
 	rtn = 0;
 	if (simp_cmd->str1 == NULL)
 		return (-1);
-	if (fd == NULL) // 나중에 지우기
+	if (fd == NULL)
 		return (-1);
-
 	if (ft_strncmp(simp_cmd->str1, "echo", 5) == 0)
-	{
-		fprintf(stderr, "builtin cmd echo \n");
 		rtn = do_echo(simp_cmd->str2, fd);
-	}
-	else if(ft_strncmp(simp_cmd->str1, "cd", 3) == 0)
-	{
-		fprintf(stderr, "builtin cmd cd\n");
+	else if (ft_strncmp(simp_cmd->str1, "cd", 3) == 0)
 		rtn = do_cd(simp_cmd->str2, fd);
-	}
-	else if(ft_strncmp(simp_cmd->str1, "pwd", 3) == 0)
-	{
-		fprintf(stderr, "builtin cmd pwd\n");
+	else if (ft_strncmp(simp_cmd->str1, "pwd", 3) == 0)
 		rtn = do_pwd(fd);
-	}
-	else if(ft_strncmp(simp_cmd->str1, "export", 7) == 0)
-	{
-		fprintf(stderr, "builtin cmd export\n");
+	else if (ft_strncmp(simp_cmd->str1, "export", 7) == 0)
 		rtn = do_export(simp_cmd->str2, fd);
-	}
-	else if(ft_strncmp(simp_cmd->str1, "unset", 6) == 0)
-	{
-		fprintf(stderr, "builtin cmd unset\n");
+	else if (ft_strncmp(simp_cmd->str1, "unset", 6) == 0)
 		rtn = do_unset(simp_cmd->str2, fd);
-	}
-	else if(ft_strncmp(simp_cmd->str1, "env", 4) == 0)
-	{
-		fprintf(stderr, "builtin cmd env\n");
+	else if (ft_strncmp(simp_cmd->str1, "env", 4) == 0)
 		rtn = do_env(fd);
-	}
-	else if(ft_strncmp(simp_cmd->str1, "exit", 5) == 0)
-	{
-		fprintf(stderr, "builtin cmd exit\n");
+	else if (ft_strncmp(simp_cmd->str1, "exit", 5) == 0)
 		rtn = do_exit(simp_cmd->str2, fd);
-	}
 	else
 		return (-1);
 	return (rtn);
 }
 
-int	msh_nopipe_builtin(t_tree *tree) // + envp_list;
+int	msh_nopipe_builtin(t_tree *tree)
 {
 	int		rtn;
 	t_node	*cmd_nd;
@@ -77,16 +53,12 @@ int	msh_nopipe_builtin(t_tree *tree) // + envp_list;
 	fd = msh_init_fd();
 	if (fd == NULL)
 		fprintf(stderr, "msh_nopipe_builtin() fd error\n");
-	if (tree->top->right || sim_cmd_nd == NULL || sim_cmd_nd->str1 == NULL) // 오른쪽이 있거나, NULL이면 처리
+	if (tree->top->right || sim_cmd_nd == NULL || sim_cmd_nd->str1 == NULL)
 		return (-1);
 	if (msh_is_builtin(sim_cmd_nd) == -1)
 		return (-1);
-
 	if (msh_set_redirection(cmd_nd->left, fd))
 		rtn = msh_run_builtin(sim_cmd_nd, fd);
-//	if (rtn != 0) // envp_list
-//		fprintf(stderr, "cant be happen msh_nopipe_builtin()\n");
-
 	if (fd[STD_IN] > 2)
 		close(fd[STD_IN]);
 	if (fd[STD_OUT] > 2)
@@ -103,20 +75,19 @@ int	msh_is_builtin(t_node *simp_cmd_nd)
 		return (-1);
 	if (ft_strncmp(simp_cmd_nd->str1, "echo", 5) == 0)
 		;
-	else if(ft_strncmp(simp_cmd_nd->str1, "cd", 3) == 0)
+	else if (ft_strncmp(simp_cmd_nd->str1, "cd", 3) == 0)
 		;
-	else if(ft_strncmp(simp_cmd_nd->str1, "pwd", 3) == 0)
+	else if (ft_strncmp(simp_cmd_nd->str1, "pwd", 3) == 0)
 		;
-	else if(ft_strncmp(simp_cmd_nd->str1, "export", 7) == 0)
+	else if (ft_strncmp(simp_cmd_nd->str1, "export", 7) == 0)
 		;
-	else if(ft_strncmp(simp_cmd_nd->str1, "unset", 6) == 0)
+	else if (ft_strncmp(simp_cmd_nd->str1, "unset", 6) == 0)
 		;
-	else if(ft_strncmp(simp_cmd_nd->str1, "env", 4) == 0)
+	else if (ft_strncmp(simp_cmd_nd->str1, "env", 4) == 0)
 		;
-	else if(ft_strncmp(simp_cmd_nd->str1, "exit", 5) == 0)
-		write(2, "exit\n", 5); //
+	else if (ft_strncmp(simp_cmd_nd->str1, "exit", 5) == 0)
+		ft_putstr_fd("exit", STD_OUT);
 	else
 		return (-1);
 	return (1);
 }
-

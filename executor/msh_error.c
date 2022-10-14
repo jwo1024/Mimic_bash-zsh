@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_error.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 13:43:26 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/13 21:59:32 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/14 16:29:21 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,19 @@ void	msh_error_parse(char *str)
 		ft_putstr_fd(str, 2);
 		ft_putstr_fd("'\n", 2);
 	}
+}
+
+int	msh_print_error_str_t(char *cmd_str, char *word, char *error_str, int fd)
+{
+	ft_putstr_fd("minishell: ", fd);
+	ft_putstr_fd(cmd_str, fd);
+	ft_putstr_fd(": ", fd);
+	if (word != NULL)
+	{
+		ft_putstr_fd(word, fd);
+		ft_putstr_fd(": ", fd);
+	}
+	ft_putstr_fd(error_str, fd);
+	ft_putstr_fd("\n", fd);
+	return (-1);
 }

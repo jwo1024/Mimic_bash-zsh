@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:38:45 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/12 21:53:15 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/14 17:15:21 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include	<stdio.h>
 # include	<stdlib.h>
+# include	"../libft/libft.h"
 
 enum e_ttype
 {
@@ -36,7 +37,7 @@ enum e_ttype
 typedef struct s_node{
 	enum e_ttype	type;
 	char			*str1;
-	char			**str2; // 수정
+	char			**str2;
 	struct s_node	*left;
 	struct s_node	*right;
 	struct s_node	*parent;
@@ -50,11 +51,12 @@ typedef struct s_tree
 
 t_tree	*msh_tree_create_tree(void);
 t_node	*msh_tree_create_node(enum e_ttype type, char *str);
-int		msh_tree_add_node_left(t_tree *tree, t_node *cur_node, t_node *new_node);
-int		msh_tree_add_node_right(t_tree *tree, t_node *cur_node, t_node *new_node);
+int		msh_tree_add_node_left(t_tree *tree, t_node *cur_node, \
+												t_node *new_node);
+int		msh_tree_add_node_right(t_tree *tree, t_node *cur_node, \
+												t_node *new_node);
 int		msh_tree_add_edge_right(t_tree *tree, t_node *new_node);
 
-/* new */
 void	msh_tree_delete_node(t_node **node);
 void	msh_tree_clear_node(t_node *node);
 void	msh_tree_delete_nodes(t_node *node);

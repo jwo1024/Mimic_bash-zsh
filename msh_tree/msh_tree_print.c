@@ -6,19 +6,18 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:38:33 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/12 21:55:20 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/14 17:09:17 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"./msh_tree.h"
-#include	"minishell.h"
 
 int	msh_tree_print_node(t_node *node)
 {
 	if (node == NULL)
 		return (-1);
 	printf("node type: %d, str1 %s, str2", \
-			node->type, node->str1); // pf
+			node->type, node->str1);
 	for (int i = 0; node->str2 && node->str2[i]; i++)
 		printf(" %s", node->str2[i]);
 	printf("\n");

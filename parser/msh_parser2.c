@@ -13,9 +13,6 @@
 #include "minishell.h"
 #include "msh_tree.h"
 
-int	msh_cnt_typewords(t_node *node);
-
-// str2
 t_node	*msh_parse_get_tokens_top(t_tree *tree)
 {
 	t_node	*rtn;
@@ -46,19 +43,15 @@ int	msh_parse_add_redirect(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd)
 		return (-1);
 	redir_node->str2[0] = file_node->str1;
 	redir_node->str2[1] = NULL;
-	file_node->str1 = NULL;
 	if (cur_cmd_nd->left != NULL)
 	{
 		cur_cmd_nd = cur_cmd_nd->left;
-		while (cur_cmd_nd->right)
-			cur_cmd_nd = cur_cmd_nd->right;
-		cur_cmd_nd->right = redir_node;
+		while (cur_cmd_nd->left)
+			cur_cmd_nd = cur_cmd_nd->left;
 	}
-	else
-		cur_cmd_nd->left = redir_node;
+	cur_cmd_nd->left = redir_node;
 	redir_node->parent = cur_cmd_nd;
 	tree->node_count++;
-	msh_tree_clear_node(file_node);
 	free(file_node);
 	if (ft_strncmp(redir_node->str1, "<<", 3) == 0)
 		msh_heredoc(*redir_node->str2, redir_node);

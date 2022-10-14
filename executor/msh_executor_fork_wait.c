@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:43:26 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/10 12:44:32 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/14 17:07:30 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ pid_t	*msh_executor_fork(t_node *pipe_nd, char **env_path, pid_t *pids)
 		pipe_nd = pipe_nd->right;
 	}
 	return (pids);
-}	// 한번 fd 흐름 따라서 다 닫혔는지 확인필요  lsof -p <pid>
+}
 
 void	msh_executor_fork_set_pipe1(t_node *pipe_nd, int *pipe_fd, int *fd)
 {
 	if (pipe_nd->right)
 	{
-		pipe(pipe_fd); // if -1 ?
+		pipe(pipe_fd);
 		fd[STD_OUT] = pipe_fd[PIPE_IN];
 	}
 	else
@@ -75,7 +75,6 @@ int	msh_executor_wait_child(int *pids)
 int	msh_exit_status(int statloc)
 {
 	if ((statloc & 255) == 0)
-		return ((statloc & 65280) >> 8); // statloc >> 8 && 255?
-	fprintf(stderr, "exit status error %d, %d, %d\n", statloc & 255, statloc >> 8, statloc << 8);
+		return ((statloc >> 8) & 255);
 	return ((statloc & 127) + 128);
 }
