@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:38:36 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/09/23 15:51:56 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/14 21:10:52 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,19 @@ void	msh_tree_delete_node(t_node **node)
 
 void	msh_tree_clear_node(t_node *node)
 {
+	int	i;
+
+	i = 0;
 	if (node == NULL)
 		return ;
 	if (node->str1 != NULL)
 		free(node->str1);
 	if (node->str2 != NULL)
+	{
+		while (node->str2 && node->str2[i])
+			free(node->str2[i++]);
 		free(node->str2);
+	}
 }
 
 void	msh_tree_delete_nodes(t_node *node)
