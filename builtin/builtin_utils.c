@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:52:32 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/11 17:40:25 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/15 00:29:57 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,10 @@ void	free_env(char **env)
 
 	i = 0;
 	while (env[i] != NULL)
-		i++;
-	if (i != 0)
-		i--;
-	while (i != 0)
 	{
 		free(env[i]);
-		i--;
+		i++;
 	}
-	free(env[i]);
 	free(env);
 }
 

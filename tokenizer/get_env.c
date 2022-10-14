@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 23:31:54 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/14 22:23:46 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/15 01:06:51 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,13 +99,11 @@ char	*get_env_at_tokenizer(char *s, int exit)
 		else
 			i++;
 	}
-	free(s);
 	i = -1;
 	while (str != NULL && str[++i] != '\0')
 		if (str[i] == -3)
 			str[i] = '$';
-	s = str;
-	return (s);
+	return (str);
 }
 
 int	check_next_dol(char c)
@@ -136,5 +134,6 @@ char	*get_merged_env_str(char *s, char *env)
 		rear = NULL;
 	merge1 = ft_strjoin_check_null(front, env);
 	merge2 = ft_strjoin_check_null(merge1, rear);
+	free(s);
 	return (merge2);
 }
