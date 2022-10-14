@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 20:29:31 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/14 17:03:41 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/14 20:37:41 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ int	msh_nopipe_builtin(t_tree *tree)
 	rtn = 1;
 	cmd_nd = tree->top->left;
 	sim_cmd_nd = cmd_nd->right;
-	fd = msh_init_fd();
-	if (fd == NULL)
-		fprintf(stderr, "msh_nopipe_builtin() fd error\n");
 	if (tree->top->right || sim_cmd_nd == NULL || sim_cmd_nd->str1 == NULL)
 		return (-1);
+	fd = msh_init_fd();
+	if (fd == NULL)
+		fprintf(stderr, "msh_nopipe_builtin() fd error\n"); // 여기 수정
 	if (msh_is_builtin(sim_cmd_nd) == -1)
 		return (-1);
 	if (msh_set_redirection(cmd_nd->left, fd))
