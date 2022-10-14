@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:33:47 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/13 22:03:32 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/13 22:12:05 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "tokenizer.h"
 #include "msh_tree.h"
 
-int	do_cd(char **s, int *fd) // chdir() errno 확인하기
+int	do_cd(char **s, int *fd)
 {
 	char	*dir;
 	char	*save_dir;

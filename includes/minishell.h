@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:07:12 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/14 16:30:57 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/14 19:50:17 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,12 @@ int		msh_parse_redirect(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd, t_node
 int		msh_parse_word(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd, t_node *cur_tokens_node);
 int		msh_parse_pipe(t_tree *tree, t_tree *tokens, t_node **cur_pipe_nd);
 
-
 /* msh_parser2.c */
 t_node	*msh_parse_get_tokens_top(t_tree *tree);
 int		msh_parse_add_redirect(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd);
 int		msh_parse_add_pipe_cmd(t_tree *tree, t_tree *tokens, t_node *cur_pipe_nd);
 int		msh_parse_add_simcmd(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd);
 int		msh_cnt_typewords(t_node *node); //
-
 
 /* msh_executor */
 int		msh_executor(t_tree *tree);
@@ -87,14 +85,12 @@ int		*msh_set_redirection(t_node *redirct_nd, int *fd);
 int		msh_set_redirection_open(t_node *redirct_nd, int *fd);
 int		*msh_create_redirect_fd(void);
 
-
 /* msh_error */
 int		msh_print_errno(char *str, int *fd);
 int		msh_print_error_str(char *cmd_str, char *word, \
 								char *error_str, int *fd);
 void	msh_error_parse(char *str);
 int	msh_print_error_str_t(char *cmd_str, char *word, char *error_str, int fd);
-
 
 /* msh_run_builtin.c */
 int		msh_run_builtin(t_node *simp_cmd, int *fd);

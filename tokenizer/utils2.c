@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 20:38:59 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/13 22:27:53 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/14 20:01:11 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ t_node	*split_str(char *str)
 				add_next(make_new(&str[save], i - save), start);
 		}
 	}
-	if (start == NULL)
-		start = make_new(NULL, 0);
-	else
+	if (start != NULL)
 		add_next(msh_tree_create_node(T_NULL, NULL), start);
 	return (start);
 }

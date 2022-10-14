@@ -6,9 +6,12 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 17:34:28 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/13 20:17:23 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/14 21:33:10 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "minishell.h"
+#include "tokenizer.h"
 
 #include "minishell.h"
 #include "tokenizer.h"

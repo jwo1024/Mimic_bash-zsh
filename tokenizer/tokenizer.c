@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:14:28 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/13 20:31:50 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/14 20:00:29 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ t_tree	*msh_start_tokenize(char *s, int exit_status)
 		return (NULL);
 	change_whitespace(s);
 	s = change_oper(s);
-	printf("token: %s\n", s);
 	list = split_str(s);
+	free (s);
 	if (list == NULL)
 		return (NULL);
 	tokens = msh_tree_create_tree();

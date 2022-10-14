@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 02:09:52 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/13 17:36:55 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/14 20:20:59 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ int	check_dup(char *str, char *env)
 			if (str[j] != env[j])
 				break ;
 		}
+		if (str[j] == '\0' && env[j] == '=')
+			return (2);
 		if ((str[j] == '=' && env[j] == '=') || \
-		(str[j] == '\0' && env[j] == '\0'))
+		(str[j] == '\0' && env[j] == '\0') || (str[j] == '=' && env[j] == '\0'))
 			return (1);
 	}
 	return (0);

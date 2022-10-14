@@ -6,12 +6,12 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:00:14 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/13 22:02:53 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/14 19:49:44 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-// 오류처리는 안함.... 다음에 알아보자
+
 int	do_pwd(int *fd)
 {
 	char	*str;

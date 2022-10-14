@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 23:31:54 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/13 20:38:07 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/14 22:23:46 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,32 +72,47 @@ char	*get_env_to_str(char *env_name, int exit_status)
 
 char	*get_env_at_tokenizer(char *s, int exit)
 {
-	t_index	*idx;
+	int		i;
 	char	*env;
-	char	*copy_str;
+	char	*str;
 
-	idx = make_idx();
-	copy_str = ft_strdup(s);
-	while (copy_str[idx->i] != '\0')
+	i = 0;
+	str = ft_strdup(s);
+	while (str[i] != '\0')
 	{
-		if (copy_str[idx->i] == '\'')
-			idx->i += skip_dquot(&copy_str[idx->i]);
-		if (copy_str[idx->i] == '$')
+		if (str[i] == '\'')
+			i += skip_dquot(&str[i]);
+		if (str[i] == '$')
 		{
-			copy_str[idx->i] = -2;
-			env = get_env_to_str(get_env_name(&copy_str[idx->i + 1]), exit);
-			copy_str = get_merged_env_str(copy_str, env);
-			if (copy_str == NULL)
-				break ;
-			idx->i = 0;
+			if (check_next_dol(str[i + 1]))
+				str[i] = -3;
+			else
+			{
+				str[i] = -2;
+				env = get_env_to_str(get_env_name(&str[i + 1]), exit);
+				str = get_merged_env_str(str, env);
+				if (str == NULL)
+					break ;
+			}
+			i = 0;
 		}
 		else
-			idx->i++;
+			i++;
 	}
 	free(s);
-	free(idx);
-	s = copy_str;
+	i = -1;
+	while (str != NULL && str[++i] != '\0')
+		if (str[i] == -3)
+			str[i] = '$';
+	s = str;
 	return (s);
+}
+
+int	check_next_dol(char c)
+{
+	if (!(ft_isalnum(c) || c == '_'))
+		return (1);
+	return (0);
 }
 
 char	*get_merged_env_str(char *s, char *env)
