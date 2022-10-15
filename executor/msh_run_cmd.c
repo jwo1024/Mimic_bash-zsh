@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:47 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/15 16:35:27 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/15 19:10:24 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,15 @@ int	msh_run_cmd(t_node *cmd_nd, int *fd, char **env_path)
 	if (errno == 14)
 	{
 		msh_print_error(fd[STD_ERROR], cmd_nd->right->str1, "command not found", 127);
-	//	msh_print_error_str(cmd_nd->right->str1, NULL, "command not found", fd);
 		return (127);
 	}
 	else if (errno == 13)
 	{
 		msh_print_errno(fd[STD_ERROR], cmd_nd->right->str1, NULL, 126);
-	//	msh_print_errno(cmd_nd->right->str1, fd);
 		return (126);
 	}
 	else
 		msh_print_errno(fd[STD_ERROR], cmd_nd->right->str1, NULL, 1);
-	//	msh_print_errno(cmd_nd->right->str1, fd);
 	return (1);
 }
 
@@ -46,7 +43,7 @@ int	msh_run_simp_cmd(t_node *simpcmd, char **env_path)
 	char	*file_path;
 
 	file_path = NULL;
-	if (ft_strrchr(simpcmd->str1, '/') != NULL)
+	if ((ft_strrchr(simpcmd->str1, '/') != NULL && file_path == NULL) || env_path == NULL)
 		file_path = ft_substr(simpcmd->str2[0], 0, ft_strlen(simpcmd->str2[0]));
 	else
 		file_path = msh_get_cmd_path(simpcmd->str1, env_path);
@@ -62,7 +59,7 @@ char	*msh_get_cmd_path(char *cmd, char **env_path)
 	struct stat	buf;
 
 	i = 0;
-	if (cmd == NULL || cmd[0] == '\0')
+	if (cmd == NULL || cmd[0] == '\0' || env_path == NULL)
 		return (NULL);
 	while (env_path[i])
 	{
