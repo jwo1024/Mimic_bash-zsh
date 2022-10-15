@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:02:23 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/14 16:16:35 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/15 17:01:30 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,20 @@ int	msh_parse_check_type(t_tree *tree, t_tree *tokens, t_node **cur_pipe)
 		rtn = 0 ;
 	else
 	{
-		msh_error_parse(curr->str1);
+		msh_parse_error(curr->str1);
 		rtn = -1;
 	}
 	return (rtn);
+}
+
+void	msh_parse_error(char *str)
+{
+	if (str == NULL)
+		ft_putstr_fd("minishell: syntax error near unexpected token 'newline'\n", 2);
+	else
+	{
+		ft_putstr_fd("minishell: syntax error near unexpected token '", 2);
+		ft_putstr_fd(str, 2);
+		ft_putstr_fd("'\n", 2);
+	}
 }

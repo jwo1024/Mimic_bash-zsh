@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:51:50 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/14 16:30:59 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/15 16:11:52 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,7 @@ int	msh_heredoc_child_write(char *file_path, char *str)
 
 	fd = open(file_path, O_WRONLY | O_CREAT, 0644);
 	if (fd == -1)
-	{
-		msh_print_error_str_t("heredoc", NULL, strerror(errno), STD_ERROR);
-		return (1);
-	}
+		return (msh_print_errno(STD_ERROR, "<<", NULL, 1));
 	write(fd, str, ft_strlen(str));
 	close (fd);
 	return (0);

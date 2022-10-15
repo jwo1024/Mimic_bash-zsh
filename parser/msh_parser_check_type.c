@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 16:16:19 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/14 16:17:18 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/15 16:19:00 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	msh_parse_check_alltype(t_tree *tree, t_tree *tokens, t_node *cur_cmd)
 	else if (tokens->top->type == T_NULL)
 		rtn = 0;
 	else
-		msh_error_parse(tokens->top->str1);
+		msh_parse_error(tokens->top->str1);
 	return (rtn);
 }
 
@@ -46,7 +46,7 @@ int	msh_parse_redirect(t_tree *tree, t_tree *tokens,
 		rtn = msh_parse_check_alltype(tree, tokens, cur_cmd);
 	}
 	else
-		msh_error_parse(cur_token->str1);
+		msh_parse_error(cur_token->str1);
 	return (rtn);
 }
 
@@ -80,7 +80,7 @@ int	msh_parse_pipe(t_tree *tree, t_tree *tokens, t_node **cur_pipe)
 		rtn = 1;
 	else
 	{
-		msh_error_parse(tokens->top->str1);
+		msh_parse_error(tokens->top->str1);
 		rtn = -1;
 	}
 	return (rtn);

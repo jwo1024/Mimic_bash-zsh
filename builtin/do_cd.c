@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:33:47 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/13 22:12:05 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/15 16:23:57 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	do_cd(char **s, int *fd)
 	}
 	old_pwd = getcwd(NULL, 0);
 	if (chdir(dir) != 0)
-		return (print_cd_error(dir, old_pwd, fd, errno));
+		return (print_cd_error(dir, old_pwd, fd));
 	else
 		change_pwd(old_pwd);
 	free (dir);
@@ -53,9 +53,10 @@ void	change_pwd(char *old_pwd)
 	free(old_pwd);
 }
 
-int	print_cd_error(char *dir, char *old_pwd, int *fd, int err)
+int	print_cd_error(char *dir, char *old_pwd, int *fd)
 {
-	msh_print_error_str("cd", dir, strerror(err), fd);
+	msh_print_errno(fd[STD_ERROR], "cd", dir, 0);
+//	msh_print_error_str("cd", dir, strerror(err), fd);
 	free(old_pwd);
 	free(dir);
 	return (1);

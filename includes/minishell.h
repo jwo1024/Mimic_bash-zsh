@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:07:12 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/14 19:50:17 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/15 16:44:25 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int		msh_parse_check_type(t_tree *tree, t_tree *tokens, t_node **cur_pipe);
 int		msh_parse_redirect(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd, t_node *cur_tokens_node);
 int		msh_parse_word(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd, t_node *cur_tokens_node);
 int		msh_parse_pipe(t_tree *tree, t_tree *tokens, t_node **cur_pipe_nd);
+void	msh_parse_error(char *str);
+
 
 /* msh_parser2.c */
 t_node	*msh_parse_get_tokens_top(t_tree *tree);
@@ -86,12 +88,13 @@ int		msh_set_redirection_open(t_node *redirct_nd, int *fd);
 int		*msh_create_redirect_fd(void);
 
 /* msh_error */
-int		msh_print_errno(char *str, int *fd);
+int		msh_print_errno(int fd, char *str1, char *str2, int rtn);
+int		msh_print_error(int fd, char *str1, char *str2, int rtn);
+/*
 int		msh_print_error_str(char *cmd_str, char *word, \
 								char *error_str, int *fd);
-void	msh_error_parse(char *str);
 int	msh_print_error_str_t(char *cmd_str, char *word, char *error_str, int fd);
-
+*/
 /* msh_run_builtin.c */
 int		msh_run_builtin(t_node *simp_cmd, int *fd);
 int		msh_nopipe_builtin(t_tree *tree);

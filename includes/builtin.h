@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:49:11 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/14 22:22:41 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/15 16:24:51 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		check_word(char *word);
 int		do_echo(char **word, int *fd);
 int		do_env(int *fd);
 int		do_cd(char **s, int *fd);
-int		print_cd_error(char *dir, char *old_pwd, int *fd, int errno);
+int		print_cd_error(char *dir, char *old_pwd, int *fd);
 int		check_opt(char **s);
 int		check_dequot(char *s);
 int		find_equal(char *word);

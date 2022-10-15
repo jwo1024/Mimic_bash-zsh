@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:14:37 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/14 16:53:30 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/15 16:42:11 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	msh_set_redirection_open(t_node *redirct_nd, int *fd)
 			close (fd[STD_IN]);
 		fd[STD_IN] = open(redirct_nd->str2[0], O_RDONLY);
 		if (fd[STD_IN] == -1)
-			return (msh_print_errno(redirct_nd->str2[0], fd));
+			return (msh_print_errno(fd[STD_ERROR], redirct_nd->str2[0], NULL, -1)); // fd[STD_ERROR]
 	}
 	else if (ft_strncmp(redirct_nd->str1, ">", 2) == 0)
 	{
@@ -54,7 +54,7 @@ int	msh_set_redirection_open(t_node *redirct_nd, int *fd)
 			close (fd[STD_OUT]);
 		fd[STD_OUT] = open(redirct_nd->str2[0], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (fd[STD_OUT] == -1)
-			return (msh_print_errno(redirct_nd->str2[0], fd));
+			return (msh_print_errno(fd[STD_ERROR], redirct_nd->str2[0], NULL, -1));
 	}
 	else if (ft_strncmp(redirct_nd->str1, ">>", 3) == 0)
 	{
@@ -62,7 +62,7 @@ int	msh_set_redirection_open(t_node *redirct_nd, int *fd)
 			close (fd[STD_OUT]);
 		fd[STD_OUT] = open(redirct_nd->str2[0], O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (fd[STD_OUT] == -1)
-			return (msh_print_errno(redirct_nd->str2[0], fd));
+			return (msh_print_errno(fd[STD_ERROR], redirct_nd->str2[0], NULL, -1));
 	}
 	else if (ft_strncmp(redirct_nd->str1, "<<", 3) == 0)
 	{
@@ -70,7 +70,7 @@ int	msh_set_redirection_open(t_node *redirct_nd, int *fd)
 			close (fd[STD_IN]);
 		fd[STD_IN] = open(redirct_nd->str2[0], O_RDONLY);
 		if (fd[STD_IN] == -1)
-			return (msh_print_errno(redirct_nd->str2[0], fd));
+			return (msh_print_errno(fd[STD_ERROR], redirct_nd->str2[0], NULL, -1));
 		unlink(redirct_nd->str2[0]);
 	}
 	else

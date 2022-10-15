@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:47 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/14 17:08:09 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/15 16:35:27 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,19 @@ int	msh_run_cmd(t_node *cmd_nd, int *fd, char **env_path)
 	msh_run_simp_cmd(cmd_nd->right, env_path);
 	if (errno == 14)
 	{
-		msh_print_error_str(cmd_nd->right->str1, NULL, "command not found", fd);
+		msh_print_error(fd[STD_ERROR], cmd_nd->right->str1, "command not found", 127);
+	//	msh_print_error_str(cmd_nd->right->str1, NULL, "command not found", fd);
 		return (127);
 	}
 	else if (errno == 13)
 	{
-		msh_print_errno(cmd_nd->right->str1, fd);
+		msh_print_errno(fd[STD_ERROR], cmd_nd->right->str1, NULL, 126);
+	//	msh_print_errno(cmd_nd->right->str1, fd);
 		return (126);
 	}
 	else
-		msh_print_errno(cmd_nd->right->str1, fd);
+		msh_print_errno(fd[STD_ERROR], cmd_nd->right->str1, NULL, 1);
+	//	msh_print_errno(cmd_nd->right->str1, fd);
 	return (1);
 }
 

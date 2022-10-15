@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:00:14 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/14 19:49:44 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/15 16:21:38 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	do_pwd(int *fd)
 	str = getcwd(NULL, 0);
 	if (str == NULL)
 	{
-		msh_print_error_str("pwd", NULL, strerror(errno), fd);
-		return (-1);
+	//	msh_print_error_str("pwd", NULL, strerror(errno), fd);
+		return (msh_print_errno(fd[STD_ERROR], "pwd", NULL, -1)); // rtn 2? 
 	}
 	ft_putstr_fd(str, fd[STD_OUT]);
 	ft_putstr_fd("\n", fd[STD_OUT]);
