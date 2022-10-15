@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:47 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/15 20:16:07 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/15 20:20:56 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	msh_run_cmd(t_node *cmd_nd, int *fd, char **env_path)
 	}
 	else
 		msh_print_errno(fd[STD_ERROR], cmd_nd->right->str1, NULL, 1);
-	return (1);
+	return (127);
 }
 
 int	msh_run_simp_cmd(t_node *simpcmd, char **env_path)
