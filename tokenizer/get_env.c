@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 23:31:54 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/15 16:56:37 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/15 19:48:48 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,23 @@ char	*get_env_to_str(char *env_name, int exit_status)
 char	*get_env_at_tokenizer(char *s, int exit)
 {
 	int		i;
+	int		double_flag;
 	char	*env;
 	char	*str;
 
 	i = 0;
+	double_flag = 0;
 	str = ft_strdup(s);
 	while (str[i] != '\0')
 	{
-		if (str[i] == '\'')
+		if (str[i] == '"')
+		{
+			if (double_flag == 1)
+				double_flag = 0;
+			else if (skip_dquot(&str[i]) != 1 && double_flag == 0)
+				double_flag = 1;
+		}
+		if (str[i] == '\'' && double_flag == 0)
 			i += skip_dquot(&str[i]);
 		if (str[i] == '$')
 		{
