@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:57:18 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/13 20:32:48 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/15 20:42:28 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,7 @@ char	*get_env_name(char *s);
 int		get_env_name_size(char *s);
 char	*get_merged_env_str(char *s, char *env);
 char	*ft_strjoin_check_null(char *s1, char *s2);
+int		check_double_flag(char *s, int double_flag);
+void	fix_dol(char *str);
 
 #endif
