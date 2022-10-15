@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:33:47 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/16 05:57:25 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/16 06:30:54 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	do_cd(char **s, int *fd)
 	{
 		old_pwd = getcwd(NULL, 0);
 		if (chdir(getenv("HOME")) != 0)
-			return (print_cd_error(NULL, old_pwd, fd));
+			return (print_cd_error(ft_strdup(getenv("HOME")), old_pwd, fd));
 		change_pwd(old_pwd);
 		return (0);
 	}
@@ -64,7 +64,6 @@ int	print_cd_error(char *dir, char *old_pwd, int *fd)
 	msh_print_errno(fd[STD_ERROR], "cd", dir, 0);
 //	msh_print_error_str("cd", dir, strerror(err), fd);
 	free(old_pwd);
-	if (dir != NULL)
-		free(dir);
+	free(dir);
 	return (1);
 }
