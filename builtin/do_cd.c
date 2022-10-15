@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:33:47 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/15 16:23:57 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/16 03:51:32 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,11 @@ int	do_cd(char **s, int *fd)
 	int		errno;
 
 	if (s[1] == NULL || s[1][0] == '\0')
+	{
+		old_pwd = getcwd(NULL, 0);
+		change_pwd(old_pwd);
 		return (chdir(getenv("HOME")));
+	}
 	dir = ft_strdup(s[1]);
 	if (dir[0] == '~' && (dir[1] == '\0' || dir[1] == '/'))
 	{
