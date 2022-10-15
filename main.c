@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 18:28:02 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/15 17:11:41 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/15 18:19:04 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,16 @@ int	main(int argc, char *argv[], char *envp[])
 			if (str[0] != '\0')
 			{
 				add_history(str);
-				tree = msh_parser(msh_start_tokenize(str, exit_status));
-				exit_status = msh_executor(tree);
+				tree = msh_start_tokenize(str, exit_status);
 				if (tree == NULL)
+					exit_status = 0;
+				else
 				{
-					free(str);
-					continue ;
+					tree = msh_parser(tree);
+					exit_status = msh_executor(tree);
+					if (tree)
+						msh_tree_delete(tree);					
 				}
-				msh_tree_delete(tree);
 				fprintf(stderr, "exit status %d\n", exit_status);
 			}
 			free(str);
