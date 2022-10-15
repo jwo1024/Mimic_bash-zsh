@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:07:12 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/15 16:44:25 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/16 00:59:31 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ int		msh_cnt_typewords(t_node *node); //
 int		msh_executor(t_tree *tree);
 
 char	**msh_executor_get_path(char **envp_list);
-pid_t	*msh_executor_malloc_pids(t_tree *tree);
+pid_t	*msh_executor_init_pids(t_tree *tree);
+void	msh_executor_free_env_path(char **envp_path);
 
 /* msh_executor_fork_wait */
 pid_t	*msh_executor_fork(t_node *pipe_nd, char **envp_list, pid_t *pids);
@@ -99,7 +100,7 @@ int	msh_print_error_str_t(char *cmd_str, char *word, char *error_str, int fd);
 int		msh_run_builtin(t_node *simp_cmd, int *fd);
 int		msh_nopipe_builtin(t_tree *tree);
 int		msh_is_builtin(t_node *simp_cmd_nd);
-int		*msh_init_fd(void);
+int		msh_init_fd(int **fd);
 
 /* heredoc */
 int		msh_heredoc(char *key, t_node *node);

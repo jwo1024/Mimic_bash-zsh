@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 20:29:31 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/14 23:48:03 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/16 01:02:48 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,22 @@ int	msh_run_builtin(t_node *simp_cmd, int *fd)
 
 int	msh_nopipe_builtin(t_tree *tree)
 {
-	int		rtn;
+	int		exit_status;
 	t_node	*cmd_nd;
 	t_node	*sim_cmd_nd;
 	int		*fd;
 
-	rtn = 1;
+	exit_status = 1;
 	cmd_nd = tree->top->left;
 	sim_cmd_nd = cmd_nd->right;
 	if (tree->top->right || sim_cmd_nd == NULL || sim_cmd_nd->str1 == NULL)
 		return (-1);
 	if (msh_is_builtin(sim_cmd_nd) == -1)
 		return (-1);
-	fd = msh_init_fd();
-	if (fd == NULL)
-		fprintf(stderr, "msh_nopipe_builtin() fd error\n"); // 여기 수정
+	if (msh_init_fd(&fd) == -1)
+		return (exit_status);
 	if (msh_set_redirection(cmd_nd->left, fd))
-		rtn = msh_run_builtin(sim_cmd_nd, fd);
+		exit_status = msh_run_builtin(sim_cmd_nd, fd);
 	if (fd[STD_IN] > 2)
 		close(fd[STD_IN]);
 	if (fd[STD_OUT] > 2)
@@ -66,7 +65,7 @@ int	msh_nopipe_builtin(t_tree *tree)
 	if (fd[STD_ERROR] > 2)
 		close(fd[STD_ERROR]);
 	free(fd);
-	return (rtn);
+	return (exit_status);
 }
 
 int	msh_is_builtin(t_node *simp_cmd_nd)

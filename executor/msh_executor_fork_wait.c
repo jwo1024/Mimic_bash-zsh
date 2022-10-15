@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:43:26 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/14 21:17:21 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/16 02:19:37 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@ pid_t	*msh_executor_fork(t_node *pipe_nd, char **env_path, pid_t *pids)
 	int	*fd;
 
 	i = 0;
-	fd = msh_init_fd();
+	if (msh_init_fd(&fd) == -1)
+		return (NULL);
 	while (pipe_nd)
 	{
 		msh_executor_fork_set_pipe1(pipe_nd, pipe_fd, fd);
 		pids[i] = fork();
+		if (pids[i] == -1)
+			msh_print_errno(STD_ERROR, "fail executor_fork", NULL, 1);
 		if (pids[i++] == 0)
 		{
 			if (pipe_nd->right)
@@ -41,7 +44,12 @@ void	msh_executor_fork_set_pipe1(t_node *pipe_nd, int *pipe_fd, int *fd)
 {
 	if (pipe_nd->right)
 	{
-		pipe(pipe_fd);
+		if (pipe(pipe_fd) == -1)
+		{
+			msh_print_errno(STD_ERROR, "executor", NULL, -1);
+			pipe_fd[STD_IN] = -1;
+			pipe_fd[STD_OUT] = -1;
+		}
 		fd[STD_OUT] = pipe_fd[PIPE_IN];
 	}
 	else
@@ -63,14 +71,23 @@ int	msh_executor_wait_child(int *pids)
 {
 	int	i;
 	int	statloc;
+	int	exit_status;
 
 	i = 0;
+	exit_status = 1;
+	if (pids[i] == 0)
+		return (exit_status);
 	while (pids[i])
 	{
+		if (pids[i] == -1)
+			exit_status = -1;
 		waitpid(pids[i], &statloc, 0);
 		i++;
 	}
-	return (msh_exit_status(statloc));
+	if (exit_status == -1)
+		return (1);
+	exit_status = msh_exit_status(statloc);
+	return (exit_status);
 }
 
 int	msh_exit_status(int statloc)
