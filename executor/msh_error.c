@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 13:43:26 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/15 16:44:05 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/15 17:55:47 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,13 @@ int	msh_print_error(int fd, char *str1, char *str2, int rtn)
 {
 	ft_putstr_fd("minishell: ", fd);
 	if (str1 != NULL)
-	{
 		ft_putstr_fd(str1, fd);
-		ft_putstr_fd(": ", fd);
-	}
 	if (str2 != NULL)
 	{
-		ft_putstr_fd(str2, fd);
 		ft_putstr_fd(": ", fd);
+		ft_putstr_fd(str2, fd);
 	}
+	ft_putstr_fd("\n", fd);
 	return (rtn);
 }
 
