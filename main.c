@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 18:28:02 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/15 01:13:05 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/15 17:11:41 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ int	main(int argc, char *argv[], char *envp[])
 			{
 				add_history(str);
 				tree = msh_parser(msh_start_tokenize(str, exit_status));
+				exit_status = msh_executor(tree);
 				if (tree == NULL)
 				{
 					free(str);
 					continue ;
 				}
-				exit_status = msh_executor(tree);
 				msh_tree_delete(tree);
 				fprintf(stderr, "exit status %d\n", exit_status);
 			}
