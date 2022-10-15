@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:33:47 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/16 04:58:17 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/16 05:44:07 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	change_pwd(char *old_pwd)
 	pwd = ft_strjoin("OLDPWD=", old_pwd);
 	g_envp_list = change_env(pwd);
 	free(old_pwd);
-	old_pwd = getcwd(NULL, 1024);
+	old_pwd = getcwd(NULL, 0);
 	pwd2 = ft_strjoin("PWD=", old_pwd);
 	g_envp_list = change_env(pwd2);
 	free(old_pwd);

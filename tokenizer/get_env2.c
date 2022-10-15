@@ -6,12 +6,9 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 17:34:28 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/14 21:33:10 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/16 05:43:17 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "minishell.h"
-#include "tokenizer.h"
 
 #include "minishell.h"
 #include "tokenizer.h"
@@ -56,4 +53,23 @@ char	*get_env_name(char *s)
 	}
 	name[j] = '\0';
 	return (name);
+}
+
+void	fix_dol(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str != NULL && str[++i] != '\0')
+		if (str[i] == -3)
+			str[i] = '$';
+}
+
+int	check_next_dol(char c)
+{
+	if (c == '?')
+		return (0);
+	if (!(ft_isalnum(c) || c == '_'))
+		return (1);
+	return (0);
 }

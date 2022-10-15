@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 23:31:54 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/16 02:35:59 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/16 05:43:45 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,20 @@ char	**get_env(char **envp)
 {
 	char	**list;
 	int		i;
+	int		j;
 
 	i = 0;
+	j = 0;
 	while (envp[i])
 		i++;
 	list = malloc_env(i + 2);
-	if (list == NULL)
-		return (NULL);
-	i = 0;
-	list[i++] = ft_strdup("0");
-	while (envp[i])
+	i = 1;
+	list[0] = ft_strdup("0");
+	while (envp[j])
 	{
-		list[i] = ft_strdup(envp[i]);
+		list[i] = ft_strdup(envp[j]);
 		i++;
+		j++;
 	}
 	list[i] = NULL;
 	return (list);
@@ -115,25 +116,6 @@ char	*get_env_at_tokenizer(char *s)
 	}
 	fix_dol(str);
 	return (str);
-}
-
-void	fix_dol(char *str)
-{
-	int	i;
-
-	i = -1;
-	while (str != NULL && str[++i] != '\0')
-		if (str[i] == -3)
-			str[i] = '$';
-}
-
-int	check_next_dol(char c)
-{
-	if (c == '?')
-		return (0);
-	if (!(ft_isalnum(c) || c == '_'))
-		return (1);
-	return (0);
 }
 
 char	*get_merged_env_str(char *s, char *env)
