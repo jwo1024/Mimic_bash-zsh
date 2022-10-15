@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 23:31:54 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/15 01:06:51 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/15 16:56:37 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ char	*get_env_at_tokenizer(char *s, int exit)
 
 int	check_next_dol(char c)
 {
+	if (c == '?')
+		return (0);
 	if (!(ft_isalnum(c) || c == '_'))
 		return (1);
 	return (0);
