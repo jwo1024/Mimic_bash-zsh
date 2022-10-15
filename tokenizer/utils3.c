@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 22:40:20 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/13 19:39:58 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/16 02:36:18 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,10 @@ char	*ft_strjoin_check_null(char *s1, char *s2)
 		return (result);
 	}
 	return (NULL);
+}
+
+void	change_exit_status(int num)
+{
+	free(g_envp_list[0]);
+	g_envp_list[0] = ft_itoa(num);
 }

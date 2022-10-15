@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 17:57:21 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/14 19:46:06 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/16 02:32:15 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,11 @@ char	**sort_env(void)
 	char	*temp;
 
 	new = malloc_env(get_envp_size() + 1);
-	i.i = -1;
+	i.i = 0;
+	i.j = 0;
 	while (g_envp_list[++i.i] != NULL)
-		new[i.i] = ft_strdup(g_envp_list[i.i]);
+		new[i.j++] = ft_strdup(g_envp_list[i.i]);
+	new[i.i] = NULL;
 	i.i = -1;
 	while (new[++i.i] != NULL)
 	{

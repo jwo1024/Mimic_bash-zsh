@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 23:31:54 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/15 20:42:48 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/16 02:35:59 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ char	**get_env(char **envp)
 	i = 0;
 	while (envp[i])
 		i++;
-	list = malloc_env(i + 1);
+	list = malloc_env(i + 2);
 	if (list == NULL)
 		return (NULL);
 	i = 0;
+	list[i++] = ft_strdup("0");
 	while (envp[i])
 	{
 		list[i] = ft_strdup(envp[i]);
@@ -34,7 +35,7 @@ char	**get_env(char **envp)
 	return (list);
 }
 
-char	*get_env_to_str(char *env_name, int exit_status)
+char	*get_env_to_str(char *env_name)
 {
 	t_index	idx;
 
@@ -45,7 +46,7 @@ char	*get_env_to_str(char *env_name, int exit_status)
 	if (env_name[0] == '?' && env_name[1] == '\0')
 	{
 		free(env_name);
-		return (ft_itoa(exit_status));
+		return (ft_strdup(g_envp_list[0]));
 	}
 	while (g_envp_list[++idx.i] != NULL)
 	{
@@ -79,7 +80,7 @@ int	check_double_flag(char *s, int double_flag)
 	return (double_flag);
 }
 
-char	*get_env_at_tokenizer(char *s, int exit)
+char	*get_env_at_tokenizer(char *s)
 {
 	int		i;
 	int		double_flag;
@@ -102,7 +103,7 @@ char	*get_env_at_tokenizer(char *s, int exit)
 			else
 			{
 				str[i] = -2;
-				env = get_env_to_str(get_env_name(&str[i + 1]), exit);
+				env = get_env_to_str(get_env_name(&str[i + 1]));
 				str = get_merged_env_str(str, env);
 				if (str == NULL)
 					break ;

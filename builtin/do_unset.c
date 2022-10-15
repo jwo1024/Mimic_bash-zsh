@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 18:11:29 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/13 18:06:40 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/16 02:33:19 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	do_unset(char **word, int *fd)
 		check_export_word(word[idx->k], fd);
 		while (g_envp_list[idx->i] != NULL)
 		{
-			if (check_unset_dup(word[idx->k], g_envp_list[idx->i]))
+			if (idx->i != 0 && check_unset_dup(word[idx->k], \
+			g_envp_list[idx->i]))
 				unset_env(idx);
 			idx->i++;
 		}

@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:14:28 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/15 16:58:19 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/16 02:38:18 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 #include "tokenizer.h"
 #include "msh_tree.h"
 
-t_tree	*msh_start_tokenize(char *s, int exit_status)
+t_tree	*msh_start_tokenize(char *s)
 {
 	t_node	*list;
 	t_tree	*tokens;
 
 	list = NULL;
-	s = get_env_at_tokenizer(s, exit_status);
+	s = get_env_at_tokenizer(s);
 	if (s == NULL)
 		return (NULL);
 	change_whitespace(s);

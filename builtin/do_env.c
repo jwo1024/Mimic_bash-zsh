@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:04:58 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/13 21:58:02 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/16 02:32:33 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	do_env(int *fd)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	while (g_envp_list[i] != NULL)
 	{
 		if (find_equal(g_envp_list[i]))

@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:52:20 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/14 20:41:47 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/16 02:32:47 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	**change_env(char *str)
 	i = 0;
 	while (g_envp_list[i] != NULL)
 	{
-		if (check_dup(str, g_envp_list[i]))
+		if (i != 0 && check_dup(str, g_envp_list[i]))
 			return (change_env_at_export(str, new_list, i));
 		if (i == oldsize)
 			new_list[j++] = str;
