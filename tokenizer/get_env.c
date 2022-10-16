@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 23:31:54 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/16 21:03:13 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/17 02:35:52 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,7 @@ char	*get_env_to_str(char *env_name)
 	if (env_name == NULL)
 		return (NULL);
 	if (env_name[0] == '?' && env_name[1] == '\0')
-	{
-		free(env_name);
-		return (safe_ft_strdup(g_envp_list[0], "get_env"));
-	}
+		return (free_ret(env_name, safe_ft_strdup(g_envp_list[0], "get_env")));
 	while (g_envp_list[++i.i] != NULL)
 	{
 		if (env_name[0] == g_envp_list[i.i][0])
@@ -61,24 +58,12 @@ char	*get_env_to_str(char *env_name)
 				i.j++;
 			}
 			if (env_name[i.j] == '\0' && g_envp_list[i.i][i.j] == '=')
-			{
-				free(env_name);
-				return (safe_ft_strdup(&g_envp_list[i.i][i.j + 1], "get_env"));
-			}
+				return (free_ret(env_name, safe_ft_strdup(&g_envp_list[i.i][++i.j], "get_env")));
 		}
 		i.j = 0;
 	}
 	free(env_name);
 	return (NULL);
-}
-
-int	check_double_flag(char *s, int double_flag)
-{
-	if (double_flag == 1)
-		double_flag = 0;
-	else if (skip_dquot(s) != 1 && double_flag == 0)
-		double_flag = 1;
-	return (double_flag);
 }
 
 char	*get_env_at_tokenizer(char *s)

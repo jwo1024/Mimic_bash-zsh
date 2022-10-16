@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:47 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/17 01:14:10 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/17 01:55:41 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	msh_run_cmd(t_node *cmd_nd, int *fd, char **env_path)
 	int	rtn;
 
 	rtn = -1;
+	set_terminal_print_on(); // signal 원본으로 출력
+	set_signal_origin(); // signal이 원래대로의 역할을 수행하도록 변경
 	if (msh_redirection(cmd_nd->left, fd) == -1)
 		return (1);
 	rtn = msh_run_builtin(cmd_nd->right, fd);

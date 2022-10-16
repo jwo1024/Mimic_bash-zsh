@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:51:50 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/17 01:06:16 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/17 02:07:54 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	msh_heredoc_child(char *key, char *file_path)
 
 	str = ft_calloc(1, sizeof(char));
 	str[0] = '\0';
-	do_signal_heredoc(); // heredoc전용 SIGINT를 수행할 signal
+	set_signal_heredoc(); // heredoc전용 SIGINT를 수행할 signal
 	while (1)
 	{
 		new = readline("> ");

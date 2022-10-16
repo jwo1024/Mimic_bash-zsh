@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_run_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 20:29:31 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/16 01:02:48 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/17 02:03:03 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	msh_is_builtin(t_node *simp_cmd_nd)
 	else if (ft_strncmp(simp_cmd_nd->str1, "env", 4) == 0)
 		;
 	else if (ft_strncmp(simp_cmd_nd->str1, "exit", 5) == 0)
-		ft_putstr_fd("exit", STD_OUT);
+		ft_putstr_fd("exit\n", STD_OUT);
 	else
 		return (-1);
 	return (1);

@@ -6,13 +6,26 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:33:47 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/16 20:41:20 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/17 02:17:51 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "tokenizer.h"
 #include "msh_tree.h"
+
+int	do_cd_home(int *fd)
+{
+	char	*old_pwd;
+
+	old_pwd = getcwd(NULL, 0);
+	if (old_pwd == NULL)
+		return (msh_print_errno(fd[STD_ERROR], "pwd", NULL, 1));
+	if (chdir(getenv("HOME")) != 0)
+		return (print_cd_error(ft_strdup(getenv("HOME")), old_pwd, fd));
+	change_pwd(old_pwd);
+	return (0);
+}
 
 int	do_cd(char **s, int *fd)
 {
@@ -21,15 +34,7 @@ int	do_cd(char **s, int *fd)
 	char	*old_pwd;
 
 	if (s[1] == NULL || s[1][0] == '\0')
-	{
-		old_pwd = getcwd(NULL, 0);
-		if (old_pwd == NULL)
-			return (msh_print_errno(fd[STD_ERROR], "pwd", NULL, 1));
-		if (chdir(getenv("HOME")) != 0)
-			return (print_cd_error(ft_strdup(getenv("HOME")), old_pwd, fd));
-		change_pwd(old_pwd);
-		return (0);
-	}
+		return (do_cd_home(fd));
 	dir = safe_ft_strdup(s[1], "cd");
 	if (dir[0] == '~' && (dir[1] == '\0' || dir[1] == '/'))
 	{

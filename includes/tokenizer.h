@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:57:18 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/16 02:38:36 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/17 02:36:04 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ char	*ft_strjoin_check_null(char *s1, char *s2);
 int		check_double_flag(char *s, int double_flag);
 void	fix_dol(char *str);
 void	change_exit_status(int num);
+char	*free_ret(char *env_name, char *str);
 
 #endif

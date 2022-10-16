@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 18:28:02 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/17 01:17:06 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/17 01:52:24 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	main(int argc, char *argv[], char *envp[])
 					if (tree)
 						msh_tree_delete(tree);
 				}
-				fprintf(stderr, "exit status %d\n", ft_atoi(g_envp_list[0]));
+				//fprintf(stderr, "exit status %d\n", ft_atoi(g_envp_list[0]));
 			}
 			free(str);
 			continue ;

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   msh_executor.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:41 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/16 01:00:01 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/17 01:48:06 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "mini_signal.h"
 
 int	msh_executor(t_tree *tree)
 {
@@ -35,6 +36,7 @@ int	msh_executor(t_tree *tree)
 		}
 		msh_executor_fork(tree->top, env_path, pids);
 		exit_status = msh_executor_wait_child(pids);
+		set_signal(); // signal을 원상복귀
 		free(pids);
 	}
 	msh_executor_free_env_path(env_path);

@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:40:39 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/17 01:13:49 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/17 02:08:06 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,13 @@ void	set_signal_fork(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-void	do_signal_heredoc(void)
+void	set_signal_origin(void)
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+}
+
+void	set_signal_heredoc(void)
 {
 	signal(SIGINT, do_sigint_heredoc);
 	signal(SIGQUIT, SIG_IGN);
@@ -37,29 +43,4 @@ void	do_sigint_heredoc(int signum)
 	(void)signum;
 	ft_putstr_fd("\n", 1);
 	exit (1);
-}
-
-void	do_sigint(int signum)
-{
-	(void)signum;
-	ft_putstr_fd("\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-	change_exit_status(1);
-}
-
-void	do_sigquit(int signum)
-{
-	(void)signum;
-	rl_on_new_line();
-	rl_redisplay();
-	ft_putstr_fd("  \b\b", 1);
-}
-
-void	do_sigterm(void)
-{
-	ft_putstr_fd("\033[1A", 1);
-	ft_putstr_fd("\033[12C", 1);
-	ft_putstr_fd("exit\n", 1);
 }
