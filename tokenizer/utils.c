@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:14:34 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/15 19:41:24 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/16 21:09:29 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,19 @@ int	count_new_space(char *s, char c)
 		i++;
 	}
 	return (i + count);
+}
+
+int	check_str_whitespace(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (is_whitespace(str[i]))
+			i++;
+		else
+			return (0);
+	}
+	return (1);
 }

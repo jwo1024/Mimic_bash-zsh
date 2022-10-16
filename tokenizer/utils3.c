@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 22:40:20 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/16 02:36:18 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/16 20:55:56 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ char	*del_dequot(char **str)
 	s = *str;
 	idx = make_idx();
 	new_str = malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (new_str == NULL)
+		malloc_failed("del_dequot");
 	while (s[idx->i] != '\0')
 	{
 		if (s[idx->i] == '\"')
@@ -57,20 +59,20 @@ char	*ft_strjoin_check_null(char *s1, char *s2)
 
 	if (s1 != NULL && s2 != NULL)
 	{
-		result = ft_strjoin(s1, s2);
+		result = safe_ft_strjoin(s1, s2, "make_str");
 		free(s1);
 		free(s2);
 		return (result);
 	}
 	if (s1 == NULL && s2 != NULL)
 	{
-		result = ft_strdup(s2);
+		result = safe_ft_strdup(s2, "make_str");
 		free(s2);
 		return (result);
 	}
 	if (s1 != NULL && s2 == NULL)
 	{
-		result = ft_strdup(s1);
+		result = safe_ft_strdup(s1, "make_str");
 		free(s1);
 		return (result);
 	}
@@ -81,4 +83,12 @@ void	change_exit_status(int num)
 {
 	free(g_envp_list[0]);
 	g_envp_list[0] = ft_itoa(num);
+	if (g_envp_list[0] == NULL)
+		malloc_failed("change_exit_status");
+}
+
+void	malloc_failed(char *str)
+{
+	msh_print_errno(STD_ERROR, str, NULL, -1);
+	exit (1);
 }

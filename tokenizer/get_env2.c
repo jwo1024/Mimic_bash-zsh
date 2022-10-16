@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 17:34:28 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/16 05:43:17 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/16 20:45:28 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,7 @@ char	*get_env_name(char *s)
 		return (NULL);
 	name = malloc(sizeof(char) * (i + 1));
 	if (name == NULL)
-	{
-		ft_putstr_fd("malloc error\n", STD_ERROR);
-		exit(1);
-	}
+		malloc_failed("get_env");
 	while (i != 0)
 	{
 		name[j] = s[j];

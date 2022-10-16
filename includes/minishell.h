@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:07:12 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/16 00:59:31 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/16 21:09:43 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int		msh_parse_redirect(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd, t_node
 int		msh_parse_word(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd, t_node *cur_tokens_node);
 int		msh_parse_pipe(t_tree *tree, t_tree *tokens, t_node **cur_pipe_nd);
 void	msh_parse_error(char *str);
-
 
 /* msh_parser2.c */
 t_node	*msh_parse_get_tokens_top(t_tree *tree);
@@ -107,4 +106,6 @@ int		msh_heredoc(char *key, t_node *node);
 int		msh_heredoc_child(char *key, char *file_path);
 int		msh_heredoc_child_write(char *file_path, char *str);
 
+void	malloc_failed(char *str);
+int		check_str_whitespace(char *str);
 #endif

@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:14:28 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/16 02:38:18 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/16 21:03:22 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	*change_each_oper(char *s, char op)
 	idx = make_idx();
 	str = malloc(sizeof(char) * count_new_space(s, op) + 1);
 	if (str == NULL)
-		exit(1);
+		malloc_failed(NULL);
 	while (s[idx->i] != '\0')
 	{
 		if (s[idx->i] == '\"' || s[idx->i] == '\'')
@@ -96,7 +96,7 @@ char	*change_redir(char *s, char op)
 	idx = make_idx();
 	str = malloc(sizeof(char) * count_new_space(s, op) + 1);
 	if (str == NULL)
-		exit(1);
+		malloc_failed(NULL);
 	while (s[idx->i] != '\0')
 	{
 		if (s[idx->i] == '\"' || s[idx->i] == '\'')

@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 23:31:54 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/16 05:43:45 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/16 21:03:13 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ char	**get_env(char **envp)
 		i++;
 	list = malloc_env(i + 2);
 	i = 1;
-	list[0] = ft_strdup("0");
+	list[0] = safe_ft_strdup("0", "get_env");
 	while (envp[j])
 	{
-		list[i] = ft_strdup(envp[j]);
+		list[i] = safe_ft_strdup(envp[j], "get_env");
 		i++;
 		j++;
 	}
@@ -38,35 +38,35 @@ char	**get_env(char **envp)
 
 char	*get_env_to_str(char *env_name)
 {
-	t_index	idx;
+	t_index	i;
 
-	idx.i = -1;
-	idx.j = 0;
+	i.i = -1;
+	i.j = 0;
 	if (env_name == NULL)
 		return (NULL);
 	if (env_name[0] == '?' && env_name[1] == '\0')
 	{
 		free(env_name);
-		return (ft_strdup(g_envp_list[0]));
+		return (safe_ft_strdup(g_envp_list[0], "get_env"));
 	}
-	while (g_envp_list[++idx.i] != NULL)
+	while (g_envp_list[++i.i] != NULL)
 	{
-		if (env_name[0] == g_envp_list[idx.i][0])
+		if (env_name[0] == g_envp_list[i.i][0])
 		{
-			while (env_name[idx.j] != '\0' && g_envp_list[idx.i][idx.j] \
-			!= '\0' && g_envp_list[idx.i][idx.j] != '=')
+			while (env_name[i.j] != '\0' && g_envp_list[i.i][i.j] \
+			!= '\0' && g_envp_list[i.i][i.j] != '=')
 			{
-				if (env_name[idx.j] != g_envp_list[idx.i][idx.j])
+				if (env_name[i.j] != g_envp_list[i.i][i.j])
 					break ;
-				idx.j++;
+				i.j++;
 			}
-			if (env_name[idx.j] == '\0' && g_envp_list[idx.i][idx.j] == '=')
+			if (env_name[i.j] == '\0' && g_envp_list[i.i][i.j] == '=')
 			{
 				free(env_name);
-				return (ft_strdup(&g_envp_list[idx.i][idx.j + 1]));
+				return (safe_ft_strdup(&g_envp_list[i.i][i.j + 1], "get_env"));
 			}
 		}
-		idx.j = 0;
+		i.j = 0;
 	}
 	free(env_name);
 	return (NULL);
@@ -90,7 +90,9 @@ char	*get_env_at_tokenizer(char *s)
 
 	i = 0;
 	double_flag = 0;
-	str = ft_strdup(s);
+	str = safe_ft_strdup(s, "get_env");
+	if (str == NULL)
+		return (NULL);
 	while (str[i] != '\0')
 	{
 		if (str[i] == '"')
@@ -130,11 +132,11 @@ char	*get_merged_env_str(char *s, char *env)
 	while (s[i] != -2)
 		i++;
 	if (i != 0)
-		front = ft_substr(s, 0, i);
+		front = safe_ft_substr(s, 0, i, "get_env");
 	else
 		front = NULL;
 	if (s[get_env_name_size(&s[i + 1]) + i + 1] != '\0')
-		rear = ft_strdup(&s[get_env_name_size(&s[i + 1]) + i + 1]);
+		rear = safe_ft_strdup(&s[get_env_name_size(&s[i + 1]) + i + 1], "get_env");
 	else
 		rear = NULL;
 	merge1 = ft_strjoin_check_null(front, env);

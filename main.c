@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 18:28:02 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/16 02:38:46 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/16 21:09:48 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ int	main(int argc, char *argv[], char *envp[])
 		str = readline("\033[0;36mminishell $ \033[0m");
 		if (str != NULL)
 		{
-			if (str[0] != '\0')
+			if (check_str_whitespace(str))
+				;
+			else if (str[0] != '\0')
 			{
 				add_history(str);
 				tree = msh_start_tokenize(str);

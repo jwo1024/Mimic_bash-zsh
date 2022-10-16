@@ -1,57 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_utils.c                                    :+:      :+:    :+:   */
+/*   builtin_utils3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/26 17:52:32 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/16 20:54:38 by jaeyjeon         ###   ########.fr       */
+/*   Created: 2022/10/16 20:54:44 by jaeyjeon          #+#    #+#             */
+/*   Updated: 2022/10/16 20:55:30 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "tokenizer.h"
 
-t_index	*make_idx(void)
+char	*safe_ft_strjoin(char *s1, char *s2, char *s3)
 {
-	t_index	*new;
+	char	*new;
 
-	new = malloc(sizeof(t_index));
+	new = ft_strjoin(s1, s2);
 	if (new == NULL)
-		malloc_failed("make_idx");
-	new->i = 0;
-	new->j = 0;
-	new->k = 0;
+		malloc_failed(s3);
 	return (new);
 }
 
-void	free_env(char **env)
+char	*safe_ft_strdup(char *s1, char *s2)
 {
-	int	i;
+	char	*new;
 
-	i = 0;
-	while (env[i] != NULL)
-	{
-		free(env[i]);
-		i++;
-	}
-	free(env);
+	new = ft_strdup(s1);
+	if (new == NULL)
+		malloc_failed(s2);
+	return (new);
 }
 
-char	**malloc_env(int size)
+char	*safe_ft_substr(char *s1, int start, int size, char *s2)
 {
-	char	**new;
-	int		i;
+	char	*new;
 
-	i = 0;
-	new = malloc(sizeof(char *) * size);
+	new = ft_substr(s1, start, size);
 	if (new == NULL)
-		malloc_failed("malloc_env");
-	while (i != size)
-	{
-		new[i] = NULL;
-		i++;
-	}
+		malloc_failed(s2);
 	return (new);
 }

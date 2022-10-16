@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 17:57:21 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/16 02:32:15 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/16 20:40:10 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	**sort_env(void)
 	i.i = 0;
 	i.j = 0;
 	while (g_envp_list[++i.i] != NULL)
-		new[i.j++] = ft_strdup(g_envp_list[i.i]);
+		new[i.j++] = safe_ft_strdup(g_envp_list[i.i], "env");
 	new[i.i] = NULL;
 	i.i = -1;
 	while (new[++i.i] != NULL)

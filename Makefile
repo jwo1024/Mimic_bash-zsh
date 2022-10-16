@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+         #
+#    By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 16:37:49 by jaeyjeon          #+#    #+#              #
-#    Updated: 2022/10/14 16:16:59 by jiwolee          ###   ########seoul.kr   #
+#    Updated: 2022/10/16 20:55:19 by jaeyjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,7 @@ SRC3			= ./tokenizer/tokenizer.c \
 				  ./builtin/do_export.c \
 				  ./builtin/do_export2.c \
 				  ./builtin/builtin_utils2.c \
+				  ./builtin/builtin_utils3.c \
 				  ./builtin/do_unset.c \
 				  ./builtin/do_exit.c
 
