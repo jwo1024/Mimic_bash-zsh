@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   msh_run_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:47 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/15 20:50:41 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/17 01:14:10 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "mini_signal.h"
 
 int	msh_run_cmd(t_node *cmd_nd, int *fd, char **env_path)
 {

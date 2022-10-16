@@ -6,7 +6,7 @@
 #    By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 16:37:49 by jaeyjeon          #+#    #+#              #
-#    Updated: 2022/10/16 20:55:19 by jaeyjeon         ###   ########.fr        #
+#    Updated: 2022/10/17 00:46:41 by jaeyjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,6 @@ SRC2			= ./msh_tree/msh_tree.c \
 
 SRC3			= ./tokenizer/tokenizer.c \
 				  ./tokenizer/utils.c \
-				  ./tokenizer/signal.c \
 				  ./tokenizer/get_env.c \
 				  ./tokenizer/get_env2.c \
 				  ./tokenizer/utils2.c \
@@ -56,7 +55,9 @@ SRC3			= ./tokenizer/tokenizer.c \
 				  ./builtin/builtin_utils2.c \
 				  ./builtin/builtin_utils3.c \
 				  ./builtin/do_unset.c \
-				  ./builtin/do_exit.c
+				  ./builtin/do_exit.c \
+				  ./signal/signal.c \
+				  ./signal/signal2.c \
 
 SRCS			= $(SRC1) $(SRC2) $(SRC3)
 

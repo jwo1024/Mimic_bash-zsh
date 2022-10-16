@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   msh_heredoc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:51:50 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/16 23:17:35 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/17 01:06:16 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"minishell.h"
+#include	"mini_signal.h"
 
 int	msh_heredoc(char *key, t_node *node)
 {
@@ -24,7 +25,7 @@ int	msh_heredoc(char *key, t_node *node)
 		exit(msh_print_errno(STD_ERROR, "fail heredoc get file_path", NULL, 1));
 
 	pid = fork(); // fork()
-	if (pid == 0) //자식프로세스
+	if (pid == 0)//자식프로세스
 		exit(msh_heredoc_child(key, file_path));
 	else if (pid == -1) // fork 오류시
 	{
@@ -54,6 +55,7 @@ int	msh_heredoc_child(char *key, char *file_path)
 
 	str = ft_calloc(1, sizeof(char));
 	str[0] = '\0';
+	do_signal_heredoc(); // heredoc전용 SIGINT를 수행할 signal
 	while (1)
 	{
 		new = readline("> ");
@@ -70,7 +72,7 @@ int	msh_heredoc_child(char *key, char *file_path)
 				exit (msh_print_errno(STD_ERROR, "fail heredoc_child", NULL, 1));
 			continue ;
 		}
-		// new 가 key 값과 일치할때 break; 
+		// new 가 key 값과 일치할때 break;
 		free (new);
 		break ;
 	}

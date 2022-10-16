@@ -6,13 +6,14 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 18:28:02 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/16 21:09:48 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/17 01:17:06 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "tokenizer.h"
 #include "msh_tree.h"
+#include "mini_signal.h"
 
 int	main(int argc, char *argv[], char *envp[])
 {
@@ -22,9 +23,9 @@ int	main(int argc, char *argv[], char *envp[])
 	(void)argc;
 	(void)argv;
 	g_envp_list = get_env(envp);
-	set_signal();
 	while (1)
 	{
+		set_signal();
 		str = readline("\033[0;36mminishell $ \033[0m");
 		if (str != NULL)
 		{
@@ -51,5 +52,6 @@ int	main(int argc, char *argv[], char *envp[])
 		do_sigterm();
 		break ;
 	}
+	set_terminal_print_on();
 	exit(ft_atoi(g_envp_list[0]));
 }

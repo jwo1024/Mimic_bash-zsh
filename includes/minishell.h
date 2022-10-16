@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:07:12 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/16 21:09:43 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/17 00:38:23 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,6 @@ enum	e_pipe_fd {
 	STD_ERROR = 2
 };
 
-/*signal*/
-void	set_signal(void);;
-void	catch_signal(int signum);
-void	do_sigint(pid_t pid);
-void	do_sigquit(pid_t pid);
-void	do_sigterm(void);
 /*get_env*/
 char	**get_env(char **envp);
 

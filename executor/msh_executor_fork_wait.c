@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   msh_executor_fork_wait.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:43:26 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/16 02:19:37 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/17 01:15:38 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "mini_signal.h"
 
 pid_t	*msh_executor_fork(t_node *pipe_nd, char **env_path, pid_t *pids)
 {
