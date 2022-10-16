@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:51:50 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/16 23:15:09 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/16 23:17:35 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	msh_heredoc_child(char *key, char *file_path)
 		new = readline("> ");
 		if (ft_strncmp(key, new, ft_strlen(key) + 1) != 0) // key 값이랑 같지 않을 때 입력을 받음
 		{
+			// 기존 str + 입력받은 str + '\n'
 			tmp = ft_strjoin(str, new);
 			if (tmp == NULL)
 				exit (msh_print_errno(STD_ERROR, "fail heredoc_child", NULL, 1));
