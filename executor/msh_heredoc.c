@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:51:50 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/15 16:11:52 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/16 23:15:09 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,27 @@ int	msh_heredoc(char *key, t_node *node)
 	int		stat_loc;
 	int		rtn;
 
-	file_path = ft_strjoin("/tmp/minishell_heredoc_tmp_", key);
-	pid = fork();
-	if (pid == 0)
+	file_path = ft_strjoin("/tmp/minishell_heredoc_tmp_", key); // heredoc용 파일 경로 만들기
+	if (file_path == NULL)
+		exit(msh_print_errno(STD_ERROR, "fail heredoc get file_path", NULL, 1));
+
+	pid = fork(); // fork()
+	if (pid == 0) //자식프로세스
 		exit(msh_heredoc_child(key, file_path));
-	waitpid(pid, &stat_loc, 0);
-	rtn = msh_exit_status(stat_loc);
-	if (rtn != 0)
+	else if (pid == -1) // fork 오류시
+	{
+		msh_print_errno(STD_ERROR, "fail heredoc fork", NULL, 1);
+		free (file_path);
+		return (-1);
+	}
+
+	waitpid(pid, &stat_loc, 0); // wait()
+	rtn = msh_exit_status(stat_loc); // exit_status 받아옴
+	fprintf(stderr, "heredoc exit %d\n", rtn);
+	// 현재 rtn 된 값은 parser를 통해서 반환되어야 하는데
+	// 구조가 그렇지 못해서 적용은 안되고 fprintf로 확인중입니다.
+
+	if (rtn != 0) // 오류 종료시
 		return (rtn);
 	free(node->str2[0]);
 	node->str2[0] = file_path;
@@ -43,15 +57,20 @@ int	msh_heredoc_child(char *key, char *file_path)
 	while (1)
 	{
 		new = readline("> ");
-		if (ft_strncmp(key, new, ft_strlen(key) + 1) != 0)
+		if (ft_strncmp(key, new, ft_strlen(key) + 1) != 0) // key 값이랑 같지 않을 때 입력을 받음
 		{
 			tmp = ft_strjoin(str, new);
+			if (tmp == NULL)
+				exit (msh_print_errno(STD_ERROR, "fail heredoc_child", NULL, 1));
 			free(str);
 			free(new);
 			str = ft_strjoin(tmp, "\n");
+			if (str == NULL)
+				exit (msh_print_errno(STD_ERROR, "fail heredoc_child", NULL, 1));
 			continue ;
 		}
-		do_sigterm();
+		// new 가 key 값과 일치할때 break; 
+		free (new);
 		break ;
 	}
 	return (msh_heredoc_child_write(file_path, str));
@@ -68,3 +87,21 @@ int	msh_heredoc_child_write(char *file_path, char *str)
 	close (fd);
 	return (0);
 }
+
+/* // norm 맞추기 위해 나중에 나눌 함수입니다. 지우지 말아주세요!
+char *msh_heredoc_child_read(char *key, char *new)
+{
+	char	*tmp;
+	char	*str;
+
+	tmp = ft_strjoin(str, new);
+	if (tmp == NULL)
+		exit (msh_print_errno(STD_ERROR, "fail heredoc_child", NULL, 1));
+	free(str);
+	free(new);
+	str = ft_strjoin(tmp, "\n");
+	if (str == NULL)
+		exit (msh_print_errno(STD_ERROR, "fail heredoc_child", NULL, 1));
+	return (str);
+}
+*/
