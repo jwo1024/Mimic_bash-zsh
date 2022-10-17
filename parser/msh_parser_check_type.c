@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 16:16:19 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/15 16:19:00 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/17 15:48:00 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ int	msh_parse_redirect(t_tree *tree, t_tree *tokens,
 		return (rtn);
 	if (cur_token->type == T_WORD && del_dequot(&cur_token->str1))
 	{
-		msh_parse_add_redirect(tree, tokens, cur_cmd);
-		rtn = msh_parse_check_alltype(tree, tokens, cur_cmd);
+		rtn = msh_parse_add_redirect(tree, tokens, cur_cmd);
+		if (rtn == 0)
+			rtn = msh_parse_check_alltype(tree, tokens, cur_cmd);
 	}
 	else
 		msh_parse_error(cur_token->str1);

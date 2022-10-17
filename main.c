@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 18:28:02 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/17 01:52:24 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/17 15:47:20 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	char	*str;
 	t_tree	*tree;
+	int		exit_status;
+
 
 	(void)argc;
 	(void)argv;
@@ -39,10 +41,15 @@ int	main(int argc, char *argv[], char *envp[])
 					change_exit_status(0);
 				else
 				{
-					tree = msh_parser(tree);
-					change_exit_status(msh_executor(tree));
-					if (tree)
-						msh_tree_delete(tree);
+					exit_status = msh_parser(&tree);
+					if (exit_status != -1)
+						change_exit_status(exit_status);
+					else
+					{
+						change_exit_status(msh_executor(tree));
+						if (tree)
+							msh_tree_delete(tree);
+					}	
 				}
 				//fprintf(stderr, "exit status %d\n", ft_atoi(g_envp_list[0]));
 			}
