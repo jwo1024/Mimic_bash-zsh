@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_heredoc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:51:50 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/17 17:01:55 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/17 18:42:12 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	msh_heredoc_child(char *key, char *file_path)
 	{
 		new = readline("> ");
 		if (new == NULL)
-			exit (0);
+			;
 		if (ft_strncmp(key, new, ft_strlen(key) + 1) != 0) // key 값이랑 같지 않을 때 입력을 받음
 		{
 			// 기존 str + 입력받은 str + '\n'
