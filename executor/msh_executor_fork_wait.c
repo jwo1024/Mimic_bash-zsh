@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_executor_fork_wait.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:43:26 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/17 23:49:18 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/18 00:23:59 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,12 @@ int	msh_executor_wait_child(int *pids)
 
 int	msh_exit_status(int statloc)
 {
-	if ((statloc & 255) == 0)
-		return ((statloc >> 8) & 255);
-	return ((statloc & 127) + 128);
+	// (exitstatus)    (signal no)
+	// 00000000      0 0000000
+	//               ㄴ 1bit coreflag -> 뭐하는 애인지 모르겟음
+
+	if ((statloc & 255) == 0) // 하위 8비트가 0이면 자식프로세스가 exit()호출을 한 정상종료
+		return ((statloc >> 8) & 255); // exit 계산
+	
+	return ((statloc & 127) + 128); // signal no 계산 + 128 (시그널 종료시 128을 더해 에러종료를 한다) 
 }
