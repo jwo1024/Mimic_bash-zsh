@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:51:50 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/17 02:07:54 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/17 17:01:55 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	msh_heredoc(char *key, t_node *node)
 	file_path = ft_strjoin("/tmp/minishell_heredoc_tmp_", key); // heredoc용 파일 경로 만들기
 	if (file_path == NULL)
 		exit(msh_print_errno(STD_ERROR, "fail heredoc get file_path", NULL, 1));
-
 	pid = fork(); // fork()
 	if (pid == 0)//자식프로세스
 		exit(msh_heredoc_child(key, file_path));
@@ -33,8 +32,9 @@ int	msh_heredoc(char *key, t_node *node)
 		free (file_path);
 		return (-1);
 	}
-
-	waitpid(pid, &stat_loc, 0); // wait()
+	set_signal_fork(); // heredoc이 실행되는동안 signal 출력하지않도록 변경
+	waitpid(pid, &stat_loc, 0);// wait()
+	set_signal(); // 다시 시그널 출력하도록 변경
 	rtn = msh_exit_status(stat_loc); // exit_status 받아옴
 	fprintf(stderr, "heredoc exit %d\n", rtn);
 	// 현재 rtn 된 값은 parser를 통해서 반환되어야 하는데
@@ -59,6 +59,8 @@ int	msh_heredoc_child(char *key, char *file_path)
 	while (1)
 	{
 		new = readline("> ");
+		if (new == NULL)
+			exit (0);
 		if (ft_strncmp(key, new, ft_strlen(key) + 1) != 0) // key 값이랑 같지 않을 때 입력을 받음
 		{
 			// 기존 str + 입력받은 str + '\n'
