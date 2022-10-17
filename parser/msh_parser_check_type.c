@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 16:16:19 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/17 15:48:00 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/17 17:26:13 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ int	msh_parse_pipe(t_tree *tree, t_tree *tokens, t_node **cur_pipe)
 
 	rtn = msh_parse_add_pipe_cmd(tree, tokens, *cur_pipe);
 	if (tokens->top->type == T_WORD && del_dequot(&tokens->top->str1))
-		rtn = 1;
+		rtn = -2;
 	else if (tokens->top->type == T_REDIR)
-		rtn = 1;
+		rtn = -2;
 	else
 	{
 		msh_parse_error(tokens->top->str1);
