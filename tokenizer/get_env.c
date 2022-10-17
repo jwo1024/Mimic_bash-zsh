@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 23:31:54 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/17 18:26:37 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/17 18:46:13 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ char	**get_env(char **envp)
 		j++;
 	while (envp[j])
 	{
-		list[i] = safe_ft_strdup(envp[j], "get_env");
+		if (ft_strncmp("OLDPWD=", envp[j], 7) == 0)
+			list[i] = safe_ft_strdup("OLDPWD", "get_env");
+		else
+			list[i] = safe_ft_strdup(envp[j], "get_env");
 		i++;
 		j++;
 	}
