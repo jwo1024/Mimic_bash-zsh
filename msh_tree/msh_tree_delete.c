@@ -6,11 +6,12 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:38:36 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/14 21:10:52 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/18 02:49:50 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"./msh_tree.h"
+#include	<sys/stat.h>
 
 void	msh_tree_delete_node(t_node **node)
 {
@@ -22,11 +23,18 @@ void	msh_tree_delete_node(t_node **node)
 
 void	msh_tree_clear_node(t_node *node)
 {
-	int	i;
+	int			i;
+	struct stat	buf;
 
 	i = 0;
 	if (node == NULL)
 		return ;
+	if (node->type == T_REDIR && node->str1 \
+		&& strncmp(node->str1, "<<", 3) == 0)
+	{
+		if (node->str2 && node->str2[0] && lstat(node->str2[0], &buf) == 0)
+			unlink(node->str2[0]);
+	}
 	if (node->str1 != NULL)
 		free(node->str1);
 	if (node->str2 != NULL)
