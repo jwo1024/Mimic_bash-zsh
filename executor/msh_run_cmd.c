@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_run_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:47 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/17 01:55:41 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/17 17:41:14 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	msh_run_cmd(t_node *cmd_nd, int *fd, char **env_path)
 	set_signal_origin(); // signal이 원래대로의 역할을 수행하도록 변경
 	if (msh_redirection(cmd_nd->left, fd) == -1)
 		return (1);
+	if (cmd_nd->right == NULL)
+		return (0);
 	rtn = msh_run_builtin(cmd_nd->right, fd);
 	if (rtn != -1)
 		return (rtn);
