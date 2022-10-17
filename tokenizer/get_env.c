@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 23:31:54 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/17 02:35:52 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/17 18:26:37 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ char	**get_env(char **envp)
 	list = malloc_env(i + 2);
 	i = 1;
 	list[0] = safe_ft_strdup("0", "get_env");
+	if (ft_isdigit(envp[0][0]))
+		j++;
 	while (envp[j])
 	{
 		list[i] = safe_ft_strdup(envp[j], "get_env");

@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 17:57:21 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/16 20:40:10 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/17 18:32:17 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ void	print_env(int *fd)
 	i = 0;
 	while (copy_env[i] != NULL)
 	{
-		print_env_print_part(copy_env[i], fd);
+		if (copy_env[i][0] == '_' && copy_env[i][1] == '=')
+			;
+		else
+			print_env_print_part(copy_env[i], fd);
 		i++;
 	}
 	free_env(copy_env);
