@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 00:37:36 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/17 23:52:19 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/18 02:06:53 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,11 @@ void	do_sigterm(void)
 
 void	check_fork_signal(int statloc)
 {
-	if (!WIFEXITED(statloc))
+	if ((statloc & 255) != 0)
 	{
-		if (WIFSIGNALED(statloc))
-		{
-			if (WTERMSIG(statloc) == 2)
-				ft_putstr_fd("\n", STD_ERROR);
-			else if (WTERMSIG(statloc) == 3)
-				ft_putstr_fd("Quit: 3\n", STD_ERROR);
-		}
+		if ((statloc & 127) == 2)
+			ft_putstr_fd("\n", STD_ERROR);
+		else if ((statloc & 127) == 3)
+			ft_putstr_fd("Quit: 3\n", STD_ERROR);
 	}
 }

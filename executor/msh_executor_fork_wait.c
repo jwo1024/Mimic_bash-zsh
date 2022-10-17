@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh_executor_fork_wait.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:43:26 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/18 00:23:59 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/18 02:01:47 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,6 @@ int	msh_exit_status(int statloc)
 
 	if ((statloc & 255) == 0) // 하위 8비트가 0이면 자식프로세스가 exit()호출을 한 정상종료
 		return ((statloc >> 8) & 255); // exit 계산
-	
-	return ((statloc & 127) + 128); // signal no 계산 + 128 (시그널 종료시 128을 더해 에러종료를 한다) 
+
+	return ((statloc & 127) + 128); // signal no 계산 + 128 (시그널 종료시 128을 더해 에러종료를 한다)
 }
