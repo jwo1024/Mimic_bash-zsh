@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:40:39 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/17 02:08:06 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/17 23:52:31 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ void	set_signal_heredoc(void)
 void	do_sigint_heredoc(int signum)
 {
 	(void)signum;
-	ft_putstr_fd("\n", 1);
+	ft_putstr_fd("\n", STD_ERROR);
 	exit (1);
 }

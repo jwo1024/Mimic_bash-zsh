@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:43:26 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/17 01:48:31 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/17 23:49:18 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ pid_t	*msh_executor_fork(t_node *pipe_nd, char **env_path, pid_t *pids)
 	while (pipe_nd)
 	{
 		msh_executor_fork_set_pipe1(pipe_nd, pipe_fd, fd);
-		set_signal_fork(); // signal 수신시 출력을 하지않도록 잠금
+		set_signal_fork(); // signal 수신시 부모는 잠시 출력을 하지않도록 잠금
 		pids[i] = fork();
 		if (pids[i] == -1)
 			msh_print_errno(STD_ERROR, "fail executor_fork", NULL, 1);
@@ -88,6 +88,7 @@ int	msh_executor_wait_child(int *pids)
 	}
 	if (exit_status == -1)
 		return (1);
+	check_fork_signal(statloc);
 	exit_status = msh_exit_status(statloc);
 	return (exit_status);
 }

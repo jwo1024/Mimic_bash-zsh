@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 00:33:10 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/17 02:08:19 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/17 23:48:49 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ void	do_sigint_heredoc(int signum);
 void	set_terminal_print_off(void);
 void	set_terminal_print_on(void);
 void	do_sigint_fork(int signum);
+void	check_fork_signal(int statloc);
 
 #endif

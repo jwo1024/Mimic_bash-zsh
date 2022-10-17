@@ -6,7 +6,7 @@
 #    By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 16:37:49 by jaeyjeon          #+#    #+#              #
-#    Updated: 2022/10/17 02:35:29 by jaeyjeon         ###   ########.fr        #
+#    Updated: 2022/10/17 23:51:59 by jaeyjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ SRC3			= ./tokenizer/tokenizer.c \
 				  ./builtin/do_unset.c \
 				  ./builtin/do_exit.c \
 				  ./signal/signal.c \
-				  ./signal/signal2.c \
+				  ./signal/signal2.c
 
 SRCS			= $(SRC1) $(SRC2) $(SRC3)
 
