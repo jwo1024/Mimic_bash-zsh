@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 18:28:02 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/17 15:47:20 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/17 15:54:38 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	main(int argc, char *argv[], char *envp[])
 				else
 				{
 					exit_status = msh_parser(&tree);
-					if (exit_status != -1)
+					if (exit_status != 0)
 						change_exit_status(exit_status);
 					else
 					{
