@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:14:28 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/18 18:57:17 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/19 04:09:38 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*change_each_oper(char *s, char op)
 	int		k;
 
 	idx = make_idx();
-	str = malloc(sizeof(char) * count_new_space(s, op) + 1);
+	str = malloc(sizeof(char) * (count_new_space(s, op) + 2));
 	if (str == NULL)
 		malloc_failed(NULL);
 	while (s[idx->i] != '\0')
@@ -76,7 +76,7 @@ char	*change_each_oper(char *s, char op)
 		if (s[idx->i] == '\"' || s[idx->i] == '\'')
 		{
 			k = skip_dquot(&s[idx->i]);
-			while (k--)
+			while (k-- && s[idx->i] != '\0')
 				str[idx->j++] = s[idx->i++];
 		}
 		do_change_each_oper(str, s, idx, op);
@@ -94,7 +94,7 @@ char	*change_redir(char *s, char op)
 	int		k;
 
 	idx = make_idx();
-	str = malloc(sizeof(char) * count_new_space(s, op) + 1);
+	str = malloc(sizeof(char) * (count_new_space(s, op) + 2));
 	if (str == NULL)
 		malloc_failed(NULL);
 	while (s[idx->i] != '\0')
@@ -102,7 +102,7 @@ char	*change_redir(char *s, char op)
 		if (s[idx->i] == '\"' || s[idx->i] == '\'')
 		{
 			k = skip_dquot(&s[idx->i]);
-			while (k--)
+			while (k-- && s[idx->i] != '\0')
 				str[idx->j++] = s[idx->i++];
 		}
 		do_change_redir(str, s, idx, op);
