@@ -6,14 +6,14 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:49:11 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/18 15:31:19 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/18 21:28:58 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTIN_H
 # define BUILTIN_H
 
-#include <stdio.h>
+# include <stdio.h>
 
 typedef struct s_index
 {
@@ -23,7 +23,7 @@ typedef struct s_index
 }	t_index;
 
 t_index	*make_idx(void);
-/*builtin*/
+/* builtin */
 int		do_pwd(int *fd);
 int		check_word(char *word);
 int		do_echo(char **word, int *fd);

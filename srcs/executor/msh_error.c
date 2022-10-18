@@ -6,11 +6,12 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 13:43:26 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/18 19:52:20 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/18 20:49:48 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "executor.h"
 #include "libft.h"
 #include "msh_error.h"
 #include <sys/errno.h>

@@ -6,7 +6,7 @@
 #    By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 16:37:49 by jaeyjeon          #+#    #+#              #
-#    Updated: 2022/10/18 20:11:44 by jiwolee          ###   ########seoul.kr   #
+#    Updated: 2022/10/18 21:32:22 by jiwolee          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME			= minishell
 
 CC				= cc
 RM				= rm -rf
-CFLAGS			= -Wall -Wextra -Werror
+CFLAGS			= -Wall -Wextra -Werror -fsanitize=address
 
 READLINE_LIB	= -lreadline -L/opt/homebrew/opt/readline/lib
 READLINE_INC	= -I/opt/homebrew/opt/readline/include
@@ -26,7 +26,9 @@ INCLUDES		= -I$(HEADER) -I$(LIB_DIR)
 SRC1			= ./srcs/main.c
 
 SRC2			= ./srcs/msh_tree/msh_tree.c \
-				  ./srcs/msh_tree/msh_tree_delete.c
+				  ./srcs/msh_tree/msh_tree_delete.c \
+				  ./srcs/signal/signal.c \
+				  ./srcs/signal/signal2.c
 
 SRC3			= ./srcs/tokenizer/tokenizer.c \
 				  ./srcs/tokenizer/utils.c \
@@ -48,7 +50,8 @@ SRC5			= ./srcs/executor/msh_executor.c \
 				  ./srcs/executor/msh_error.c \
 				  ./srcs/executor/msh_run_builtin.c \
 				  ./srcs/executor/msh_executor_fork_wait.c \
-				  ./srcs/executor/msh_set_redirection_open.c
+				  ./srcs/executor/msh_set_redirection_open.c \
+				  ./srcs/executor/msh_executor_utils.c
 
 SRC6			= ./srcs/builtin/do_pwd.c \
 				  ./srcs/builtin/do_echo.c \
@@ -60,9 +63,7 @@ SRC6			= ./srcs/builtin/do_pwd.c \
 				  ./srcs/builtin/builtin_utils2.c \
 				  ./srcs/builtin/builtin_utils3.c \
 				  ./srcs/builtin/do_unset.c \
-				  ./srcs/builtin/do_exit.c \
-				  ./srcs/signal/signal.c \
-				  ./srcs/signal/signal2.c
+				  ./srcs/builtin/do_exit.c
 
 SRCS			= $(SRC1) $(SRC2) $(SRC3) $(SRC4) $(SRC5) $(SRC6)
 

@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:41 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/18 18:58:42 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/18 21:10:26 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "mini_signal.h"
 #include "executor.h"
 #include "msh_error.h"
-
+#include "builtin.h"
 
 static char		**executor_get_path(char **envp_list);
 static pid_t	*executor_init_pids(t_tree *tree);
@@ -89,13 +89,11 @@ static pid_t	*executor_init_pids(t_tree *tree)
 		pipe_nd = pipe_nd->right;
 		cnt++;
 	}
-	pids = ft_calloc(cnt + 1, sizeof(pid_t));
-	if (pids == NULL)
-		msh_print_errno(STD_ERROR, "fail init pids", NULL, 1);
+	pids = safe_ft_calloc(cnt + 1, sizeof(pid_t), "fail init pids");
 	return (pids);
 }
 
-void	executor_free_env_path(char **env_path)
+static void	executor_free_env_path(char **env_path)
 {
 	int	i;
 

@@ -6,11 +6,12 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:21:21 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/18 17:14:28 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/18 20:58:10 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh_parser.h"
+#include "builtin.h"
 
 t_node	*msh_parse_get_tokens_top(t_tree *tree)
 {
@@ -38,7 +39,7 @@ int	msh_parse_add_redirect(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd)
 		return (-1);
 	redir_node = msh_parse_get_tokens_top(tokens);
 	file_node = msh_parse_get_tokens_top(tokens);
-	redir_node->str2 = ft_calloc(2, sizeof(char *)); //"fail add_redirect"
+	redir_node->str2 = safe_ft_calloc(2, sizeof(char *), "fail add_redirect");
 	redir_node->str2[0] = file_node->str1;
 	redir_node->str2[1] = NULL;
 	if (cur_cmd_nd->left != NULL)

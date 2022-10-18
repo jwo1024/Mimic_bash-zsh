@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 16:51:50 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/18 19:49:28 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/18 20:43:11 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,9 @@ static int	heredoc_child_write(char *file_path, char *str)
 
 	fd = open(file_path, O_WRONLY | O_CREAT | O_EXCL, 0644);
 	if (fd == -1)
-		return (msh_print_errno(STD_ERROR, "fail heredoc_child", file_path, 2));
+		return (msh_print_errno(STD_ERROR, "fail heredoc_child", file_path, 1));
 	if (write(fd, str, ft_strlen(str)) == -1)
-		return (msh_print_errno(STD_ERROR, "fail heredoc_child", file_path, 2));
+		return (msh_print_errno(STD_ERROR, "fail heredoc_child", file_path, 1));
 	close (fd);
 	return (0);
 }

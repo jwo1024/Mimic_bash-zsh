@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:47 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/18 19:49:49 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/18 21:07:36 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "executor.h"
 #include "msh_error.h"
 #include "mini_signal.h"
+#include "builtin.h"
 
 static char	*get_cmd_path(char *cmd, char **env_path);
 
@@ -22,8 +23,8 @@ int	msh_run_cmd(t_node *cmd_nd, int *fd, char **env_path)
 	int	rtn;
 
 	rtn = -1;
-	set_terminal_print_on(); // signal 원본으로 출력
-	set_signal_origin(); // signal이 원래대로의 역할을 수행하도록 변경
+	set_terminal_print_on();
+	set_signal_origin();
 	if (msh_redirection(cmd_nd->left, fd) == -1)
 		return (1);
 	if (cmd_nd->right == NULL)
@@ -43,18 +44,20 @@ int	msh_run_cmd(t_node *cmd_nd, int *fd, char **env_path)
 	return (1);
 }
 
-int	msh_run_simp_cmd(t_node *simpcmd, char **env_path)
+void	msh_run_simp_cmd(t_node *simpcmd, char **env_path)
 {
 	char	*file_path;
 
 	file_path = NULL;
-	if ((ft_strrchr(simpcmd->str1, '/') != NULL && file_path == NULL) \
-													|| env_path == NULL)
+	if (ft_strrchr(simpcmd->str1, '/') != NULL || env_path == NULL)
+	{
 		file_path = ft_substr(simpcmd->str2[0], 0, ft_strlen(simpcmd->str2[0]));
+		if (file_path == NULL)
+			return ;
+	}
 	else
 		file_path = get_cmd_path(simpcmd->str1, env_path);
 	execve(file_path, simpcmd->str2, g_envp_list);
-	return (-1);
 }
 
 static char	*get_cmd_path(char *cmd, char **env_path)
@@ -69,8 +72,8 @@ static char	*get_cmd_path(char *cmd, char **env_path)
 		return (NULL);
 	while (env_path[i])
 	{
-		tmp = ft_strjoin(env_path[i], "/");
-		cmd_path = ft_strjoin(tmp, cmd);
+		tmp = safe_ft_strjoin(env_path[i], "/", "get_cmd_path");
+		cmd_path = safe_ft_strjoin(tmp, cmd, "get_cmd_path");
 		free(tmp);
 		if (stat(cmd_path, &buf) == 0)
 			return (cmd_path);

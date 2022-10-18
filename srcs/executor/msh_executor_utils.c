@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   do_pwd.c                                           :+:      :+:    :+:   */
+/*   msh_executor_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/26 14:00:14 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/18 21:27:17 by jiwolee          ###   ########seoul.kr  */
+/*   Created: 2022/10/18 20:33:07 by jiwolee           #+#    #+#             */
+/*   Updated: 2022/10/18 21:14:28 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "builtin.h"
+#include "executor.h"
 #include "msh_error.h"
-#include "libft.h"
+#include "builtin.h"
 
-int	do_pwd(int *fd)
+int	msh_exit_status(int statloc)
 {
-	char	*str;
-	int		errno;
+	if ((statloc & 255) == 0)
+		return ((statloc >> 8) & 255);
+	return ((statloc & 127) + 128);
+}
 
-	str = getcwd(NULL, 0);
-	if (str == NULL)
-		return (msh_print_errno(fd[STD_ERROR], "pwd", NULL, 1));
-	ft_putstr_fd(str, fd[STD_OUT]);
-	ft_putstr_fd("\n", fd[STD_OUT]);
-	free(str);
-	return (0);
+int	msh_init_fd(int **fd)
+{
+	if (fd == NULL)
+		return (-1);
+	(*fd) = safe_ft_calloc(3, sizeof(int), "fail init fd");
+	(*fd)[0] = STD_IN;
+	(*fd)[1] = STD_OUT;
+	(*fd)[2] = STD_ERROR;
+	return (1);
 }

@@ -6,14 +6,13 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:52:20 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/18 19:59:29 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/18 20:44:31 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "builtin.h"
 #include "libft.h"
-
 
 int	do_export(char **word, int *fd)
 {

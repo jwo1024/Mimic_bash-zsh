@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:14:37 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/18 19:50:07 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/18 20:34:50 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,4 @@ int	*msh_set_redirection(t_node *redirct_nd, int *fd)
 		redirct_nd = redirct_nd->left;
 	}
 	return (fd);
-}
-
-int	msh_init_fd(int **fd)
-{
-	if (fd == NULL || *fd == NULL)
-		return (-1);
-	(*fd) = ft_calloc(3, sizeof(int));
-	if ((*fd) == NULL)
-		return (msh_print_errno(STD_ERROR, "fail init fd", NULL, -1));
-	(*fd)[0] = STD_IN;
-	(*fd)[1] = STD_OUT;
-	(*fd)[2] = STD_ERROR;
-	return (1);
 }
