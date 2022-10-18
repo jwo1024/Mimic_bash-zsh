@@ -6,11 +6,13 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:02:23 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/17 17:26:01 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/18 15:10:59 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "msh_tree.h"
+#include "libft.h"
 
 int		msh_parser(t_tree **tokens)
 {
@@ -27,10 +29,10 @@ int		msh_parser(t_tree **tokens)
 	cur_pipe = tree->top;
 	while (1)
 	{
-		rtn = msh_parse_check_type(tree, *tokens, &cur_pipe); // heredoc.. heredoc.. 에러시 양수 
+		rtn = msh_parse_check_type(tree, *tokens, &cur_pipe);
 		if (rtn == -2)
 			;
-		else if (rtn != 0) // -1은 오류, 양수도 오류... 파이프일경우에는 어떻게 구분해야 할까
+		else if (rtn != 0)
 		{
 			msh_tree_delete(tree);
 			msh_tree_delete(*tokens);
@@ -39,7 +41,7 @@ int		msh_parser(t_tree **tokens)
 				rtn = 258;
 			return (rtn);
 		}
-		else if (rtn == 0) // 정상 종료
+		else if (rtn == 0)
 			break ;
 
 		cur_pipe = cur_pipe->right;

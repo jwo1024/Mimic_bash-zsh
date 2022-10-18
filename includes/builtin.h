@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:49:11 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/16 20:49:33 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/18 15:31:19 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTIN_H
 # define BUILTIN_H
+
+#include <stdio.h>
 
 typedef struct s_index
 {
@@ -53,5 +55,6 @@ int		check_next_dol(char c);
 char	*safe_ft_strjoin(char *s1, char *s2, char *s3);
 char	*safe_ft_strdup(char *s1, char *s2);
 char	*safe_ft_substr(char *s1, int start, int size, char *s2);
+void	*safe_ft_calloc(size_t count, size_t size, char *s);
 
 #endif

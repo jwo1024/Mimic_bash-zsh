@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   msh_run_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 20:29:31 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/17 02:03:03 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/18 15:53:10 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "executor.h"
+#include "msh_error.h"
+#include "builtin.h"
+
+static int	msh_is_builtin(t_node *simp_cmd_nd);
 
 int	msh_run_builtin(t_node *simp_cmd, int *fd)
 {
@@ -68,7 +72,7 @@ int	msh_nopipe_builtin(t_tree *tree)
 	return (exit_status);
 }
 
-int	msh_is_builtin(t_node *simp_cmd_nd)
+static int	msh_is_builtin(t_node *simp_cmd_nd)
 {
 	if (simp_cmd_nd == NULL || simp_cmd_nd->str1 == NULL)
 		return (-1);

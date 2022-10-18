@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+         #
+#    By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 16:37:49 by jaeyjeon          #+#    #+#              #
-#    Updated: 2022/10/17 23:51:59 by jaeyjeon         ###   ########.fr        #
+#    Updated: 2022/10/18 15:11:08 by jiwolee          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ READLINE_INC	= -I/opt/homebrew/opt/readline/include
 
 LIB_DIR			= ./libft
 HEADER			= ./includes
-INCLUDES		= -I$(HEADER)
+INCLUDES		= -I$(HEADER) -I$(LIB_DIR)
 
 SRC1			= main.c
 

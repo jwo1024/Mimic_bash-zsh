@@ -1,5 +1,6 @@
 {
 	"files.associations": {
-		"minishell.h": "c"
+		"msh_error.h": "c",
+		"mini_signal.h": "c"
 	}
 }

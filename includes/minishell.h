@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:07:12 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/17 15:36:53 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/18 15:49:46 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,25 @@
 # include <stdlib.h>
 # include <signal.h>
 # include <termios.h>
-# include "../libft/libft.h"
+# include "libft.h"
 # include "msh_tree.h"
 # include <unistd.h>
 # include <fcntl.h>
 # include <sys/stat.h>
 # include <errno.h>
 # include "tokenizer.h"
+# include "executor.h"
+# include "msh_error.h"
 
-char	**g_envp_list;
-
+//char	**g_envp_list;
+/*
 enum	e_pipe_fd {
 	PIPE_OUT = 0,
 	PIPE_IN = 1,
 	STD_IN = 0,
 	STD_OUT = 1,
 	STD_ERROR = 2
-};
+};*/
 
 /*get_env*/
 char	**get_env(char **envp);
@@ -54,52 +56,18 @@ t_node	*msh_parse_get_tokens_top(t_tree *tree);
 int		msh_parse_add_redirect(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd);
 int		msh_parse_add_pipe_cmd(t_tree *tree, t_tree *tokens, t_node *cur_pipe_nd);
 int		msh_parse_add_simcmd(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd);
-int		msh_cnt_typewords(t_node *node); //
+int		msh_cnt_typewords(t_node *node);
 
-/* msh_executor */
-int		msh_executor(t_tree *tree);
 
-char	**msh_executor_get_path(char **envp_list);
-pid_t	*msh_executor_init_pids(t_tree *tree);
-void	msh_executor_free_env_path(char **envp_path);
-
-/* msh_executor_fork_wait */
-pid_t	*msh_executor_fork(t_node *pipe_nd, char **envp_list, pid_t *pids);
-int		msh_executor_wait_child(int *pids);
-int		msh_exit_status(int statloc);
-void	msh_executor_fork_set_pipe1(t_node *pipe_nd, int *pipe_fd, int *fd);
-void	msh_executor_fork_set_pipe2(t_node *pipe_nd, int *pipe_fd, int *fd);
-
-/* msh_run_cmd */
-int		msh_run_cmd(t_node *cmd_nd, int fd[2], char **envp_list);
-int		msh_run_simp_cmd(t_node *simpcmd, char **envp_list);
-char	*msh_get_cmd_path(char *cmd, char **envp_list);
-
-/* msh _redirection */
-int		msh_redirection(t_node *redirct_nd, int *fd);
-int		*msh_set_redirection(t_node *redirct_nd, int *fd);
-int		msh_set_redirection_open(t_node *redirct_nd, int *fd);
-int		*msh_create_redirect_fd(void);
-
-/* msh_error */
+/* msh_error 
 int		msh_print_errno(int fd, char *str1, char *str2, int rtn);
 int		msh_print_error(int fd, char *str1, char *str2, int rtn);
-/*
-int		msh_print_error_str(char *cmd_str, char *word, \
-								char *error_str, int *fd);
-int	msh_print_error_str_t(char *cmd_str, char *word, char *error_str, int fd);
 */
-/* msh_run_builtin.c */
-int		msh_run_builtin(t_node *simp_cmd, int *fd);
-int		msh_nopipe_builtin(t_tree *tree);
-int		msh_is_builtin(t_node *simp_cmd_nd);
-int		msh_init_fd(int **fd);
 
 /* heredoc */
 int		msh_heredoc(char *key, t_node *node);
-int		msh_heredoc_child(char *key, char *file_path);
-int		msh_heredoc_child_write(char *file_path, char *str);
 
 void	malloc_failed(char *str);
 int		check_str_whitespace(char *str);
+
 #endif

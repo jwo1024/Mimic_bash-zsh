@@ -6,11 +6,15 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:14:37 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/16 02:18:05 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/18 15:52:13 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+//#include "minishell.h"
+#include "executor.h"
+#include "msh_error.h"
+
+static int	set_redirection_open(t_node *redirct_nd, int *fd);
 
 int	msh_redirection(t_node *redirct_nd, int *fd)
 {
@@ -31,14 +35,14 @@ int	*msh_set_redirection(t_node *redirct_nd, int *fd)
 {
 	while (redirct_nd)
 	{
-		if (msh_set_redirection_open(redirct_nd, fd) == -1)
+		if (set_redirection_open(redirct_nd, fd) == -1)
 			return (NULL);
 		redirct_nd = redirct_nd->left;
 	}
 	return (fd);
 }
 
-int	msh_set_redirection_open(t_node *redirct_nd, int *fd)
+static int	set_redirection_open(t_node *redirct_nd, int *fd)
 {
 	if (ft_strncmp(redirct_nd->str1, "<", 2) == 0)
 	{

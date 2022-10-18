@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 20:54:44 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/16 20:55:30 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/18 15:31:11 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "tokenizer.h"
+#include <stdio.h>
 
 char	*safe_ft_strjoin(char *s1, char *s2, char *s3)
 {
@@ -41,4 +42,14 @@ char	*safe_ft_substr(char *s1, int start, int size, char *s2)
 	if (new == NULL)
 		malloc_failed(s2);
 	return (new);
+}
+
+void	*safe_ft_calloc(size_t count, size_t size, char *s)
+{
+	void	*rtn;
+
+	rtn = ft_calloc(count, size);
+	if (rtn == NULL)
+		malloc_failed(s);
+	return (rtn);
 }

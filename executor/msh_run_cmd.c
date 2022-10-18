@@ -6,12 +6,15 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:47 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/17 17:41:14 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/18 15:53:47 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "executor.h"
+#include "msh_error.h"
 #include "mini_signal.h"
+
+static char	*get_cmd_path(char *cmd, char **env_path);
 
 int	msh_run_cmd(t_node *cmd_nd, int *fd, char **env_path)
 {
@@ -48,12 +51,12 @@ int	msh_run_simp_cmd(t_node *simpcmd, char **env_path)
 													|| env_path == NULL)
 		file_path = ft_substr(simpcmd->str2[0], 0, ft_strlen(simpcmd->str2[0]));
 	else
-		file_path = msh_get_cmd_path(simpcmd->str1, env_path);
+		file_path = get_cmd_path(simpcmd->str1, env_path);
 	execve(file_path, simpcmd->str2, g_envp_list);
 	return (-1);
 }
 
-char	*msh_get_cmd_path(char *cmd, char **env_path)
+static char	*get_cmd_path(char *cmd, char **env_path)
 {
 	char		*cmd_path;
 	char		*tmp;

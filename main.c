@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 18:28:02 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/17 15:54:38 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/18 15:54:45 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int	main(int argc, char *argv[], char *envp[])
 					change_exit_status(0);
 				else
 				{
-					exit_status = msh_parser(&tree);
+					exit_status = msh_parser(&tree); // 258 이 아닌 에러라면?
+				//	fprintf(stderr, "parser exit %d\n", exit_status);
 					if (exit_status != 0)
 						change_exit_status(exit_status);
 					else
@@ -51,7 +52,8 @@ int	main(int argc, char *argv[], char *envp[])
 							msh_tree_delete(tree);
 					}	
 				}
-				//fprintf(stderr, "exit status %d\n", ft_atoi(g_envp_list[0]));
+			//	system("leaks minishell");
+			//	fprintf(stderr, "exit status %d\n", ft_atoi(g_envp_list[0]));
 			}
 			free(str);
 			continue ;
