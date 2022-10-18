@@ -6,7 +6,7 @@
 #    By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 16:37:49 by jaeyjeon          #+#    #+#              #
-#    Updated: 2022/10/18 17:13:48 by jiwolee          ###   ########seoul.kr   #
+#    Updated: 2022/10/18 20:11:44 by jiwolee          ###   ########seoul.kr   #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,44 +23,48 @@ LIB_DIR			= ./libft
 HEADER			= ./includes
 INCLUDES		= -I$(HEADER) -I$(LIB_DIR)
 
-SRC1			= main.c
+SRC1			= ./srcs/main.c
 
-SRC2			= ./msh_tree/msh_tree.c \
-				  ./msh_tree/msh_tree_delete.c \
-				  ./parser/msh_parser.c \
-				  ./parser/msh_parser2.c \
-				  ./executor/msh_executor.c \
-				  ./executor/msh_run_cmd.c \
-				  ./executor/msh_redirection.c \
-				  ./executor/msh_error.c \
-				  ./executor/msh_run_builtin.c \
-				  ./executor/msh_executor_fork_wait.c \
-				  ./executor/msh_heredoc.c \
-				  ./parser/msh_parser_check_type.c \
-				  ./parser/msh_parse_add_simcmd.c
+SRC2			= ./srcs/msh_tree/msh_tree.c \
+				  ./srcs/msh_tree/msh_tree_delete.c
 
-SRC3			= ./tokenizer/tokenizer.c \
-				  ./tokenizer/utils.c \
-				  ./tokenizer/get_env.c \
-				  ./tokenizer/get_env2.c \
-				  ./tokenizer/get_env3.c \
-				  ./tokenizer/utils2.c \
-				  ./tokenizer/utils3.c \
-				  ./builtin/do_pwd.c \
-				  ./builtin/do_echo.c \
-				  ./builtin/builtin_utils.c \
-				  ./builtin/do_env.c \
-				  ./builtin/do_cd.c \
-				  ./builtin/do_export.c \
-				  ./builtin/do_export2.c \
-				  ./builtin/builtin_utils2.c \
-				  ./builtin/builtin_utils3.c \
-				  ./builtin/do_unset.c \
-				  ./builtin/do_exit.c \
-				  ./signal/signal.c \
-				  ./signal/signal2.c
+SRC3			= ./srcs/tokenizer/tokenizer.c \
+				  ./srcs/tokenizer/utils.c \
+				  ./srcs/tokenizer/get_env.c \
+				  ./srcs/tokenizer/get_env2.c \
+				  ./srcs/tokenizer/get_env3.c \
+				  ./srcs/tokenizer/utils2.c \
+				  ./srcs/tokenizer/utils3.c
 
-SRCS			= $(SRC1) $(SRC2) $(SRC3)
+SRC4			= ./srcs/parser/msh_parser.c \
+				  ./srcs/parser/msh_parser2.c \
+				  ./srcs/parser/msh_parser_check_type.c \
+				  ./srcs/parser/msh_parse_add_simcmd.c \
+				  ./srcs/parser/msh_heredoc.c
+
+SRC5			= ./srcs/executor/msh_executor.c \
+				  ./srcs/executor/msh_run_cmd.c \
+				  ./srcs/executor/msh_redirection.c \
+				  ./srcs/executor/msh_error.c \
+				  ./srcs/executor/msh_run_builtin.c \
+				  ./srcs/executor/msh_executor_fork_wait.c \
+				  ./srcs/executor/msh_set_redirection_open.c
+
+SRC6			= ./srcs/builtin/do_pwd.c \
+				  ./srcs/builtin/do_echo.c \
+				  ./srcs/builtin/builtin_utils.c \
+				  ./srcs/builtin/do_env.c \
+				  ./srcs/builtin/do_cd.c \
+				  ./srcs/builtin/do_export.c \
+				  ./srcs/builtin/do_export2.c \
+				  ./srcs/builtin/builtin_utils2.c \
+				  ./srcs/builtin/builtin_utils3.c \
+				  ./srcs/builtin/do_unset.c \
+				  ./srcs/builtin/do_exit.c \
+				  ./srcs/signal/signal.c \
+				  ./srcs/signal/signal2.c
+
+SRCS			= $(SRC1) $(SRC2) $(SRC3) $(SRC4) $(SRC5) $(SRC6)
 
 OBJS			= $(SRCS:.c=.o)
 

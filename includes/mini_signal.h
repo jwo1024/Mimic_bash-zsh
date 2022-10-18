@@ -3,18 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   mini_signal.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 00:33:10 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/17 23:48:49 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/18 20:09:35 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINI_SIGNAL_H
 # define MINI_SIGNAL_H
-
-# include "unistd.h"
-# include "termios.h"
 
 /*signal*/
 void	set_signal(void);

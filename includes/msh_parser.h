@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:07:12 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/18 16:10:21 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/18 18:47:31 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,7 @@
 
 # include "msh_tree.h"
 # include "msh_error.h"
-
-enum	e_pipe_fd {
-	PIPE_OUT = 0,
-	PIPE_IN = 1,
-	STD_IN = 0,
-	STD_OUT = 1,
-	STD_ERROR = 2
-};
+# include "minishell.h"
 
 /*parser*/
 int		msh_parser(t_tree **tokens);

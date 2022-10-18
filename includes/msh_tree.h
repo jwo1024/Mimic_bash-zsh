@@ -6,15 +6,12 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:38:45 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/18 17:56:27 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/18 18:38:30 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MSH_TREE_H
 # define MSH_TREE_H
-
-# include	"libft.h"
-# include	"msh_error.h"
 
 enum e_ttype
 {
@@ -49,14 +46,9 @@ int		msh_tree_add_node_left(t_tree *tree, t_node *cur_node, \
 												t_node *new_node);
 int		msh_tree_add_node_right(t_tree *tree, t_node *cur_node, \
 												t_node *new_node);
-int		msh_tree_add_edge_right(t_tree *tree, t_node *new_node);
 
-void	msh_tree_delete_node(t_node **node);
 void	msh_tree_clear_node(t_node *node);
 void	msh_tree_delete_nodes(t_node *node);
 void	msh_tree_delete(t_tree *tree);
-
-int		msh_tree_print_node(t_node *node);
-int		msh_tree_print(t_node *node);
 
 #endif

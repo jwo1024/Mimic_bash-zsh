@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   do_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/16 21:07:12 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/18 20:17:24 by jiwolee          ###   ########seoul.kr  */
+/*   Created: 2022/09/26 14:00:14 by jaeyjeon          #+#    #+#             */
+/*   Updated: 2022/10/18 19:54:14 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
+#include "msh_error.h"
+#include "libft.h"
 
-# include "msh_tree.h"
+int	do_pwd(int *fd)
+{
+	char	*str;
+	int		errno;
 
-char	**g_envp_list;
-
-enum	e_pipe_fd {
-	PIPE_OUT = 0,
-	PIPE_IN = 1,
-	STD_IN = 0,
-	STD_OUT = 1,
-	STD_ERROR = 2
-};
-
-char	**get_env(char **envp);
-void	malloc_failed(char *str);
-
-#endif
+	str = getcwd(NULL, 0);
+	if (str == NULL)
+		return (msh_print_errno(fd[STD_ERROR], "pwd", NULL, 1));
+	ft_putstr_fd(str, fd[STD_OUT]);
+	ft_putstr_fd("\n", fd[STD_OUT]);
+	free(str);
+	return (0);
+}

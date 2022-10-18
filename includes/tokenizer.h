@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:57:18 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/18 16:58:40 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/18 20:17:06 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENIZER_H
 # define TOKENIZER_H
 
+# include "minishell.h"
 # include "msh_tree.h"
 # include "builtin.h"
 
@@ -42,5 +43,6 @@ char	*fix_dol(char *str);
 void	change_exit_status(int num);
 char	*free_ret(char *env_name, char *str);
 char	*get_merged_str(char *str, int i);
+int		check_str_whitespace(char *str);
 
 #endif
