@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 02:35:01 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/17 02:35:54 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/18 16:57:34 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 char	*free_ret(char *env_name, char *str)
 {
 	free(env_name);
+	if (str == NULL)
+		return (NULL);
 	return (safe_ft_strdup(str, "get_env"));
 }
 

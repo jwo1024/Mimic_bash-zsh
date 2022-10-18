@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 20:38:59 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/16 20:56:17 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/18 16:57:58 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,7 @@ t_node	*make_new(char *str, int size)
 		type = T_PIPE;
 	else if (new_str[0] == '<')
 	{
-	//	if (new_str[1] == '<')
-	//		type = T_HEREDOC;
-	//	else
-			type = T_REDIR;
+		type = T_REDIR;
 	}
 	else if (new_str[0] == '>')
 		type = T_REDIR;

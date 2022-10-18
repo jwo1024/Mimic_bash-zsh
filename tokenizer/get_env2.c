@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 17:34:28 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/16 20:45:28 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/18 16:57:21 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*get_env_name(char *s)
 	return (name);
 }
 
-void	fix_dol(char *str)
+char	*fix_dol(char *str)
 {
 	int	i;
 
@@ -60,6 +60,7 @@ void	fix_dol(char *str)
 	while (str != NULL && str[++i] != '\0')
 		if (str[i] == -3)
 			str[i] = '$';
+	return (str);
 }
 
 int	check_next_dol(char c)
