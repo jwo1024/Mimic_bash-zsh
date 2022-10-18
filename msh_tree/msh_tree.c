@@ -6,11 +6,11 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:38:29 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/09/26 12:56:53 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/18 17:56:06 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"./msh_tree.h"
+#include	"msh_tree.h"
 
 t_tree	*msh_tree_create_tree(void)
 {
@@ -18,7 +18,7 @@ t_tree	*msh_tree_create_tree(void)
 
 	new_tree = (t_tree *)malloc(sizeof(t_tree));
 	if (new_tree == NULL)
-		return (NULL);
+		exit(msh_print_errno(2, "fail create tree", NULL, 1));
 	new_tree->top = NULL;
 	new_tree->node_count = 0;
 	return (new_tree);

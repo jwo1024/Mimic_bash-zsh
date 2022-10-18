@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 18:28:02 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/18 15:54:45 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/18 18:00:17 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ int	main(int argc, char *argv[], char *envp[])
 					change_exit_status(0);
 				else
 				{
-					exit_status = msh_parser(&tree); // 258 이 아닌 에러라면?
-				//	fprintf(stderr, "parser exit %d\n", exit_status);
+					exit_status = msh_parser(&tree);
 					if (exit_status != 0)
 						change_exit_status(exit_status);
 					else

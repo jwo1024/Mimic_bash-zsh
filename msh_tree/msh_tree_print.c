@@ -6,11 +6,11 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:38:33 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/14 17:09:17 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/18 16:18:18 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"./msh_tree.h"
+#include	"msh_tree.h"
 
 int	msh_tree_print_node(t_node *node)
 {

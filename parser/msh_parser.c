@@ -6,49 +6,40 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:02:23 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/18 15:10:59 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/18 17:56:49 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "msh_tree.h"
-#include "libft.h"
+#include "msh_parser.h"
+#include "tokenizer.h"
 
-int		msh_parser(t_tree **tokens)
+int	msh_parser(t_tree **tokens)
 {
 	t_tree	*tree;
 	int		rtn;
 	t_node	*cur_pipe;
 
-	if (*tokens == NULL)
-		return (0);
 	tree = msh_tree_create_tree();
-	if (tree == NULL)
-		exit(msh_print_errno(STD_ERROR, "fail create tree", NULL, 1));
 	msh_parse_add_pipe_cmd(tree, NULL, NULL);
 	cur_pipe = tree->top;
 	while (1)
 	{
 		rtn = msh_parse_check_type(tree, *tokens, &cur_pipe);
 		if (rtn == -2)
-			;
+		{
+			cur_pipe = cur_pipe->right;
+			continue ;
+		}
 		else if (rtn != 0)
 		{
 			msh_tree_delete(tree);
-			msh_tree_delete(*tokens);
-			*tokens = NULL;
-			if (rtn == -1)
-				rtn = 258;
-			return (rtn);
+			tree = NULL;
 		}
-		else if (rtn == 0)
-			break ;
-
-		cur_pipe = cur_pipe->right;
+		break ;
 	}
 	msh_tree_delete(*tokens);
 	*tokens = tree;
-	return (0);
+	return (rtn);
 }
 
 int	msh_parse_check_type(t_tree *tree, t_tree *tokens, t_node **cur_pipe)
@@ -70,7 +61,7 @@ int	msh_parse_check_type(t_tree *tree, t_tree *tokens, t_node **cur_pipe)
 	else
 	{
 		msh_parse_error(curr->str1);
-		rtn = -1;
+		rtn = 258;
 	}
 	return (rtn);
 }
@@ -78,10 +69,12 @@ int	msh_parse_check_type(t_tree *tree, t_tree *tokens, t_node **cur_pipe)
 void	msh_parse_error(char *str)
 {
 	if (str == NULL)
-		ft_putstr_fd("minishell: syntax error near unexpected token 'newline'\n", STD_ERROR);
+		msh_print_error(STD_ERROR, \
+		"syntax error near unexpected token 'newline'", NULL, 1);
 	else
 	{
-		ft_putstr_fd("minishell: syntax error near unexpected token '", STD_ERROR);
+		ft_putstr_fd("minishell: syntax error near unexpected token '" \
+		, STD_ERROR);
 		ft_putstr_fd(str, STD_ERROR);
 		ft_putstr_fd("'\n", STD_ERROR);
 	}

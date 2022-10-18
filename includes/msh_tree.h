@@ -6,16 +6,15 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:38:45 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/14 17:15:21 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/18 17:56:27 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MSH_TREE_H
 # define MSH_TREE_H
 
-# include	<stdio.h>
-# include	<stdlib.h>
-# include	"../libft/libft.h"
+# include	"libft.h"
+# include	"msh_error.h"
 
 enum e_ttype
 {
@@ -23,15 +22,10 @@ enum e_ttype
 	T_WORD = 1,
 	T_REDIR = 2,
 	T_PIPE = 3,
-	T_DOUBLE_QUOTES = 4,
-	T_SINGLE_QUOTES = 5,
-	T_REDIRECT_HEAD = 6,
-	T_REDIRECT_LEAF = 7,
-	T_CMD = 8,
-	T_SIMP_CMD = 9,
-	T_AND = 10,
-	T_OR = 11,
-	T_HEREDOC = 12
+	T_CMD = 4,
+	T_SIMP_CMD = 5,
+	T_AND = 6,
+	T_OR = 7
 };
 
 typedef struct s_node{

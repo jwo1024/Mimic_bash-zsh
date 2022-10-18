@@ -6,18 +6,19 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 16:16:19 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/17 17:26:13 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/18 17:35:00 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "msh_parser.h"
+#include "tokenizer.h"
 
 int	msh_parse_check_alltype(t_tree *tree, t_tree *tokens, t_node *cur_cmd)
 {
 	int		rtn;
 	t_node	*next;
 
-	rtn = -1;
+	rtn = 258;
 	next = tokens->top->left;
 	if (tokens->top->type == T_WORD && del_dequot(&tokens->top->str1))
 		rtn = msh_parse_word(tree, tokens, cur_cmd, next);
@@ -37,7 +38,7 @@ int	msh_parse_redirect(t_tree *tree, t_tree *tokens,
 {
 	int		rtn;
 
-	rtn = -1;
+	rtn = 258;
 	if (tree == NULL || tokens == NULL || cur_cmd == NULL || cur_token == NULL)
 		return (rtn);
 	if (cur_token->type == T_WORD && del_dequot(&cur_token->str1))
@@ -56,7 +57,7 @@ int	msh_parse_word(t_tree *tree, t_tree *tokens, \
 {
 	int		rtn;
 
-	rtn = -1;
+	rtn = 258;
 	if (tree == NULL || tokens == NULL || cur_cmd == NULL || cur_tokens == NULL)
 		return (rtn);
 	if (cur_tokens->type == T_WORD && del_dequot(&cur_tokens->str1))
@@ -82,7 +83,7 @@ int	msh_parse_pipe(t_tree *tree, t_tree *tokens, t_node **cur_pipe)
 	else
 	{
 		msh_parse_error(tokens->top->str1);
-		rtn = -1;
+		rtn = 258;
 	}
 	return (rtn);
 }

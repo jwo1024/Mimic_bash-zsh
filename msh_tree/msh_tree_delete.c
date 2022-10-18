@@ -6,11 +6,11 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:38:36 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/18 02:49:50 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/18 16:14:06 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"./msh_tree.h"
+#include	"msh_tree.h"
 #include	<sys/stat.h>
 
 void	msh_tree_delete_node(t_node **node)

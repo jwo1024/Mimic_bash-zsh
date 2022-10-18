@@ -6,12 +6,11 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:21:21 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/17 15:47:28 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/18 17:14:28 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "msh_tree.h"
+#include "msh_parser.h"
 
 t_node	*msh_parse_get_tokens_top(t_tree *tree)
 {
@@ -39,9 +38,7 @@ int	msh_parse_add_redirect(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd)
 		return (-1);
 	redir_node = msh_parse_get_tokens_top(tokens);
 	file_node = msh_parse_get_tokens_top(tokens);
-	redir_node->str2 = ft_calloc(2, sizeof(char *));
-	if (redir_node->str2 == NULL)
-		exit(msh_print_errno(STD_ERROR, "fail add_redirect", NULL, 1));
+	redir_node->str2 = ft_calloc(2, sizeof(char *)); //"fail add_redirect"
 	redir_node->str2[0] = file_node->str1;
 	redir_node->str2[1] = NULL;
 	if (cur_cmd_nd->left != NULL)
@@ -54,11 +51,9 @@ int	msh_parse_add_redirect(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd)
 	redir_node->parent = cur_cmd_nd;
 	tree->node_count++;
 	free(file_node);
-
 	rtn = 0;
 	if (ft_strncmp(redir_node->str1, "<<", 3) == 0)
 		rtn = msh_heredoc(*redir_node->str2, redir_node);
-
 	return (rtn);
 }
 
@@ -80,70 +75,6 @@ int	msh_parse_add_pipe_cmd(t_tree *tree, t_tree *tokens, t_node *cur_pipe_nd)
 		tree->top = new_pipe;
 	else
 		cur_pipe_nd->right = new_pipe;
-	return (1);
-}
-
-int	msh_parse_add_simcmd(t_tree *tree, t_tree *tokens, t_node *cur_cmd_nd)
-{
-	t_node	*token;
-	t_node	*tmp;
-	int		cnt;
-	char	**str2;
-
-	if (tree == NULL || tokens == NULL \
-		|| tree->top == NULL || cur_cmd_nd == NULL)
-		return (-1);
-
-	/*msh_parse_add_simcmd_new, msh_parse_add_simcmd_append*/
-	if (cur_cmd_nd->right == NULL)
-	{
-		token = msh_parse_get_tokens_top(tokens);
-		token->type = T_SIMP_CMD;
-		cur_cmd_nd->right = token;
-		token->str2 = ft_calloc(msh_cnt_typewords(tokens->top) + 2, sizeof(char *));
-		if (token->str2 == NULL)
-			exit(msh_print_errno(STD_ERROR, "fail add_simcmd", NULL, 1));
-		token->str2[0] = ft_strdup(token->str1);
-		if (token->str2[0] == NULL)
-			exit(msh_print_errno(STD_ERROR, "fail add_simcmd", NULL, 1));
-		token->str2[1] = NULL;
-	}
-	else
-	{
-		int	i;
-
-		token = cur_cmd_nd->right;
-		i = 0;
-		while (token->str2[i])
-			i++;
-		str2 = ft_calloc(msh_cnt_typewords(tokens->top) + i + 1, sizeof(char *)); // + 
-		if (str2 == NULL)
-			exit(msh_print_errno(STD_ERROR, "fail add_simcmd", NULL, 1));
-		i = 0;
-		while (token->str2[i])
-		{
-			str2[i] = token->str2[i];
-			i++;
-		}
-		str2[i] = NULL;
-		free (token->str2);
-		token->str2 = str2;
-	}
-
-	/* tmp */
-	cnt = 1; // while -> 마지막 index에다가 + ..
-	// cnt = i;
-	while (token->str2[cnt])
-		cnt++;
-	while (tokens->top->type == T_WORD)
-	{
-		tmp = msh_parse_get_tokens_top(tokens);
-		token->str2[cnt++] = tmp->str1;
-		free(tmp);
-	}
-	token->str2[cnt] = NULL;
-
-
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:07:12 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/18 15:53:15 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/18 16:01:47 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 //# include "builtin.h"
 # include "libft.h"
 # include "msh_tree.h"
+# include "minishell.h"
 
 # include <stdio.h>
 # include <readline/readline.h>
@@ -29,6 +30,7 @@
 # include <sys/stat.h>
 # include <errno.h>
 
+/*
 char	**g_envp_list;
 
 enum	e_pipe_fd {
@@ -38,6 +40,7 @@ enum	e_pipe_fd {
 	STD_OUT = 1,
 	STD_ERROR = 2
 };
+*/
 
 /* msh_executor */
 int		msh_executor(t_tree *tree);
