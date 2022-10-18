@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:47 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/18 15:53:47 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/18 17:19:45 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,12 @@ int	msh_run_cmd(t_node *cmd_nd, int *fd, char **env_path)
 	if (errno == 14)
 		return (msh_print_error(fd[STD_ERROR], cmd_nd->right->str1, \
 												"command not found", 127));
-	else if (errno == 13)
+	else if (errno == 13 || errno == 20)
 		return (msh_print_errno(fd[STD_ERROR], cmd_nd->right->str1, NULL, 126));
 	else if (errno == 2)
 		return (msh_print_errno(fd[STD_ERROR], cmd_nd->right->str1, NULL, 127));
 	msh_print_errno(fd[STD_ERROR], cmd_nd->right->str1, NULL, 1);
+	printf("echo %d\n", errno);
 	return (1);
 }
 
