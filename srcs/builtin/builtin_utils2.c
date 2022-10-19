@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 17:57:21 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/18 20:00:21 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/20 00:30:29 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	print_env_print_part(char *str, int *fd)
 	ft_putstr_fd("declare -x ", fd[STD_OUT]);
 	while (str[i] != '\0')
 	{
-		write(fd[STD_OUT], &str[i], 1);
+		ft_putchar_fd(str[i], fd[STD_OUT]);
 		if (str[i] == '=')
 			ft_putstr_fd("\"", fd[STD_OUT]);
 		i++;

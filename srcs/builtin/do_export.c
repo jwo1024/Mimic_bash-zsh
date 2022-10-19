@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:52:20 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/19 12:32:35 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/20 00:39:19 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	do_export(char **word, int *fd)
 		if (return_value != save_value)
 			;
 		else
-			g_envp_list = change_env(ft_strdup(word[i]));
+			g_envp_list = change_env(safe_ft_strdup(word[i], "export"));
 		save_value = return_value;
 		i++;
 	}

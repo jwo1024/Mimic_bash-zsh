@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jaeyjeon <jaeyjeon@student.42seoul.kr>     +#+  +:+       +#+         #
+#    By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 16:37:49 by jaeyjeon          #+#    #+#              #
-#    Updated: 2022/10/19 16:38:50 by jaeyjeon         ###   ########.fr        #
+#    Updated: 2022/10/19 16:59:26 by jaeyjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,8 @@ CC				= cc
 RM				= rm -rf
 CFLAGS			= -Wall -Wextra -Werror
 
-READLINE_LIB	= -lreadline -L/Users/jaeyjeon/.brew/opt/readline/lib
-READLINE_INC	= -I/Users/jaeyjeon/.brew/opt/readline/include
+READLINE_LIB	= -lreadline -L/opt/homebrew/opt/readline/lib
+READLINE_INC	= -I/opt/homebrew/opt/readline/include
 
 LIB_DIR			= ./libft
 HEADER			= ./includes

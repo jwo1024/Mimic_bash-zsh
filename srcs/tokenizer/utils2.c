@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 20:38:59 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/18 18:59:00 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/20 00:24:22 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_node	*make_new(char *str, int size)
 
 	if (size == 0)
 		return (NULL);
-	new_str = ft_substr(str, 0, size);
+	new_str = safe_ft_substr(str, 0, size, "make_new");
 	if (new_str[0] == '|')
 		type = T_PIPE;
 	else if (new_str[0] == '<')

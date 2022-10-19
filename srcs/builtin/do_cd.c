@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:33:47 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/18 19:58:45 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/20 00:37:58 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int	do_cd_home(int *fd)
 
 	old_pwd = getcwd(NULL, 0);
 	if (old_pwd == NULL)
-		return (msh_print_errno(fd[STD_ERROR], "pwd", NULL, 1));
+		exit (msh_print_errno(fd[STD_ERROR], "pwd", NULL, 1));
 	if (chdir(getenv("HOME")) != 0)
 		return (print_cd_error(ft_strdup(getenv("HOME")), old_pwd, fd));
-	change_pwd(old_pwd);
+	change_pwd(old_pwd, fd);
 	return (0);
 }
 
@@ -44,19 +44,16 @@ int	do_cd(char **s, int *fd)
 	}
 	old_pwd = getcwd(NULL, 0);
 	if (old_pwd == NULL)
-	{
-		free(dir);
-		return (msh_print_errno(fd[STD_ERROR], "pwd", NULL, 1));
-	}
+		exit (msh_print_errno(fd[STD_ERROR], "pwd", NULL, 1));
 	if (chdir(dir) != 0)
 		return (print_cd_error(dir, old_pwd, fd));
 	else
-		change_pwd(old_pwd);
+		change_pwd(old_pwd, fd);
 	free (dir);
 	return (0);
 }
 
-void	change_pwd(char *old_pwd)
+void	change_pwd(char *old_pwd, int *fd)
 {
 	char	*pwd;
 	char	*pwd2;
@@ -65,6 +62,8 @@ void	change_pwd(char *old_pwd)
 	g_envp_list = change_env(pwd);
 	free(old_pwd);
 	old_pwd = getcwd(NULL, 0);
+	if (old_pwd == NULL)
+		exit (msh_print_errno(fd[STD_ERROR], "pwd", NULL, 1));
 	pwd2 = safe_ft_strjoin("PWD=", old_pwd, "cd");
 	g_envp_list = change_env(pwd2);
 	free(old_pwd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:49:11 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/18 21:28:58 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/20 00:39:56 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	**change_env(char *str);
 int		check_export_word(char *word, int *fd);
 int		check_dup(char *str, char *env_list);
 int		error_print_export(char *str, char *word, int *fd);
-void	change_pwd(char *old_pwd);
+void	change_pwd(char *old_pwd, int *fd);
 void	free_env(char **env);
 char	**malloc_env(int size);
 void	print_env(int *fd);
