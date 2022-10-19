@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 20:49:11 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/20 00:39:56 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/20 02:10:31 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		check_unset_dup(char *str, char *env);
 int		do_exit(char **word, int *fd);
 void	print_errmsg_at_exit(int *fd, char *copy_str);
 int		get_envp_size(void);
-int		check_next_dol(char c);
+void	check_next_dol(char *str, int i);
 char	*safe_ft_strjoin(char *s1, char *s2, char *s3);
 char	*safe_ft_strdup(char *s1, char *s2);
 char	*safe_ft_substr(char *s1, int start, int size, char *s2);

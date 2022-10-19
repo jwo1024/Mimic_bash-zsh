@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 16:57:18 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/18 20:17:06 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/20 02:24:09 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		check_double_flag(char *s, int double_flag);
 char	*fix_dol(char *str);
 void	change_exit_status(int num);
 char	*free_ret(char *env_name, char *str);
-char	*get_merged_str(char *str, int i);
+char	*get_merged_str(char *str, t_index *i);
 int		check_str_whitespace(char *str);
 
 #endif

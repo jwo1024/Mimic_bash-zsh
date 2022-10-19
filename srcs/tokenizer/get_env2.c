@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 17:34:28 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/18 18:55:57 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/20 02:10:44 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,12 @@ char	*fix_dol(char *str)
 	return (str);
 }
 
-int	check_next_dol(char c)
+void	check_next_dol(char *str, int i)
 {
-	if (c == '?')
-		return (0);
-	if (!(ft_isalnum(c) || c == '_'))
-		return (1);
-	return (0);
+	if (str[i + 1] == '?')
+		str[i] = -2;
+	else if (!(ft_isalnum(str[i + 1]) || str[i + 1] == '_'))
+		str[i] = -3;
+	else
+		str[i] = -2;
 }
