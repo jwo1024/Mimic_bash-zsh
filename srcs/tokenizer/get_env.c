@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jaeyjeon <jaeyjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 23:31:54 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/19 13:53:34 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/19 16:25:44 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ char	*get_env_at_tokenizer(char *s)
 			str = get_merged_str(str, i);
 			if (str == NULL)
 				break ;
+			if (str[i] == '\"' && double_flag == 1)
+				double_flag = 0;
 		}
 		if (str[i] != '\0')
 			i++;
@@ -109,6 +111,7 @@ char	*get_merged_str(char *str, int i)
 		str[i] = -2;
 		env = get_env_to_str(get_env_name(&str[i + 1]));
 		str = get_merged_env_str(str, env);
+		printf("in mer = %s\n", str);
 	}
 	return (str);
 }

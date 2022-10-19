@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+         #
+#    By: jaeyjeon <jaeyjeon@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 16:37:49 by jaeyjeon          #+#    #+#              #
-#    Updated: 2022/10/19 12:57:32 by jaeyjeon         ###   ########.fr        #
+#    Updated: 2022/10/19 15:37:42 by jaeyjeon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,10 @@ NAME			= minishell
 
 CC				= cc
 RM				= rm -rf
-CFLAGS			= -Wall -Wextra -Werror -fsanitize=address
+CFLAGS			= -Wall -Wextra -Werror
 
-READLINE_LIB	= -lreadline -L/opt/homebrew/opt/readline/lib
-READLINE_INC	= -I/opt/homebrew/opt/readline/include
+READLINE_LIB	= -lreadline -L/Users/jaeyjeon/.brew/opt/readline/lib
+READLINE_INC	= -I/Users/jaeyjeon/.brew/opt/readline/include
 
 LIB_DIR			= ./libft
 HEADER			= ./includes

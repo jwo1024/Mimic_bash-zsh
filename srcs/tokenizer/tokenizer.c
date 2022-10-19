@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: jaeyjeon <jaeyjeon@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:14:28 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/19 12:40:41 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/19 15:54:25 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_tree	*msh_start_tokenize(char *s)
 		return (NULL);
 	change_whitespace(s);
 	s = change_oper(s);
+	printf("%s\n", s);
 	list = split_str(s);
 	free (s);
 	if (list == NULL)
