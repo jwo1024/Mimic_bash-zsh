@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 12:43:26 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/18 20:50:19 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/20 01:41:13 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include "mini_signal.h"
 #include "msh_error.h"
 
-static void	executor_close(int fd);
 static void	executor_fork_set_pipe1(t_node *pipe_nd, int *pipe_fd, int *fd);
 static void	executor_fork_set_pipe2(t_node *pipe_nd, int *pipe_fd, int *fd);
 
@@ -61,7 +60,7 @@ pid_t	*msh_executor_fork(t_node *pipe_nd, char **env_path, pid_t *pids)
 		if (pids[i++] == 0)
 		{
 			if (pipe_nd->right)
-				executor_close(pipe_fd[PIPE_OUT]);
+				msh_close(pipe_fd[PIPE_OUT]);
 			exit(msh_run_cmd(pipe_nd->left, fd, env_path));
 		}
 		executor_fork_set_pipe2(pipe_nd, pipe_fd, fd);
@@ -90,16 +89,10 @@ static void	executor_fork_set_pipe1(t_node *pipe_nd, int *pipe_fd, int *fd)
 static void	executor_fork_set_pipe2(t_node *pipe_nd, int *pipe_fd, int *fd)
 {
 	if (fd[STD_IN] > 2)
-		executor_close(fd[STD_IN]);
+		msh_close(fd[STD_IN]);
 	if (pipe_nd->right)
 	{
 		fd[STD_IN] = pipe_fd[PIPE_OUT];
-		executor_close(fd[STD_OUT]);
+		msh_close(fd[STD_OUT]);
 	}
-}
-
-static void	executor_close(int fd)
-{
-	if (close(fd) == -1)
-		msh_print_errno(STD_ERROR, NULL, NULL, 1);
 }

@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 15:38:36 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/18 18:38:26 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/20 02:01:23 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	msh_tree_clear_node(t_node *node)
 	if (node->type == T_REDIR && node->str1 \
 		&& ft_strncmp(node->str1, "<<", 3) == 0)
 	{
-		if (node->str2 && node->str2[0] && lstat(node->str2[0], &buf) == 0)
+		if (node->str2 && node->str2[0] && stat(node->str2[0], &buf) == 0)
 			unlink(node->str2[0]);
 	}
 	if (node->str1 != NULL)

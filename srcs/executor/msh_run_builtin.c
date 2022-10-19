@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 20:29:31 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/18 21:15:06 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/20 01:56:15 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,11 @@ int	msh_nopipe_builtin(t_tree *tree)
 	if (msh_set_redirection(cmd_nd->left, fd))
 		exit_status = msh_run_builtin(sim_cmd_nd, fd);
 	if (fd[STD_IN] > 2)
-		close(fd[STD_IN]);
+		msh_close(fd[STD_IN]);
 	if (fd[STD_OUT] > 2)
-		close(fd[STD_OUT]);
+		msh_close(fd[STD_OUT]);
 	if (fd[STD_ERROR] > 2)
-		close(fd[STD_ERROR]);
+		msh_close(fd[STD_ERROR]);
 	free(fd);
 	return (exit_status);
 }

@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 20:33:07 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/18 21:14:28 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/20 01:56:51 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,10 @@ int	msh_init_fd(int **fd)
 	(*fd)[1] = STD_OUT;
 	(*fd)[2] = STD_ERROR;
 	return (1);
+}
+
+void	msh_close(int fd)
+{
+	if (close(fd) == -1)
+		msh_print_errno(STD_ERROR, NULL, NULL, 1);
 }

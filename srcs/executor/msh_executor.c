@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:41 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/18 21:10:26 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/20 01:53:27 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,15 @@ static char	**executor_get_path(char **envp_list)
 	{
 		if (ft_strncmp(envp_list[i], "PATH=", 5) == 0)
 		{
-			tmp = ft_substr(envp_list[i], 5, ft_strlen(envp_list[i]) - 5);
+			tmp = safe_ft_substr(envp_list[i], 5, \
+								ft_strlen(envp_list[i]) - 5, "executor");
 			if (tmp)
 			{
 				path = ft_split(tmp, ':');
 				free (tmp);
+				if (path == NULL)
+					exit (msh_print_errno(STD_ERROR, "fail get_path", NULL, 1));
 			}
-			if (path == NULL)
-				msh_print_errno(STD_ERROR, "fail get_path", NULL, 1);
 			return (path);
 		}
 		i++;

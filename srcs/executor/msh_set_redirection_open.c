@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:14:37 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/18 20:25:56 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/20 01:54:56 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	msh_set_redirection_type(t_node *redirct_nd, int *fd)
 static void	set_redirection_open_in(t_node *redirct_nd, int *fd)
 {
 	if (fd[STD_IN] > 2)
-		close (fd[STD_IN]);
+		msh_close (fd[STD_IN]);
 	fd[STD_IN] = open(redirct_nd->str2[0], O_RDONLY);
 	if (fd[STD_IN] == -1)
 		exit (msh_print_errno(fd[STD_ERROR], redirct_nd->str2[0], NULL, 1));
@@ -47,7 +47,7 @@ static void	set_redirection_open_in(t_node *redirct_nd, int *fd)
 static void	set_redirection_open_out(t_node *redirct_nd, int *fd)
 {
 	if (fd[STD_OUT] > 2)
-		close (fd[STD_OUT]);
+		msh_close (fd[STD_OUT]);
 	fd[STD_OUT] = open(redirct_nd->str2[0], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd[STD_OUT] == -1)
 		exit (msh_print_errno(fd[STD_ERROR], redirct_nd->str2[0], NULL, 1));
@@ -56,7 +56,7 @@ static void	set_redirection_open_out(t_node *redirct_nd, int *fd)
 static void	set_redirection_open_outappend(t_node *redirct_nd, int *fd)
 {
 	if (fd[STD_OUT] > 2)
-		close (fd[STD_OUT]);
+		msh_close (fd[STD_OUT]);
 	fd[STD_OUT] = open(redirct_nd->str2[0], \
 						O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd[STD_OUT] == -1)
@@ -66,7 +66,7 @@ static void	set_redirection_open_outappend(t_node *redirct_nd, int *fd)
 static void	set_redirection_open_heredoc(t_node *redirct_nd, int *fd)
 {
 	if (fd[STD_IN] > 2)
-		close (fd[STD_IN]);
+		msh_close (fd[STD_IN]);
 	fd[STD_IN] = open(redirct_nd->str2[0], O_RDONLY);
 	if (fd[STD_IN] == -1)
 		exit (msh_print_errno(fd[STD_ERROR], redirct_nd->str2[0], NULL, 1));

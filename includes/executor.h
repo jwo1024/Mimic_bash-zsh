@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:07:12 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/18 21:30:17 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/20 01:36:52 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ int		msh_nopipe_builtin(t_tree *tree);
 /* msh_execuotr_utils */
 int		msh_exit_status(int statloc);
 int		msh_init_fd(int **fd);
+void	msh_close(int fd);
 
 #endif

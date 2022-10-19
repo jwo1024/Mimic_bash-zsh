@@ -6,7 +6,7 @@
 /*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:09:47 by jiwolee           #+#    #+#             */
-/*   Updated: 2022/10/18 21:07:36 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/20 02:03:12 by jiwolee          ###   ########seoul.kr  */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ void	msh_run_simp_cmd(t_node *simpcmd, char **env_path)
 	file_path = NULL;
 	if (ft_strrchr(simpcmd->str1, '/') != NULL || env_path == NULL)
 	{
-		file_path = ft_substr(simpcmd->str2[0], 0, ft_strlen(simpcmd->str2[0]));
+		file_path = safe_ft_substr(simpcmd->str2[0], 0, \
+					ft_strlen(simpcmd->str2[0]), "simp_cmd");
 		if (file_path == NULL)
 			return ;
 	}
