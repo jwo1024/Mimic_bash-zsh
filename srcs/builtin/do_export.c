@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jiwolee <jiwolee@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:52:20 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/18 20:44:31 by jiwolee          ###   ########seoul.kr  */
+/*   Updated: 2022/10/19 12:32:35 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	do_export(char **word, int *fd)
 
 	i = 1;
 	return_value = 0;
+	save_value = 0;
 	if (word[1] == NULL || word[1][0] == '\0')
 		print_env(fd);
 	while (word[i] != NULL)

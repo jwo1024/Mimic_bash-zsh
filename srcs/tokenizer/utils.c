@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:14:34 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/19 04:05:38 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/19 13:02:12 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,21 @@ int	skip_dquot(char *s)
 	if (s[i] == '\"')
 	{
 		i++;
+		if (s[i] == '\0')
+			return (0);
 		while (s[i] != '\"' && s[i] != '\0')
 				i++;
 	}
 	else if (s[i] == '\'')
 	{
 		i++;
+		if (s[i] == '\0')
+			return (0);
 		while (s[i] != '\'' && s[i] != '\0')
 				i++;
 	}
-	else if (s[i] == '\0')
-		return (1);
+	if (s[i] == '\0')
+		return (0);
 	return (i);
 }
 

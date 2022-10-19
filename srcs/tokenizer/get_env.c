@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 23:31:54 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/19 04:11:13 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/19 13:02:45 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ char	*get_env_at_tokenizer(char *s)
 			str = get_merged_str(str, i);
 			if (str == NULL)
 				break ;
-			i = 0;
 		}
 		else
 			i++;

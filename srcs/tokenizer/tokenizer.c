@@ -6,7 +6,7 @@
 /*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:14:28 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/19 04:09:38 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/19 12:40:41 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	change_whitespace(char *s)
 		}
 		else if (is_whitespace(s[i]))
 			s[i] = -1;
-		else if (s[i] != '\0')
+		if (s[i] != '\0')
 			i++;
 	}
 }
@@ -55,7 +55,6 @@ void	change_whitespace(char *s)
 char	*change_oper(char *s)
 {
 	s = change_each_oper(s, '|');
-	s = change_each_oper(s, ';');
 	s = change_redir(s, '<');
 	s = change_redir(s, '>');
 	return (s);
