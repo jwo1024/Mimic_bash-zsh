@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaeyjeon <jaeyjeon@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaeyjeon <@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 23:31:54 by jaeyjeon          #+#    #+#             */
-/*   Updated: 2022/10/19 16:25:44 by jaeyjeon         ###   ########.fr       */
+/*   Updated: 2022/10/20 01:58:45 by jaeyjeon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ char	*get_env_at_tokenizer(char *s)
 	int		i;
 	int		double_flag;
 	char	*str;
+	char	*env;
 
 	i = 0;
 	double_flag = 0;
@@ -88,13 +89,19 @@ char	*get_env_at_tokenizer(char *s)
 			i += skip_dquot(&str[i]);
 		if (str[i] == '$')
 		{
-			str = get_merged_str(str, i);
-			if (str == NULL)
-				break ;
-			if (str[i] == '\"' && double_flag == 1)
-				double_flag = 0;
+			if (check_next_dol(str[i + 1]))
+				str[i] = -3;
+			else
+			{
+				str[i] = -2;
+				env = get_env_to_str(get_env_name(&str[i + 1]));
+				i += ft_strlen(env);
+				str = get_merged_env_str(str, env);
+				if (str == NULL)
+					return (NULL);
+			}
 		}
-		if (str[i] != '\0')
+		else if (str[i] != '\0')
 			i++;
 	}
 	return (fix_dol(str));
@@ -111,7 +118,6 @@ char	*get_merged_str(char *str, int i)
 		str[i] = -2;
 		env = get_env_to_str(get_env_name(&str[i + 1]));
 		str = get_merged_env_str(str, env);
-		printf("in mer = %s\n", str);
 	}
 	return (str);
 }
