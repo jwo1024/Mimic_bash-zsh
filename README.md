@@ -41,8 +41,7 @@ metacharacter(`space`, `tab`, `newline`, `|`, `<`, `>`)를 기준으로 T_WORD
 * T_REDIR : 리다이렉션 `>`,`>>`,`<`,`<<`
 * T_WORD : 문자열
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/458c2e00-a334-4f4e-879c-fb94fedc4d6e/Untitled.png)
-
+<center> <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F458c2e00-a334-4f4e-879c-fb94fedc4d6e%2FUntitled.png?table=block&id=b5f0e31f-cc2f-48eb-9a57-0142c1a180f8&spaceId=f0ee7f21-b5b3-40e9-9c73-bd03c03b3423&width=2000&userId=f6d84edb-02b2-4a9f-a07d-406a135703b6&cache=v2" width="80% height="80%"> </center>
 
 ## **Syntax Tree (parser)**
 
@@ -53,11 +52,10 @@ metacharacter(`space`, `tab`, `newline`, `|`, `<`, `>`)를 기준으로 T_WORD
 * T_SIMP_CMD :  실행할 명령어와 인자, 옵션이 담겨있다.
 
 #### syntax_tree
-![syntax_tree ](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c56d0a58-9449-4d42-8f99-b040b6673570/Untitled.png)
+<center> <img alt="syntax_tree" src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fc56d0a58-9449-4d42-8f99-b040b6673570%2FUntitled.png?table=block&id=73287518-ddff-45d7-8c3c-facacfa2125c&spaceId=f0ee7f21-b5b3-40e9-9c73-bd03c03b3423&width=2000&userId=f6d84edb-02b2-4a9f-a07d-406a135703b6&cache=v2" width="80% height="80%"> </center>
 
 #### syntax_tree 단순화 모형    
-![syntax_tree 단순화 모형](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/dfc96364-7718-4b4e-8e78-5c338569482b/Untitled.png)
-
+<center> <img alt="syntax_tree 단순화 모형" src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fdfc96364-7718-4b4e-8e78-5c338569482b%2FUntitled.png?table=block&id=afb15c70-f129-4186-8dd1-b80ecc5754aa&spaceId=f0ee7f21-b5b3-40e9-9c73-bd03c03b3423&width=2000&userId=f6d84edb-02b2-4a9f-a07d-406a135703b6&cache=v2" width="80% height="80%"> </center>
 
 ## Syntax 문법 .bnf
 (배커스-나우르 표기법, Backus–Naur form)
