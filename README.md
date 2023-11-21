@@ -33,40 +33,35 @@ minishell by jaeyjeon & jiwolee
 
 -----
 
-## **토큰 연결리스트 (tokenizer)**
-    
-    metacharacter(`space`, `tab`, `newline`, `|`, `<`, `>`)를 기준으로 T_WORD, T_REDIR, T_PIPE 세가지 타입으로 구분하여 연결리스트를 생성한다.
-    
-    T_PIPE : 파이프 `|`
-    T_REDIR : 리다이렉션 `>`,`>>`,`<`,`<<`
-    T_WORD : 문자열
-    
-    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/458c2e00-a334-4f4e-879c-fb94fedc4d6e/Untitled.png)
+## 토큰 연결리스트 (tokenizer)
+
+metacharacter(`space`, `tab`, `newline`, `|`, `<`, `>`)를 기준으로 T_WORD, T_REDIR, T_PIPE 세가지 타입으로 구분하여 연결리스트를 생성한다.
+
+* T_PIPE : 파이프 `|`
+* T_REDIR : 리다이렉션 `>`,`>>`,`<`,`<<`
+* T_WORD : 문자열
+
+![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/458c2e00-a334-4f4e-879c-fb94fedc4d6e/Untitled.png)
 
 
 ## **Syntax Tree (parser)**
-    
-    토큰 연결리스트를 구문트리로 변환한다.
-    T_PIPE : 파이프
-    T_CMD  : T_CMD 노드는 하나의 프로세스 실행 단위가 된다. 
-    T_REDIR : 리다이렉션 정보가 담겨있다. 리다이렉션은 여러개 존재할 수 있으며 왼쪽노드로 연결리스트 형태로 연결된다. 
-    
-    T_SIMP_CMD :  실행할 명령어와 인자, 옵션이 담겨있다.
-    
-    ![syntax_tree ](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c56d0a58-9449-4d42-8f99-b040b6673570/Untitled.png)
-    
-    syntax_tree 
-    
-    ![syntax_tree 단순화 모형](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/dfc96364-7718-4b4e-8e78-5c338569482b/Untitled.png)
-    
-    syntax_tree 단순화 모형
-    
 
-## **Syntax 문법 .bnf**
-    
-    **(**배커스-나우르 표기법, Backus–Naur form)
-    
-    Minishell의 syntax 문법의 기준
+토큰 연결리스트를 구문트리로 변환한다.
+* T_PIPE : 파이프
+* T_CMD  : T_CMD 노드는 하나의 프로세스 실행 단위가 된다. 
+* T_REDIR : 리다이렉션 정보가 담겨있다. 리다이렉션은 여러개 존재할 수 있으며 왼쪽노드로 연결리스트 형태로 연결된다. 
+* T_SIMP_CMD :  실행할 명령어와 인자, 옵션이 담겨있다.
+
+#### syntax_tree
+![syntax_tree ](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c56d0a58-9449-4d42-8f99-b040b6673570/Untitled.png)
+
+#### syntax_tree 단순화 모형    
+![syntax_tree 단순화 모형](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/dfc96364-7718-4b4e-8e78-5c338569482b/Untitled.png)
+
+
+## Syntax 문법 .bnf
+(배커스-나우르 표기법, Backus–Naur form)
+Minishell의 syntax 문법의 기준
     
     ```
     
