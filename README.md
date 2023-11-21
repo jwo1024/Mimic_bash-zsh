@@ -33,7 +33,7 @@ minishell by jaeyjeon & jiwolee
 
 -----
 
-- **토큰 연결리스트 (tokenizer)**
+## **토큰 연결리스트 (tokenizer)**
     
     metacharacter(`space`, `tab`, `newline`, `|`, `<`, `>`)를 기준으로 T_WORD, T_REDIR, T_PIPE 세가지 타입으로 구분하여 연결리스트를 생성한다.
     
@@ -44,7 +44,7 @@ minishell by jaeyjeon & jiwolee
     ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/458c2e00-a334-4f4e-879c-fb94fedc4d6e/Untitled.png)
 
 
-- **Syntax Tree (parser)**
+## **Syntax Tree (parser)**
     
     토큰 연결리스트를 구문트리로 변환한다.
     T_PIPE : 파이프
@@ -62,7 +62,7 @@ minishell by jaeyjeon & jiwolee
     syntax_tree 단순화 모형
     
 
-- **Syntax 문법 .bnf**
+## **Syntax 문법 .bnf**
     
     **(**배커스-나우르 표기법, Backus–Naur form)
     
