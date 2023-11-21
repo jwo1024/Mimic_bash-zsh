@@ -61,7 +61,7 @@ metacharacter(`space`, `tab`, `newline`, `|`, `<`, `>`)를 기준으로 T_WORD
 (배커스-나우르 표기법, Backus–Naur form)
 Minishell의 syntax 문법의 기준
     
-    ```
+```
     
     <pipeline>     ::= <cmd>
                    |   <pipeline> '|' <cmd>
@@ -88,7 +88,7 @@ Minishell의 syntax 문법의 기준
     <filename>    ::= WORD
     
     <file_path>   ::= WORD
-    ```
+```
     
-    출처 : https://epicarts.tistory.com/163 에서 약간의 수정
-    https://pubs.opengroup.org/onlinepubs/009604499/utilities/xcu_chap02.html#tag_02_10_02
+출처 : https://epicarts.tistory.com/163 에서 약간의 수정
+https://pubs.opengroup.org/onlinepubs/009604499/utilities/xcu_chap02.html#tag_02_10_02
